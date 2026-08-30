@@ -1,8 +1,8 @@
 import "/src/css/style.css";
 
 // Mobile menu toggle
-const mobileMenuBtn = document.getElementById('mobile-menu-btn');
-const mobileMenu = document.getElementById('mobile-menu');
+const mobileMenuBtn = document.getElementById('mobile-menu-btn')!;
+const mobileMenu = document.getElementById('mobile-menu')!;
 
 mobileMenuBtn.addEventListener('click', () => {
     mobileMenu.classList.toggle('hidden');
@@ -10,7 +10,7 @@ mobileMenuBtn.addEventListener('click', () => {
 
 // Smooth scroll effect for header
 let lastScroll = 0;
-const header = document.querySelector('header');
+const header = document.querySelector('header')!;
 
 window.addEventListener('scroll', () => {
     const currentScroll = window.pageYOffset;
