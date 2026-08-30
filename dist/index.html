@@ -5,8 +5,8 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Formulaire</title>
-  <script type="module" crossorigin src="/assets/index-JhyaVnj4.js"></script>
-  <link rel="stylesheet" crossorigin href="/assets/index-DjCsRD68.css">
+  <script type="module" crossorigin src="/assets/index-CF9L3fhV.js"></script>
+  <link rel="stylesheet" crossorigin href="/assets/index-r5hZ3Zef.css">
 </head>
 
 <body>
@@ -35,7 +35,19 @@
           </a> -->
           <a href="#"
             class="text-gray-700 hover:text-blue-600 font-medium transition-colors duration-200 relative group">
-            Services
+            Nos pensionnaires
+            <span
+              class="absolute -bottom-1 left-0 w-0 h-0.5 bg-blue-600 transition-all duration-300 group-hover:w-full"></span>
+          </a>
+          <a href="#"
+            class="text-gray-700 hover:text-blue-600 font-medium transition-colors duration-200 relative group">
+            Nos services
+            <span
+              class="absolute -bottom-1 left-0 w-0 h-0.5 bg-blue-600 transition-all duration-300 group-hover:w-full"></span>
+          </a>
+          <a href="#"
+            class="text-gray-700 hover:text-blue-600 font-medium transition-colors duration-200 relative group">
+            Notre équipe
             <span
               class="absolute -bottom-1 left-0 w-0 h-0.5 bg-blue-600 transition-all duration-300 group-hover:w-full"></span>
           </a>
@@ -48,10 +60,15 @@
         </div>
 
         <div class="flex items-center space-x-4">
-          <button
-            class="hidden md:block bg-gradient-to-r from-blue-600 to-purple-600 text-white px-6 py-2 rounded-full font-medium hover:from-blue-700 hover:to-purple-700 transition-all duration-300 shadow-lg hover:shadow-xl hover:scale-105 transform">
-            Faire un don
-          </button>
+          <a class="inline-flex items-center gap-2 rounded-2xl bg-indigo-600 px-6 py-3 text-[14px] font-medium text-white transition-colors hover:bg-indigo-700 focus-visible:ring-4 focus-visible:ring-indigo-200 focus-visible:outline-none"
+            href="#">
+            <span>Faire un don</span>
+
+            <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+              stroke-width="1.5" stroke="currentColor" class="size-4 rtl:rotate-180">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M17.25 8.25 21 12m0 0-3.75 3.75M21 12H3" />
+            </svg>
+          </a>
 
           <!-- Mobile menu button -->
           <button id="mobile-menu-btn"
@@ -84,14 +101,14 @@
     </nav>
   </header>
 
-  <!-- Main Content (Demo) -->
   <main class="flex-1 py-20">
     <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
       <h1 class="text-5xl md:text-6xl font-bold text-gray-900 mb-6 animate-fade-in">
         Faire un don
       </h1>
       <p class="text-[20px] text-gray-600 mb-8 animate-fade-in max-w-4xl mx-auto">
-        Faire un don à la SPBA, c'est offrir la chance réelle aux animaux qui ont besoin de soins, de protection et d'un
+        Faire un don à la <abbr title="Société de Protection des Bébés Animaux">SPBA</abbr>, c'est offrir la chance
+        réelle aux animaux qui ont besoin de soins, de protection et d'un
         nouveau départ. Cette page vous permet de choisir le type de contribution qui correspond à vous valeurs et de
         remplir les informations nécessaires en toute simplicité.
       </p>
@@ -106,67 +123,141 @@
         Types de dons
       </h2>
     </div>
-    <div class="max-w-6xl mx-auto p-6">
-      <!-- Grid Container -->
-      <div class="grid grid-cols-1 md:grid-cols-4 gap-6">
+    <div class="flex flex-wrap justify-center mt-10">
 
-        <!-- Card 1 -->
-        <div class="bg-white rounded-xl shadow-md p-6 border border-gray-100 flex flex-col justify-between">
-          <div>
-            <div class="flex items-center gap-3 mb-4">
-              <div class="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-blue-100 text-blue-600">
-                <svg class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
-                </svg>
-              </div>
-              <div>
-                <h3 class="font-semibold text-[20px]">Don unique</h3>
-              </div>
+      <div class="p-4 max-w-sm">
+        <div class="flex rounded-lg h-full bg-black p-8 flex-col">
+          <div class="flex items-center mb-3">
+            <div
+              class="w-10 h-10 mr-3 inline-flex items-center justify-center rounded-full bg-indigo-500 text-white flex-shrink-0">
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="#fff">
+                <g fill="none" stroke="#fff" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.1"
+                  color="currentColor">
+                  <path d="M19.745 13a7 7 0 1 0-12.072-1" />
+                  <path
+                    d="M14 6c-1.105 0-2 .672-2 1.5S12.895 9 14 9s2 .672 2 1.5s-.895 1.5-2 1.5m0-6c.87 0 1.612.417 1.886 1M14 6V5m0 7c-.87 0-1.612-.417-1.886-1M14 12v1M3 14h2.395c.294 0 .584.066.847.194l2.042.988c.263.127.553.193.848.193h1.042c1.008 0 1.826.791 1.826 1.767c0 .04-.027.074-.066.085l-2.541.703a1.95 1.95 0 0 1-1.368-.124L5.842 16.75M12 16.5l4.593-1.411a1.985 1.985 0 0 1 2.204.753c.369.51.219 1.242-.319 1.552l-7.515 4.337a2 2 0 0 1-1.568.187L3 20.02" />
+                </g>
+              </svg>
             </div>
-            <p class="text-sm mb-4 text-[16px]">Il s'agit d'une contribution financière versée une seule
-              fois, sans
-              engagement de renouvellement.</p>
+            <h2 class="text-white text-[20px] font-medium">Don unique</h2>
           </div>
-          <button
-            class="self-start px-4 py-2 bg-blue-600 text-white text-sm font-medium rounded-lg hover:bg-blue-700 transition">Faire
-            un don</button>
-        </div>
+          <div class="flex flex-col justify-between flex-grow">
+            <p class="leading-relaxed text-[16px] text-white">
+              Il s'agit d'une contribution financière versée une seule fois, sans engagement de&#160;renouvellement.
+            </p>
+            <div class="flex mt-4">
 
-        <!-- Card 2 -->
-        <div class="bg-white rounded-xl shadow-md p-6 border border-gray-100 flex flex-col justify-between">
-          <div>
-            <h3 class="font-semibold text-gray-800 mb-2 text-[22px] text-center">Don périodique</h3>
-            <p class="text-sm mb-4 text-[16px]">Il s'agit d'un montant prélevé automatiquement à
-              intervalles réguliers, comme chaque mois ou chaque année.</p>
-          </div>
-          <button
-            class="self-start px-4 py-2 bg-blue-600 text-white text-sm font-medium rounded-lg hover:bg-blue-700 transition">Faire
-            un don</button>
-        </div>
+              <a class="inline-flex items-center gap-2 rounded-2xl bg-indigo-600 px-6 py-3 text-[14px] font-medium text-white transition-colors hover:bg-indigo-700 focus-visible:ring-4 focus-visible:ring-indigo-200 focus-visible:outline-none"
+                href="don-unique.html">
+                <span>Faire un don</span>
 
-        <!-- Card 3 -->
-        <div class="bg-white rounded-xl shadow-md p-6 border border-gray-100 flex flex-col justify-between">
-          <div>
-            <h3 class="font-semibold text-gray-800 mb-2 text-[22px] text-center">Don unique</h3>
-            <p class="text-sm mb-4 text-[16px]">Il s'agit d'une contribution financière versée une seule
-              fois, sans
-              engagement de renouvellement.</p>
+                <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                  stroke-width="1.5" stroke="currentColor" class="size-4 rtl:rotate-180">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M17.25 8.25 21 12m0 0-3.75 3.75M21 12H3" />
+                </svg>
+              </a>
+            </div>
           </div>
-          <button
-            class="self-start px-4 py-2 bg-blue-600 text-white text-sm font-medium rounded-lg hover:bg-blue-700 transition">Faire
-            un don</button>
         </div>
+      </div>
 
-        <div class="bg-white rounded-xl shadow-md p-6 border border-gray-100 flex flex-col justify-between">
-          <div>
-            <h3 class="font-semibold text-gray-800 mb-2 text-[22px] text-center">Don unique</h3>
-            <p class="text-sm mb-4 text-[16px]">Il s'agit d'une contribution financière versée une seule
-              fois, sans
-              engagement de renouvellement.</p>
+      <div class="p-4 max-w-sm">
+        <div class="flex rounded-lg h-full bg-black p-8 flex-col">
+          <div class="flex items-center mb-3">
+            <div
+              class="w-10 h-10 mr-3 inline-flex items-center justify-center rounded-full bg-indigo-500 text-white flex-shrink-0">
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.1"
+                stroke="currentColor" class="size-6">
+                <path stroke-linecap="round" stroke-linejoin="round"
+                  d="M6.75 3v2.25M17.25 3v2.25M3 18.75V7.5a2.25 2.25 0 0 1 2.25-2.25h13.5A2.25 2.25 0 0 1 21 7.5v11.25m-18 0A2.25 2.25 0 0 0 5.25 21h13.5A2.25 2.25 0 0 0 21 18.75m-18 0v-7.5A2.25 2.25 0 0 1 5.25 9h13.5A2.25 2.25 0 0 1 21 11.25v7.5m-9-6h.008v.008H12v-.008ZM12 15h.008v.008H12V15Zm0 2.25h.008v.008H12v-.008ZM9.75 15h.008v.008H9.75V15Zm0 2.25h.008v.008H9.75v-.008ZM7.5 15h.008v.008H7.5V15Zm0 2.25h.008v.008H7.5v-.008Zm6.75-4.5h.008v.008h-.008v-.008Zm0 2.25h.008v.008h-.008V15Zm0 2.25h.008v.008h-.008v-.008Zm2.25-4.5h.008v.008H16.5v-.008Zm0 2.25h.008v.008H16.5V15Z" />
+              </svg>
+            </div>
+            <h2 class="text-white text-[20px] font-medium">Don périodique</h2>
           </div>
-          <button
-            class="self-start px-4 py-2 bg-blue-600 text-white text-sm font-medium rounded-lg hover:bg-blue-700 transition">Faire
-            un don</button>
+          <div class="flex flex-col justify-between flex-grow">
+            <p class="leading-relaxed text-base text-white">
+              Il s'agit d'un montant prélevé automatiquement par intervalles réguliers, comme chaque mois ou chaque
+              année.
+            </p>
+            <div class="flex gap-4 mt-6">
+
+              <a class="inline-flex items-center gap-2 rounded-2xl bg-indigo-600 px-6 py-3 text-[14px] font-medium text-white transition-colors hover:bg-indigo-700 focus-visible:ring-4 focus-visible:ring-indigo-200 focus-visible:outline-none"
+                href="#">
+                <span>Faire un don</span>
+
+                <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                  stroke-width="1.5" stroke="currentColor" class="size-4 rtl:rotate-180">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M17.25 8.25 21 12m0 0-3.75 3.75M21 12H3" />
+                </svg>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="p-4 max-w-sm">
+        <div class="flex rounded-lg h-full bg-black p-8 flex-col">
+          <div class="flex items-center mb-3">
+            <div
+              class="w-10 h-10 mr-3 inline-flex items-center justify-center rounded-full bg-indigo-500 text-white flex-shrink-0">
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.1"
+                stroke="currentColor" class="size-6">
+                <path stroke-linecap="round" stroke-linejoin="round"
+                  d="M19.5 14.25v-2.625a3.375 3.375 0 0 0-3.375-3.375h-1.5A1.125 1.125 0 0 1 13.5 7.125v-1.5a3.375 3.375 0 0 0-3.375-3.375H8.25m0 12.75h7.5m-7.5 3H12M10.5 2.25H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 0 0-9-9Z" />
+              </svg>
+            </div>
+            <h2 class="text-white text-[20px] font-medium">Don planifié</h2>
+          </div>
+          <div class="flex flex-col justify-between flex-grow">
+            <p class="leading-relaxed text-base text-white">
+              Il s'agit d'une contribution prévue dans un testament ou un instrument financier, comme une assurance-vie
+              ou une fiducie.
+            </p>
+            <div class="flex gap-4 mt-6">
+
+              <a class="inline-flex items-center gap-2 rounded-2xl bg-indigo-600 px-6 py-3 text-[14px] font-medium text-white transition-colors hover:bg-indigo-700 focus-visible:ring-4 focus-visible:ring-indigo-200 focus-visible:outline-none"
+                href="#">
+                <span>Faire un don</span>
+
+                <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                  stroke-width="1.5" stroke="currentColor" class="size-4 rtl:rotate-180">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M17.25 8.25 21 12m0 0-3.75 3.75M21 12H3" />
+                </svg>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="p-4 max-w-sm">
+        <div class="flex rounded-lg h-full bg-black p-8 flex-col">
+          <div class="flex items-center mb-3">
+            <div
+              class="w-10 h-10 mr-3 inline-flex items-center justify-center rounded-full bg-indigo-500 text-white flex-shrink-0">
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                stroke="currentColor" class="size-6">
+                <path stroke-linecap="round" stroke-linejoin="round"
+                  d="M12 6v12m-3-2.818.879.659c1.171.879 3.07.879 4.242 0 1.172-.879 1.172-2.303 0-3.182C13.536 12.219 12.768 12 12 12c-.725 0-1.45-.22-2.003-.659-1.106-.879-1.106-2.303 0-3.182s2.9-.879 4.006 0l.415.33M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
+              </svg>
+            </div>
+            <h2 class="text-white text-[20px] font-medium">Don commémoratif</h2>
+          </div>
+          <div class="flex flex-col justify-between flex-grow">
+            <p class="leading-relaxed text-base text-white">
+              Il s'agit d'une contribution offerte en mémoire d'un proche disparu.
+            </p>
+            <div class="flex gap-4 mt-6">
+
+              <a class="inline-flex items-center gap-2 rounded-2xl bg-indigo-600 px-6 py-3 text-[14px] font-medium text-white transition-colors hover:bg-indigo-700 focus-visible:ring-4 focus-visible:ring-indigo-200 focus-visible:outline-none"
+                href="#">
+                <span>Faire un don</span>
+
+                <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                  stroke-width="1.5" stroke="currentColor" class="size-4 rtl:rotate-180">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M17.25 8.25 21 12m0 0-3.75 3.75M21 12H3" />
+                </svg>
+              </a>
+            </div>
+          </div>
         </div>
       </div>
     </div>
@@ -191,10 +282,6 @@
               Logo
             </span>
           </div>
-          <p class="text-gray-300 mb-6 max-w-md leading-relaxed">
-            Building exceptional digital experiences with modern design principles and cutting-edge technology.
-            Your vision, our expertise.
-          </p>
           <div class="flex space-x-4">
             <a href="#"
               class="w-10 h-10 bg-gray-800 hover:bg-blue-600 rounded-lg flex items-center justify-center transition-all duration-300 hover:scale-110 hover:shadow-lg group">
@@ -227,29 +314,26 @@
           </div>
         </div>
 
-        <!-- Quick Links -->
         <div>
-          <h3 class="text-lg font-semibold mb-4 text-white">Quick Links</h3>
+          <h3 class="text-lg font-semibold mb-4 text-white">Accès rapide</h3>
           <ul class="space-y-3">
             <li><a href="#"
-                class="text-gray-300 hover:text-white transition-colors duration-200 hover:translate-x-1 transform inline-block">Home</a>
+                class="text-gray-300 hover:text-white transition-colors duration-200 hover:translate-x-1 transform inline-block">Accueil</a>
             </li>
             <li><a href="#"
-                class="text-gray-300 hover:text-white transition-colors duration-200 hover:translate-x-1 transform inline-block">About
-                Us</a></li>
+                class="text-gray-300 hover:text-white transition-colors duration-200 hover:translate-x-1 transform inline-block">À
+                propos de nous</a></li>
             <li><a href="#"
-                class="text-gray-300 hover:text-white transition-colors duration-200 hover:translate-x-1 transform inline-block">Services</a>
+                class="text-gray-300 hover:text-white transition-colors duration-200 hover:translate-x-1 transform inline-block">Nos
+                services</a>
             </li>
             <li><a href="#"
-                class="text-gray-300 hover:text-white transition-colors duration-200 hover:translate-x-1 transform inline-block">Portfolio</a>
-            </li>
-            <li><a href="#"
-                class="text-gray-300 hover:text-white transition-colors duration-200 hover:translate-x-1 transform inline-block">Contact</a>
+                class="text-gray-300 hover:text-white transition-colors duration-200 hover:translate-x-1 transform inline-block">Nous
+                joindre</a>
             </li>
           </ul>
         </div>
 
-        <!-- Support -->
         <div>
           <h3 class="text-lg font-semibold mb-4 text-white">Support</h3>
           <ul class="space-y-3">
@@ -275,14 +359,15 @@
       <!-- Newsletter Signup -->
       <div class="border-t border-gray-800 pt-8 mb-8">
         <div class="max-w-md mx-auto text-center">
-          <h3 class="text-lg font-semibold mb-2 text-white">Stay Updated</h3>
-          <p class="text-gray-300 mb-4">Get the latest news and updates delivered to your inbox.</p>
+          <h3 class="text-lg font-semibold mb-2 text-white">Restez à l'affut!</h3>
+          <p class="text-gray-300 mb-4">Obtenez des informations sur nos nouveaux pensionnaires qui veulent faire partie
+            de votre famille.</p>
           <div class="flex space-x-3">
-            <input type="email" placeholder="Enter your email"
+            <input type="email" placeholder="Entrez votre adresse courriel"
               class="flex-1 px-4 py-2 bg-gray-800 border border-gray-700 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200">
             <button
               class="bg-gradient-to-r from-blue-600 to-purple-600 text-white px-6 py-2 rounded-lg font-medium hover:from-blue-700 hover:to-purple-700 transition-all duration-300 hover:scale-105 transform shadow-lg">
-              Subscribe
+              S'abonner!
             </button>
           </div>
         </div>
@@ -291,9 +376,9 @@
       <!-- Bottom Bar -->
       <div class="border-t border-gray-800 pt-8 flex flex-col md:flex-row items-center justify-between">
         <p class="text-gray-400 text-sm mb-4 md:mb-0">
-          © 2025 Your Company Name. All rights reserved.
+          © 2026 SPBA. Tous droits réservés.
         </p>
-        <div class="flex items-center space-x-6 text-sm text-gray-400">
+        <!-- <div class="flex items-center space-x-6 text-sm text-gray-400">
           <span>Made with</span>
           <div class="flex items-center space-x-1">
             <svg class="w-4 h-4 text-red-500 animate-pulse" fill="currentColor" viewBox="0 0 24 24">
@@ -302,7 +387,7 @@
             </svg>
             <span>by Our Team</span>
           </div>
-        </div>
+        </div> -->
       </div>
     </div>
   </footer>
