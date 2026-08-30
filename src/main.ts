@@ -23,14 +23,3 @@ window.addEventListener('scroll', () => {
 
     lastScroll = currentScroll;
 });
-
-// Add some interactive animations
-document.querySelectorAll('a').forEach(link => {
-    link.addEventListener('mouseenter', function () {
-        this.style.transform = 'translateY(-1px)';
-    });
-
-    link.addEventListener('mouseleave', function () {
-        this.style.transform = 'translateY(0)';
-    });
-});
