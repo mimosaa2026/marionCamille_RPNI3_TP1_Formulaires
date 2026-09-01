@@ -159,21 +159,6 @@ const customAmount = document.getElementById("customAmount") as HTMLInputElement
 let selectedAmount: number | null = null;
 const MAX_AMOUNT = 500;
 
-// --- Sélection via boutons ---
-amountButtons.forEach(btn => {
-  btn.addEventListener("click", () => {
-    const value = Number(btn.dataset.value);
-
-    if (value > MAX_AMOUNT) return; // sécurité
-
-    selectedAmount = value;
-    customAmount.value = "";
-
-    amountButtons.forEach(b => b.classList.remove("bg-indigo-100", "border-indigo-600"));
-    btn.classList.add("bg-indigo-100", "border-indigo-600");
-  });
-});
-
 // --- Saisie d’un montant personnalisé ---
 customAmount.addEventListener("input", () => {
   const value = Number(customAmount.value);

@@ -223,7 +223,7 @@
                     </span>
                     <div class="ml-4 flex min-w-0 flex-col text-left">
                       <span class="step-label-num text-sm font-medium text-gray-500">Étape 5</span>
-                      <span class="step-label-title text-sm font-medium text-gray-500">Reçu pour fins d'impôt</span>
+                      <span class="step-label-title text-sm font-medium text-gray-500">Consentement</span>
                     </div>
                   </div>
                 </li>
@@ -234,7 +234,7 @@
                     </span>
                     <div class="ml-4 flex min-w-0 flex-col text-left">
                       <span class="step-label-num text-sm font-medium text-gray-500">Étape 6</span>
-                      <span class="step-label-title text-sm font-medium text-gray-500">Consentement</span>
+                      <span class="step-label-title text-sm font-medium text-gray-500">Confirmation</span>
                     </div>
                   </div>
                 </li>
@@ -346,56 +346,118 @@
                       <option value="">Sélectionner…</option>
                       <option value="credit">Carte de crédit</option>
                       <option value="interac">Virement Interac</option>
-                      <option value="cheque">Chèque</option>
                     </select>
 
                     <!-- Carte de crédit -->
                     <div id="creditFields" class="hidden space-y-3">
                       <input type="text" id="cardName" placeholder="Nom sur la carte"
-                        class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors" required />
+                        class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors" />
                       <input type="text" id="cardNumber" placeholder="Numéro de carte"
-                        class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors" required />
+                        class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors" />
                       <div class="flex gap-3">
                         <input type="text" id="cardExp" placeholder="MM/AA"
-                          class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors" required />
-                        <input type="text" id="cardCVV" placeholder="CVV" class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors" required />
+                          class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors" />
+                        <input type="text" id="cardCVV" placeholder="CVV"
+                          class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors" />
                       </div>
                     </div>
 
                     <!-- Interac -->
                     <div id="interacFields" class="hidden space-y-3">
                       <input type="email" id="interacEmail" placeholder="Courriel pour le virement"
-                        class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors" required/>
-                    </div>
-
-                    <!-- Chèque -->
-                    <div id="chequeFields" class="hidden space-y-3">
-                      <p class="text-sm text-gray-600">
-                        Veuillez libeller votre chèque à l’ordre de :
-                        <strong>Nom de l’organisme</strong>
-                      </p>
+                        class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors" />
                     </div>
                   </div>
                 </div>
+                <div class="form-step hidden" data-step="4">
+                  <h2 class="text-[25px] font-bold text-gray-800">Raison du don</h2>
+                  <div class="bg-blue-200 px-6 py-4 rounded-md text-[15px] flex items-center mb-8 mt-4">
+                    <svg viewBox="0 0 24 24" class="text-blue-600 w-4 h-4 sm:w-5 sm:h-5 mr-3">
+                      <path fill="currentColor"
+                        d="M12,0A12,12,0,1,0,24,12,12.013,12.013,0,0,0,12,0Zm.25,5a1.5,1.5,0,1,1-1.5,1.5A1.5,1.5,0,0,1,12.25,5ZM14.5,18.5h-4a1,1,0,0,1,0-2h.75a.25.25,0,0,0,.25-.25v-4.5a.25.25,0,0,0-.25-.25H10.5a1,1,0,0,1,0-2h1a2,2,0,0,1,2,2v4.75a.25.25,0,0,0,.25.25h.75a1,1,0,1,1,0,2Z">
+                      </path>
+                    </svg>
+                    <span class="text-blue-800">Cette étape n'est pas obligatoire.</span>
+                  </div>
 
-                <!-- BOUTONS DE NAVIGATION -->
-                <div class="mt-8 flex justify-between border-t border-gray-100 pt-6">
-                  <button type="button" id="prev-btn"
-                    class="invisible inline-flex justify-center items-center gap-x-2 text-sm font-semibold rounded-lg border border-gray-300 bg-white text-gray-800 shadow-sm hover:bg-gray-50 px-4 py-2 transition-colors">
-                    Précédent
-                  </button>
-                  <button type="button" id="next-btn"
-                    class="inline-flex justify-center items-center gap-x-2 text-sm font-semibold rounded-lg border border-transparent bg-blue-600 text-white hover:bg-blue-700 px-4 py-2 transition-colors">
-                    Continuer
-                  </button>
+                  <form class="max-w-sm mx-auto">
+                    <textarea id="message" rows="4"
+                      class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors"
+                      placeholder="Écrivez votre raison de donner ici..."></textarea>
+                  </form>
+                </div>
+                <div class="form-step hidden" data-step="5">
+                  <h2 class="text-[25px] font-bold text-gray-800 mb-8">Consentement</h2>
+                  <div class="space-y-4 text-sm text-gray-700">
+
+                    <label class="flex items-start gap-3">
+                      <input type="checkbox" class="mt-1 h-4 w-4 text-blue-600" required>
+                      <span class="text-left">J’accepte que mes informations soient utilisées pour traiter mon don.</span>
+                    </label>
+
+                    <label class="flex items-start gap-3">
+                      <input type="checkbox" class="mt-1 h-4 w-4 text-blue-600" required>
+                      <span class="text-left">Je confirme être âgé(e) de 18 ans ou plus et légalement autorisé(e) à effectuer ce
+                        don.</span>
+                    </label>
+
+                    <label class="flex items-start gap-3">
+                      <input type="checkbox" class="mt-1 h-4 w-4 text-blue-600">
+                      <span class="text-left">J’accepte de recevoir mon reçu officiel par courriel.</span>
+                    </label>
+
+                    <label class="flex items-start gap-3">
+                      <input type="checkbox" class="mt-1 h-4 w-4 text-blue-600">
+                      <span class="text-left">J’accepte d’être contacté(e) pour le suivi ou la confirmation de mon don.</span>
+                    </label>
+
+                    <label class="flex items-start gap-3">
+                      <input type="checkbox" class="mt-1 h-4 w-4 text-blue-600">
+                      <span class="text-left">J’accepte de recevoir des communications sur les activités, campagnes et projets de
+                        l’organisme.</span>
+                    </label>
+
+                    <label class="flex items-start gap-3">
+                      <input type="checkbox" class="mt-1 h-4 w-4 text-blue-600">
+                      <span class="text-left">J’autorise le partage de mes informations avec les partenaires autorisés pour la gestion du
+                        don.</span>
+                    </label>
+
+                    <label class="flex items-start gap-3">
+                      <input type="checkbox" class="mt-1 h-4 w-4 text-blue-600">
+                      <span class="text-left">J’accepte que mes données soient conservées conformément à la politique de
+                        confidentialité.</span>
+                    </label>
+
+                    <label class="flex items-start gap-3">
+                      <input type="checkbox" class="mt-1 h-4 w-4 text-blue-600" required>
+                      <span class="text-left">J’ai lu et j’accepte la <a href="#">politique de confidentialité</a>.</span>
+                    </label>
+
+                  </div>
                 </div>
 
-              </form>
             </div>
-          </div>
 
+
+            <!-- BOUTONS DE NAVIGATION -->
+            <div class="mt-8 flex justify-between border-t border-gray-100 pt-6">
+              <button type="button" id="prev-btn"
+                class="invisible inline-flex justify-center items-center gap-x-2 text-sm font-semibold rounded-lg border border-gray-300 bg-white text-gray-800 shadow-sm hover:bg-gray-50 px-4 py-2 transition-colors">
+                Précédent
+              </button>
+              <button type="button" id="next-btn"
+                class="inline-flex justify-center items-center gap-x-2 text-sm font-semibold rounded-lg border border-transparent bg-blue-600 text-white hover:bg-blue-700 px-4 py-2 transition-colors">
+                Continuer
+              </button>
+            </div>
+
+            </form>
+          </div>
         </div>
+
       </div>
+    </div>
     </div>
   </main>
 
