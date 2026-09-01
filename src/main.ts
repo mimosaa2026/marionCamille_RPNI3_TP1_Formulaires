@@ -153,17 +153,34 @@ document.addEventListener('DOMContentLoaded', (): void => {
   updateForm();
 });
 
+// ---------------------------------------------------------
+// 1) GESTION DU MONTANT
+// ---------------------------------------------------------
+
 const amountButtons = document.querySelectorAll(".amount-btn");
 const customAmount = document.getElementById("customAmount") as HTMLInputElement;
 
 let selectedAmount: number | null = null;
 const MAX_AMOUNT = 500;
 
-// --- Saisie d’un montant personnalisé ---
+// Sélection via boutons
+amountButtons.forEach(btn => {
+  btn.addEventListener("click", () => {
+    const value = Number(btn.dataset.amount);
+
+    selectedAmount = value;
+    customAmount.value = "";
+
+    // Style visuel
+    amountButtons.forEach(b => b.classList.remove("bg-indigo-100", "border-indigo-600"));
+    btn.classList.add("bg-indigo-100", "border-indigo-600");
+  });
+});
+
+// Saisie d’un montant personnalisé
 customAmount.addEventListener("input", () => {
   const value = Number(customAmount.value);
 
-  // Limite max
   if (value > MAX_AMOUNT) {
     customAmount.value = MAX_AMOUNT.toString();
   }
@@ -174,7 +191,7 @@ customAmount.addEventListener("input", () => {
   amountButtons.forEach(b => b.classList.remove("bg-indigo-100", "border-indigo-600"));
 });
 
-// --- Fonction pour récupérer le montant final ---
+// Récupération du montant final
 export function getDonationAmount(): number | null {
   if (!selectedAmount || selectedAmount <= 0 || selectedAmount > MAX_AMOUNT) {
     return null;
@@ -182,13 +199,17 @@ export function getDonationAmount(): number | null {
   return selectedAmount;
 }
 
+// ---------------------------------------------------------
+// 2) GESTION DU MODE DE PAIEMENT
+// ---------------------------------------------------------
+
 const paymentMethod = document.getElementById("paymentMethod") as HTMLSelectElement;
 
 const creditFields = document.getElementById("creditFields") as HTMLDivElement;
 const interacFields = document.getElementById("interacFields") as HTMLDivElement;
 const chequeFields = document.getElementById("chequeFields") as HTMLDivElement;
 
-// Affichage dynamique des champs selon le mode choisi
+// Affichage dynamique
 paymentMethod.addEventListener("change", () => {
   const value = paymentMethod.value;
 
@@ -201,7 +222,7 @@ paymentMethod.addEventListener("change", () => {
   if (value === "cheque") chequeFields.classList.remove("hidden");
 });
 
-// Validation du mode de paiement
+// Validation
 export function validatePayment(): string | null {
   const value = paymentMethod.value;
 
@@ -213,7 +234,9 @@ export function validatePayment(): string | null {
     const exp = (document.getElementById("cardExp") as HTMLInputElement).value;
     const cvv = (document.getElementById("cardCVV") as HTMLInputElement).value;
 
-    if (!name || !num || !exp || !cvv) return "Veuillez remplir les champs de la carte de crédit.";
+    if (!name || !num || !exp || !cvv) {
+      return "Veuillez remplir les champs de la carte de crédit.";
+    }
   }
 
   if (value === "interac") {
@@ -221,5 +244,57 @@ export function validatePayment(): string | null {
     if (!email.includes("@")) return "Veuillez entrer un courriel Interac valide.";
   }
 
-  return null; // OK
+  return null;
 }
+
+// ---------------------------------------------------------
+// 3) SYSTÈME DE STEPS + NAVIGATION + REDIRECTION FINALE
+// ---------------------------------------------------------
+
+const nextBtn = document.getElementById("next-btn") as HTMLButtonElement;
+const prevBtn = document.getElementById("prev-btn") as HTMLButtonElement;
+
+const steps = document.querySelectorAll(".step");
+let currentStep = 1;
+
+// 👉 Tu veux que la redirection soit à l'étape 6
+const FINAL_STEP = 6;
+
+// Affichage des steps
+function showStep(step: number) {
+  steps.forEach((s, i) => {
+    s.classList.toggle("hidden", i + 1 !== step);
+  });
+}
+
+// Bouton Continuer
+nextBtn.addEventListener("click", () => {
+  if (currentStep < FINAL_STEP) {
+    currentStep++;
+    showStep(currentStep);
+
+    prevBtn.classList.remove("invisible");
+
+    // Si on arrive à l'étape 6 → changer le texte
+    if (currentStep === FINAL_STEP) {
+      nextBtn.textContent = "Terminer";
+    }
+  } else {
+    // 👉 Redirection uniquement à l'étape 6
+    window.location.href = "index.php"; 
+  }
+});
+
+// Bouton Précédent
+prevBtn.addEventListener("click", () => {
+  if (currentStep > 1) {
+    currentStep--;
+    showStep(currentStep);
+
+    nextBtn.textContent = "Continuer";
+
+    if (currentStep === 1) {
+      prevBtn.classList.add("invisible");
+    }
+  }
+});
