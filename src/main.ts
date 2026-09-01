@@ -27,7 +27,7 @@ if (header) {
 
 document.addEventListener('DOMContentLoaded', (): void => {
   let currentStep: number = 1;
-  const totalSteps: number = 10;
+  const totalSteps: number = 6;
 
   // Sélection des éléments avec typage strict
   const formSteps = document.querySelectorAll<HTMLDivElement>('.form-step');
@@ -46,7 +46,6 @@ document.addEventListener('DOMContentLoaded', (): void => {
       }
     });
 
-    // 2. Gérer la visibilité du bouton Précédent (Invisible à l'étape 1)
     if (prevBtn) {
       if (currentStep === 1) {
         prevBtn.classList.add('invisible');
@@ -55,7 +54,6 @@ document.addEventListener('DOMContentLoaded', (): void => {
       }
     }
 
-    // 3. Modifier le texte du bouton de fin et générer le récapitulatif
     if (nextBtn) {
       if (currentStep === totalSteps) {
         nextBtn.textContent = 'Soumettre';
@@ -84,7 +82,6 @@ document.addEventListener('DOMContentLoaded', (): void => {
 
       if (!icon || !labelNum || !labelTitle) return;
 
-      // État par défaut : À venir (Muted / Gray)
       icon.className = "step-icon relative flex h-8 w-8 items-center justify-center rounded-full border-2 border-gray-300 bg-white text-sm font-semibold text-gray-500 transition-all duration-200";
       if (line) line.className = "step-line absolute top-4 left-4 -ml-px mt-0.5 h-full w-0.5 bg-gray-300";
       labelNum.className = "step-label-num text-sm font-medium text-gray-500";
@@ -92,13 +89,11 @@ document.addEventListener('DOMContentLoaded', (): void => {
       icon.innerHTML = stepNum < 10 ? `0${stepNum}` : stepNum.toString();
 
       if (stepNum < currentStep) {
-        // État : Terminé (Blue background + Checkmark SVG)
-        icon.className = "step-icon relative flex h-8 w-8 items-center justify-center rounded-full bg-blue-600 text-white transition-all duration-200";
-        if (line) line.className = "step-line absolute top-4 left-4 -ml-px mt-0.5 h-full w-0.5 bg-blue-600";
-        labelNum.className = "step-label-num text-sm font-medium text-blue-600";
+        icon.className = "step-icon relative flex h-8 w-8 items-center justify-center rounded-full bg-green-500 text-white transition-all duration-200";
+        if (line) line.className = "step-line absolute top-4 left-4 -ml-px mt-0.5 h-full w-0.5 bg-green-500";
+        labelNum.className = "step-label-num text-sm font-medium text-green-500";
         icon.innerHTML = `<svg class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M16.704 4.153a.75.75 0 01.143 1.052l-8 10.5a.75.75 0 01-1.127.075l-4.5-4.5a.75.75 0 011.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 011.05-.143z" clip-rule="evenodd" /></svg>`;
       } else if (stepNum === currentStep) {
-        // État : Actif (Blue border ring + Dark text)
         icon.className = "step-icon relative flex h-8 w-8 items-center justify-center rounded-full border-2 border-blue-600 bg-white text-sm font-semibold text-blue-600 transition-all duration-200";
         if (line) line.className = "step-line absolute top-4 left-4 -ml-px mt-0.5 h-full w-0.5 bg-gray-300";
         labelNum.className = "step-label-num text-sm font-medium text-blue-600";
@@ -107,7 +102,6 @@ document.addEventListener('DOMContentLoaded', (): void => {
     });
   }
 
-  // Déclencher la validation native du navigateur sur les champs requis
   function validateCurrentStep(): boolean {
     const activeStepContainer = document.querySelector<HTMLDivElement>(`.form-step[data-step="${currentStep}"]`);
     if (!activeStepContainer) return true;
@@ -117,7 +111,7 @@ document.addEventListener('DOMContentLoaded', (): void => {
 
     inputs.forEach((input: HTMLInputElement) => {
       if (!input.checkValidity()) {
-        input.reportValidity(); // Ouvre l'infobulle d'erreur native (ex: "Veuillez remplir ce champ")
+        input.reportValidity();
         allValid = false;
       }
     });
@@ -132,8 +126,7 @@ document.addEventListener('DOMContentLoaded', (): void => {
       currentStep++;
       updateForm();
     } else {
-      // Action finale lors de la soumission du formulaire complet
-      alert('Formulaire soumis avec succès !');
+      alert('Formulaire soumis avec succès!');
       const form = document.getElementById('multi-step-form') as HTMLFormElement | null;
       if (form) form.reset();
       currentStep = 1;
@@ -153,9 +146,6 @@ document.addEventListener('DOMContentLoaded', (): void => {
   updateForm();
 });
 
-// ---------------------------------------------------------
-// 1) GESTION DU MONTANT
-// ---------------------------------------------------------
 
 const amountButtons = document.querySelectorAll(".amount-btn");
 const customAmount = document.getElementById("customAmount") as HTMLInputElement;
@@ -199,17 +189,12 @@ export function getDonationAmount(): number | null {
   return selectedAmount;
 }
 
-// ---------------------------------------------------------
-// 2) GESTION DU MODE DE PAIEMENT
-// ---------------------------------------------------------
-
 const paymentMethod = document.getElementById("paymentMethod") as HTMLSelectElement;
 
 const creditFields = document.getElementById("creditFields") as HTMLDivElement;
 const interacFields = document.getElementById("interacFields") as HTMLDivElement;
 const chequeFields = document.getElementById("chequeFields") as HTMLDivElement;
 
-// Affichage dynamique
 paymentMethod.addEventListener("change", () => {
   const value = paymentMethod.value;
 
