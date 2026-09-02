@@ -58,15 +58,15 @@
         </div>
 
         <div class="flex items-center space-x-4">
-          <div
-            class="inline-flex items-center gap-2 rounded-2xl bg-indigo-600 px-6 py-3 text-[14px] font-medium text-white transition-colors">
+          <a class="inline-flex items-center gap-2 rounded-2xl bg-indigo-600 px-6 py-3 text-[14px] font-medium text-white transition-colors hover:bg-indigo-700 focus-visible:ring-4 focus-visible:ring-indigo-200 focus-visible:outline-none"
+            href="#">
             <span>Faire un don</span>
 
             <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
               stroke-width="1.5" stroke="currentColor" class="size-4 rtl:rotate-180">
               <path stroke-linecap="round" stroke-linejoin="round" d="M17.25 8.25 21 12m0 0-3.75 3.75M21 12H3" />
             </svg>
-          </div>
+          </a>
 
           <!-- Mobile menu button -->
           <button id="mobile-menu-btn"
@@ -90,34 +90,57 @@
             class="block text-gray-700 hover:text-blue-600 font-medium py-2 transition-colors duration-200">Services</a>
           <a href="#"
             class="block text-gray-700 hover:text-blue-600 font-medium py-2 transition-colors duration-200">Contact</a>
-          <button
-            class="w-full bg-gradient-to-r from-blue-600 to-purple-600 text-white px-6 py-3 rounded-full font-medium hover:from-blue-700 hover:to-purple-700 transition-all duration-300 shadow-lg mt-4">
-            Faire un don
-          </button>
+          <hr class="my-6 m-10 border-t border-gray-300" />
+          <a href="faire-don.html">
+            <div
+              class="inline-flex items-center gap-2 rounded-2xl bg-indigo-600 px-6 py-3 text-[14px] font-medium text-white transition-colors m-3">
+              <span>Faire un don</span>
+
+              <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                stroke-width="1.5" stroke="currentColor" class="size-4 rtl:rotate-180">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M17.25 8.25 21 12m0 0-3.75 3.75M21 12H3" />
+              </svg>
+            </div>
+          </a>
         </div>
       </div>
     </nav>
   </header>
 
-  <main class="flex-1 py-20">
+  <main class="flex-1 py-16 sm:py-20">
     <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-      <h1 class="text-5xl md:text-6xl font-bold text-gray-900 mb-6 animate-fade-in">
+
+      <!-- Titre -->
+      <h1 class="text-4xl sm:text-5xl md:text-6xl font-bold text-gray-900 mb-6 leading-tight aria-label">
         Faire un don en ligne
       </h1>
-      <p class="text-[20px] text-gray-600 mb-8 animate-fade-in max-w-4xl mx-auto">
-        Faire un don à la <abbr title="Société de Protection des Bébés Animaux">SPBA</abbr>, c'est offrir la chance
-        réelle aux animaux qui ont besoin de soins, de protection et d'un
-        nouveau départ. Cette page vous permet de choisir le type de contribution qui correspond à vous valeurs et de
-        remplir les informations nécessaires en toute simplicité.
+
+      <!-- Paragraphe principal -->
+      <p class="text-[18px] sm:text-[20px] text-gray-700 mb-6 max-w-3xl mx-auto leading-relaxed text-left">
+        Faire un don à la
+        <abbr title="Société de Protection des Bébés Animaux">SPBA</abbr>,
+        c’est offrir une chance réelle aux animaux qui ont besoin de soins,
+        de protection et d’un nouveau départ. Cette page vous permet de choisir
+        le type de contribution qui correspond à vos valeurs et de remplir les
+        informations nécessaires en toute simplicité.
       </p>
-      <p class="text-[20px] text-gray-600 font-semibold mb-8 animate-fade-in max-w-4xl mx-auto">Merci de contribuer à
-        améliorer la vie de ceux qui ne peuvent pas parler pour eux.</p>
+
+      <!-- Paragraphe secondaire -->
+      <p
+        class="text-[18px] sm:text-[20px] text-gray-700 font-semibold mb-10 max-w-3xl mx-auto leading-relaxed text-left">
+        Merci de contribuer à améliorer la vie de ceux qui ne peuvent pas parler pour eux.
+      </p>
     </div>
-    <div class="h-px max-w-6xl mx-auto my-15"
-      style="background-image: linear-gradient(90deg, rgba(149, 131, 198, 0) 1.46%, rgba(149, 131, 198, 0.6) 40.83%, rgba(149, 131, 198, 0.3) 65.57%, rgba(149, 131, 198, 0) 107.92%);">
+
+    <!-- Séparateur -->
+    <div class="h-px max-w-6xl mx-auto my-12 sm:my-16 lg:my-20" style="background-image: linear-gradient(90deg,
+       rgba(149, 131, 198, 0) 1.46%,
+       rgba(149, 131, 198, 0.6) 40.83%,
+       rgba(149, 131, 198, 0.3) 65.57%,
+       rgba(149, 131, 198, 0) 107.92%);">
     </div>
     <div class="max-w-4xl mx-auto px-4 text-center">
-      <h2 class="text-[40px] font-bold mb-8 animate-fade-in">
+      <h2 class="text-[30px] font-bold mb-8 animate-fade-in">
         Types de dons
       </h2>
     </div>

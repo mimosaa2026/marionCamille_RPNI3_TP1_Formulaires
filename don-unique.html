@@ -90,10 +90,18 @@
             class="block text-gray-700 hover:text-blue-600 font-medium py-2 transition-colors duration-200">Services</a>
           <a href="#"
             class="block text-gray-700 hover:text-blue-600 font-medium py-2 transition-colors duration-200">Contact</a>
-          <button
-            class="w-full bg-gradient-to-r from-blue-600 to-purple-600 text-white px-6 py-3 rounded-full font-medium hover:from-blue-700 hover:to-purple-700 transition-all duration-300 shadow-lg mt-4">
-            Faire un don
-          </button>
+          <hr class="my-6 m-10 border-t border-gray-300" />
+          <a href="faire-don.html">
+            <div
+              class="inline-flex items-center gap-2 rounded-2xl bg-indigo-600 px-6 py-3 text-[14px] font-medium text-white transition-colors m-3">
+              <span>Faire un don</span>
+
+              <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                stroke-width="1.5" stroke="currentColor" class="size-4 rtl:rotate-180">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M17.25 8.25 21 12m0 0-3.75 3.75M21 12H3" />
+              </svg>
+            </div>
+          </a>
         </div>
       </div>
     </nav>
@@ -146,339 +154,317 @@
           Il s'agit du type de don le plus simple et le plus courant, idéal pour les personnes qui souhaitent soutenir
           ponctuellement une cause ou répondre à une campagne spécifique.
         </p>
-        <div class="h-px max-w-6xl mx-auto my-15"
-          style="background-image: linear-gradient(90deg, rgba(149, 131, 198, 0) 1.46%, rgba(149, 131, 198, 0.6) 40.83%, rgba(149, 131, 198, 0.3) 65.57%, rgba(149, 131, 198, 0) 107.92%);">
-        </div>
       </div>
-      <div class="max-w-4xl mx-auto px-4">
-        <div class="grid grid-cols-1 md:grid-cols-3">
 
-          <div class="md:col-span-1">
-            <nav aria-label="Progress">
-              <ol id="stepper-indicators" class="overflow-hidden space-y-8">
+      <div class="h-px max-w-6xl mx-auto my-15"
+        style="background-image: linear-gradient(90deg, rgba(149, 131, 198, 0) 1.46%, rgba(149, 131, 198, 0.6) 40.83%, rgba(149, 131, 198, 0.3) 65.57%, rgba(149, 131, 198, 0) 107.92%);">
+      </div>
+      <div class="grid grid-cols-1 grid-cols-3">
 
-                <li class="step-indicator relative flex items-start group" data-step="1">
-                  <div class="step-line absolute top-4 left-4 -ml-px mt-0.5 h-full w-0.5 bg-gray-300"
-                    aria-hidden="true"></div>
-                  <div class="flex items-center">
-                    <span
-                      class="step-icon relative flex h-10 w-10 items-center justify-center rounded-full border-1 border-blue-600 bg-white text-sm font-semibold text-blue-600 transition-all duration-200">
-                    </span>
-                    <div class="ml-4 flex min-w-0 flex-col text-left">
-                      <span class="step-label-num text-sm font-medium text-blue-600">Étape 1</span>
-                      <span class="step-label-title text-sm font-medium text-gray-900">Informations du donateur</span>
-                    </div>
-                  </div>
-                </li>
+        <div class="col-span-1">
+          <nav aria-label="Étapes">
+            <ol id="stepper-indicators" class="overflow-hidden space-y-8">
 
-                <!-- Étape 2 -->
-                <li class="step-indicator relative flex items-start group" data-step="2">
-                  <div class="step-line absolute top-4 left-4 -ml-px mt-0.5 h-full w-0.5 bg-gray-300"
-                    aria-hidden="true"></div>
-                  <div class="flex items-center">
-                    <span
-                      class="step-icon relative flex h-8 w-8 items-center justify-center rounded-full border-2 border-gray-300 bg-white text-sm font-semibold text-gray-500 transition-all duration-200">
-                    </span>
-                    <div class="ml-4 flex min-w-0 flex-col text-left">
-                      <span class="step-label-num text-sm font-medium text-gray-500">Étape 2</span>
-                      <span class="step-label-title text-sm font-medium text-gray-500">Montant du don</span>
-                    </div>
-                  </div>
-                </li>
-
-                <!-- Étape 3 -->
-                <li class="step-indicator relative flex items-start group" data-step="3">
-                  <div class="step-line absolute top-4 left-4 -ml-px mt-0.5 h-full w-0.5 bg-gray-300"
-                    aria-hidden="true"></div>
-                  <div class="flex items-center">
-                    <span
-                      class="step-icon relative flex h-8 w-8 items-center justify-center rounded-full border-2 border-gray-300 bg-white text-sm font-semibold text-gray-500 transition-all duration-200">
-                    </span>
-                    <div class="ml-4 flex min-w-0 flex-col text-left">
-                      <span class="step-label-num text-sm font-medium text-gray-500">Étape 3</span>
-                      <span class="step-label-title text-sm font-medium text-gray-500">Mode de paiement</span>
-                    </div>
-                  </div>
-                </li>
-
-                <li class="step-indicator relative flex items-start group" data-step="4">
-                  <div class="step-line absolute top-4 left-4 -ml-px mt-0.5 h-full w-0.5 bg-gray-300"
-                    aria-hidden="true"></div>
-                  <div class="flex items-center">
-                    <span
-                      class="step-icon relative flex h-8 w-8 items-center justify-center rounded-full border-2 border-gray-300 bg-white text-sm font-semibold text-gray-500 transition-all duration-200">
-                    </span>
-                    <div class="ml-4 flex min-w-0 flex-col text-left">
-                      <span class="step-label-num text-sm font-medium text-gray-500">Étape 4</span>
-                      <span class="step-label-title text-sm font-medium text-gray-500">Raison du don</span>
-                    </div>
-                  </div>
-                </li>
-                <li class="step-indicator relative flex items-start group" data-step="5">
-                  <div class="step-line absolute top-4 left-4 -ml-px mt-0.5 h-full w-0.5 bg-gray-300"
-                    aria-hidden="true"></div>
-                  <div class="flex items-center">
-                    <span
-                      class="step-icon relative flex h-8 w-8 items-center justify-center rounded-full border-2 border-gray-300 bg-white text-sm font-semibold text-gray-500 transition-all duration-200">
-                    </span>
-                    <div class="ml-4 flex min-w-0 flex-col text-left">
-                      <span class="step-label-num text-sm font-medium text-gray-500">Étape 5</span>
-                      <span class="step-label-title text-sm font-medium text-gray-500">Consentement</span>
-                    </div>
-                  </div>
-                </li>
-                <li class="step-indicator relative flex items-start group" data-step="6">
-                  <div class="flex items-center">
-                    <span
-                      class="step-icon relative flex h-8 w-8 items-center justify-center rounded-full border-2 border-gray-300 bg-white text-sm font-semibold text-gray-500 transition-all duration-200">
-                    </span>
-                    <div class="ml-4 flex min-w-0 flex-col text-left">
-                      <span class="step-label-num text-sm font-medium text-gray-500">Étape 6</span>
-                      <span class="step-label-title text-sm font-medium text-gray-500">Confirmation</span>
-                    </div>
-                  </div>
-                </li>
-
-              </ol>
-            </nav>
-          </div>
-
-          <div class="md:col-span-2">
-            <div class="bg-white border border-gray-200 rounded-xl shadow-sm sm:p-8">
-              <form id="multi-step-form" onsubmit="event.preventDefault();">
-
-                <!-- CONTENU ÉTAPE 1 -->
-                <div class="form-step" data-step="1">
-                  <h2 class="text-[25px] font-bold text-gray-800 mb-8">Informations du donateur</h2>
-
-                  <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                    <!-- Prénom -->
-                    <div>
-                      <label for="prenom"
-                        class="block text-[16px] font-medium text-gray-700 mb-2 text-left">Prénom</label>
-                      <input type="text" id="prenom"
-                        class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors"
-                        placeholder="Marie" required>
-                    </div>
-
-                    <!-- Nom -->
-                    <div>
-                      <label for="nom" class="block text-[16px] font-medium text-gray-700 mb-2 text-left">Nom de
-                        famille</label>
-                      <input type="text" id="nom"
-                        class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors"
-                        placeholder="Tremblay" required>
-                    </div>
-                  </div>
-                  <div class="space-y-4 mt-6">
-                    <div>
-                      <label for="adresse"
-                        class="block text-[16px] font-medium text-gray-700 mb-2 text-left">Adresse&#160;<span
-                          class="text-[14px] content-center">(numéro, rue, appartement)</span></label>
-                      <input type="text" id="adresse"
-                        class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors"
-                        placeholder="Entrez votre adresse" required>
-                    </div>
-                  </div>
-                  <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-6">
-                    <!-- Ville -->
-                    <div>
-                      <label for="ville"
-                        class="block text-[16px] font-medium text-gray-700 mb-2 text-left">Ville</label>
-                      <input type="text" id="ville"
-                        class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors"
-                        placeholder="Entrez votre ville" required>
-                    </div>
-
-                    <!-- Nom -->
-                    <div>
-                      <label for="code-postal" class="block text-[16px] font-medium text-gray-700 mb-2 text-left">Code
-                        postal</label>
-                      <input type="text" id="code-postal"
-                        class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors"
-                        placeholder="A1B 2C3" required>
-                    </div>
-                  </div>
-                  <div class="space-y-4 mt-6">
-                    <div>
-                      <label for="telephone"
-                        class="block text-[16px] font-medium text-gray-700 mb-2 text-left">Téléphone</label>
-                      <input type="tel" id="telephone"
-                        class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors"
-                        placeholder="+1 (XXX) XXX-XXXX" required>
-                    </div>
-                  </div>
-                  <div class="space-y-4 mt-6">
-                    <div>
-                      <label for="email" class="block text-[16px] font-medium text-gray-700 mb-2 text-left">Adresse
-                        courriel</label>
-                      <input type="email" id="email"
-                        class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors"
-                        placeholder="marie.tremblay@gmail.com" required>
-                    </div>
+              <li class="step-indicator relative flex items-start group" data-step="1">
+                <div class="step-line absolute top-4 left-4 -ml-px mt-0.5 h-full w-0.5 bg-gray-300" aria-hidden="true">
+                </div>
+                <div class="flex items-center">
+                  <span
+                    class="step-icon relative flex h-10 w-10 items-center justify-center rounded-full border-1 border-blue-600 bg-white text-sm font-semibold text-blue-600 transition-all duration-200">
+                  </span>
+                  <div class="ml-4 flex min-w-0 flex-col text-left">
+                    <span class="step-label-num text-sm font-medium text-blue-600">Étape 1</span>
+                    <span class="step-label-title text-sm font-medium text-gray-900">Informations du donateur</span>
                   </div>
                 </div>
+              </li>
 
-                <!-- CONTENU ÉTAPE 2 -->
-                <div class="form-step hidden" data-step="2">
-                  <h2 class="text-[25px] font-bold text-gray-800 mb-8">Montant du don</h2>
+              <!-- Étape 2 -->
+              <li class="step-indicator relative flex items-start group" data-step="2">
+                <div class="step-line absolute top-4 left-4 -ml-px mt-0.5 h-full w-0.5 bg-gray-300" aria-hidden="true">
+                </div>
+                <div class="flex items-center">
+                  <span
+                    class="step-icon relative flex h-8 w-8 items-center justify-center rounded-full border-2 border-gray-300 bg-white text-sm font-semibold text-gray-500 transition-all duration-200">
+                  </span>
+                  <div class="ml-4 flex min-w-0 flex-col text-left">
+                    <span class="step-label-num text-sm font-medium text-gray-500">Étape 2</span>
+                    <span class="step-label-title text-sm font-medium text-gray-500">Montant du don</span>
+                  </div>
+                </div>
+              </li>
+
+              <!-- Étape 3 -->
+              <li class="step-indicator relative flex items-start group" data-step="3">
+                <div class="step-line absolute top-4 left-4 -ml-px mt-0.5 h-full w-0.5 bg-gray-300" aria-hidden="true">
+                </div>
+                <div class="flex items-center">
+                  <span
+                    class="step-icon relative flex h-8 w-8 items-center justify-center rounded-full border-2 border-gray-300 bg-white text-sm font-semibold text-gray-500 transition-all duration-200">
+                  </span>
+                  <div class="ml-4 flex min-w-0 flex-col text-left">
+                    <span class="step-label-num text-sm font-medium text-gray-500">Étape 3</span>
+                    <span class="step-label-title text-sm font-medium text-gray-500">Mode de paiement</span>
+                  </div>
+                </div>
+              </li>
+
+              <li class="step-indicator relative flex items-start group" data-step="4">
+                <div class="step-line absolute top-4 left-4 -ml-px mt-0.5 h-full w-0.5 bg-gray-300" aria-hidden="true">
+                </div>
+                <div class="flex items-center">
+                  <span
+                    class="step-icon relative flex h-8 w-8 items-center justify-center rounded-full border-2 border-gray-300 bg-white text-sm font-semibold text-gray-500 transition-all duration-200">
+                  </span>
+                  <div class="ml-4 flex min-w-0 flex-col text-left">
+                    <span class="step-label-num text-sm font-medium text-gray-500">Étape 4</span>
+                    <span class="step-label-title text-sm font-medium text-gray-500">Raison du don</span>
+                  </div>
+                </div>
+              </li>
+              <li class="step-indicator relative flex items-start group" data-step="5">
+                <div class="step-line absolute top-4 left-4 -ml-px mt-0.5 h-full w-0.5 bg-gray-300" aria-hidden="true">
+                </div>
+                <div class="flex items-center">
+                  <span
+                    class="step-icon relative flex h-8 w-8 items-center justify-center rounded-full border-2 border-gray-300 bg-white text-sm font-semibold text-gray-500 transition-all duration-200">
+                  </span>
+                  <div class="ml-4 flex min-w-0 flex-col text-left">
+                    <span class="step-label-num text-sm font-medium text-gray-500">Étape 5</span>
+                    <span class="step-label-title text-sm font-medium text-gray-500">Consentement</span>
+                  </div>
+                </div>
+              </li>
+              <li class="step-indicator relative flex items-start group" data-step="6">
+                <div class="flex items-center">
+                  <span
+                    class="step-icon relative flex h-8 w-8 items-center justify-center rounded-full border-2 border-gray-300 bg-white text-sm font-semibold text-gray-500 transition-all duration-200">
+                  </span>
+                  <div class="ml-4 flex min-w-0 flex-col text-left">
+                    <span class="step-label-num text-sm font-medium text-gray-500">Étape 6</span>
+                    <span class="step-label-title text-sm font-medium text-gray-500">Confirmation</span>
+                  </div>
+                </div>
+              </li>
+
+            </ol>
+          </nav>
+        </div>
+
+        <div class="md:col-span-2">
+          <div>
+            <form id="multi-step-form" onsubmit="event.preventDefault();">
+
+              <!-- CONTENU ÉTAPE 1 -->
+              <div class="form-step" data-step="1">
+                <h2 class="text-[25px] font-bold text-gray-800 mb-8">Informations du donateur</h2>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  <!-- Prénom -->
                   <div>
-                    <div class="grid grid-cols-3 gap-3">
-                      <button
-                        class="amount-btn w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors"
-                        data-value="25">25 $</button>
-                      <button
-                        class="amount-btn w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors"
-                        data-value="50">50 $</button>
-                      <button
-                        class="amount-btn w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors"
-                        data-value="100">100 $</button>
-                    </div>
-
-                    <input id="customAmount" type="number" placeholder="Autre montant"
-                      class="mt-6 w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors" />
-                  </div>
-                </div>
-
-                <!-- CONTENU ÉTAPE 3 -->
-                <div class="form-step hidden" data-step="3">
-                  <h2 class="text-[25px] font-bold text-gray-800 mb-8">Mode de paiement</h2>
-                  <div class="space-y-4">
-                    <select id="paymentMethod"
-                      class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors">
-                      <option value="">Sélectionner…</option>
-                      <option value="credit">Carte de crédit</option>
-                      <option value="interac">Virement Interac</option>
-                    </select>
-
-                    <!-- Carte de crédit -->
-                    <div id="creditFields" class="hidden space-y-3">
-                      <input type="text" id="cardName" placeholder="Nom sur la carte"
-                        class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors" />
-                      <input type="text" id="cardNumber" placeholder="Numéro de carte"
-                        class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors" />
-                      <div class="flex gap-3">
-                        <input type="text" id="cardExp" placeholder="MM/AA"
-                          class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors" />
-                        <input type="text" id="cardCVV" placeholder="CVV"
-                          class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors" />
-                      </div>
-                    </div>
-
-                    <!-- Interac -->
-                    <div id="interacFields" class="hidden space-y-3">
-                      <input type="email" id="interacEmail" placeholder="Courriel pour le virement"
-                        class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors" />
-                    </div>
-                  </div>
-                </div>
-                <div class="form-step hidden" data-step="4">
-                  <h2 class="text-[25px] font-bold text-gray-800">Raison du don</h2>
-                  <div class="bg-blue-200 px-6 py-4 rounded-md text-[15px] flex items-center mb-8 mt-4">
-                    <svg viewBox="0 0 24 24" class="text-blue-600 w-4 h-4 sm:w-5 sm:h-5 mr-3">
-                      <path fill="currentColor"
-                        d="M12,0A12,12,0,1,0,24,12,12.013,12.013,0,0,0,12,0Zm.25,5a1.5,1.5,0,1,1-1.5,1.5A1.5,1.5,0,0,1,12.25,5ZM14.5,18.5h-4a1,1,0,0,1,0-2h.75a.25.25,0,0,0,.25-.25v-4.5a.25.25,0,0,0-.25-.25H10.5a1,1,0,0,1,0-2h1a2,2,0,0,1,2,2v4.75a.25.25,0,0,0,.25.25h.75a1,1,0,1,1,0,2Z">
-                      </path>
-                    </svg>
-                    <span class="text-blue-800">Cette étape n'est pas obligatoire.</span>
-                  </div>
-
-                  <form class="max-w-sm mx-auto">
-                    <textarea id="message" rows="4"
+                    <label for="prenom"
+                      class="block text-[16px] font-medium text-gray-700 mb-2 text-left">Prénom</label>
+                    <input type="text" id="prenom"
                       class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors"
-                      placeholder="Écrivez votre raison de donner ici..."></textarea>
-                  </form>
-                </div>
-                <div class="form-step hidden" data-step="5">
-                  <h2 class="text-[25px] font-bold text-gray-800 mb-8">Consentement</h2>
-                  <div class="space-y-4 text-sm text-gray-700">
-
-                    <label class="flex items-start gap-3">
-                      <input type="checkbox" class="mt-1 h-4 w-4 text-blue-600" required>
-                      <span class="text-left">J’accepte que mes informations soient utilisées pour traiter mon
-                        don.</span>
-                    </label>
-
-                    <label class="flex items-start gap-3">
-                      <input type="checkbox" class="mt-1 h-4 w-4 text-blue-600" required>
-                      <span class="text-left">Je confirme être âgé(e) de 18 ans ou plus et légalement autorisé(e) à
-                        effectuer ce
-                        don.</span>
-                    </label>
-
-                    <label class="flex items-start gap-3">
-                      <input type="checkbox" class="mt-1 h-4 w-4 text-blue-600">
-                      <span class="text-left">J’accepte de recevoir mon reçu officiel par courriel.</span>
-                    </label>
-
-                    <label class="flex items-start gap-3">
-                      <input type="checkbox" class="mt-1 h-4 w-4 text-blue-600">
-                      <span class="text-left">J’accepte d’être contacté(e) pour le suivi ou la confirmation de mon
-                        don.</span>
-                    </label>
-
-                    <label class="flex items-start gap-3">
-                      <input type="checkbox" class="mt-1 h-4 w-4 text-blue-600">
-                      <span class="text-left">J’accepte de recevoir des communications sur les activités, campagnes et
-                        projets de
-                        l’organisme.</span>
-                    </label>
-
-                    <label class="flex items-start gap-3">
-                      <input type="checkbox" class="mt-1 h-4 w-4 text-blue-600">
-                      <span class="text-left">J’autorise le partage de mes informations avec les partenaires autorisés
-                        pour la gestion du
-                        don.</span>
-                    </label>
-
-                    <label class="flex items-start gap-3">
-                      <input type="checkbox" class="mt-1 h-4 w-4 text-blue-600">
-                      <span class="text-left">J’accepte que mes données soient conservées conformément à la politique de
-                        confidentialité.</span>
-                    </label>
-
-                    <label class="flex items-start gap-3">
-                      <input type="checkbox" class="mt-1 h-4 w-4 text-blue-600" required>
-                      <span class="text-left">J’ai lu et j’accepte la <a href="#">politique de
-                          confidentialité</a>.</span>
-                    </label>
-
+                      placeholder="Marie" required>
                   </div>
-                </div>
 
-                <div class="form-step hidden" data-step="6">
+                  <!-- Nom -->
                   <div>
-                    <h2 class="text-[22px] font-bold text-gray-800 mb-8">On vous remercie pour votre don!</h2>
-                    <p class="mb-6 text-left">Votre don à la SPBA signifie énormément pour nous... et encore plus pour
-                      les animaux que nous
-                      protégeons.</p>
-                    <p class="mb-6 text-left">Grâce à votre générosité, nous pouvons offrir des soins, de la sécurité et
-                      de l'amour à ceux qui
-                      en ont le plus besoin.</p>
-                    <p class="text-left"><strong>Merci d'avoir choisi de faire une différence.</strong></p>
+                    <label for="nom" class="block text-[16px] font-medium text-gray-700 mb-2 text-left">Nom de
+                      famille</label>
+                    <input type="text" id="nom"
+                      class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors"
+                      placeholder="Tremblay" required>
                   </div>
                 </div>
+                <div class="space-y-4 mt-6">
+                  <div>
+                    <label for="adresse"
+                      class="block text-[16px] font-medium text-gray-700 mb-2 text-left">Adresse&#160;<span
+                        class="text-[14px] content-center">(numéro, rue, appartement)</span></label>
+                    <input type="text" id="adresse"
+                      class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors"
+                      placeholder="Entrez votre adresse" required>
+                  </div>
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-6">
+                  <!-- Ville -->
+                  <div>
+                    <label for="ville" class="block text-[16px] font-medium text-gray-700 mb-2 text-left">Ville</label>
+                    <input type="text" id="ville"
+                      class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors"
+                      placeholder="Entrez votre ville" required>
+                  </div>
 
-            </div>
+                  <!-- Nom -->
+                  <div>
+                    <label for="code-postal" class="block text-[16px] font-medium text-gray-700 mb-2 text-left">Code
+                      postal</label>
+                    <input type="text" id="code-postal"
+                      class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors"
+                      placeholder="A1B 2C3" required>
+                  </div>
+                </div>
+                <div class="space-y-4 mt-6">
+                  <div>
+                    <label for="telephone"
+                      class="block text-[16px] font-medium text-gray-700 mb-2 text-left">Téléphone</label>
+                    <input type="tel" id="telephone"
+                      class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors"
+                      placeholder="+1 (XXX) XXX-XXXX" required>
+                  </div>
+                </div>
+                <div class="space-y-4 mt-6">
+                  <div>
+                    <label for="email" class="block text-[16px] font-medium text-gray-700 mb-2 text-left">Adresse
+                      courriel</label>
+                    <input type="email" id="email"
+                      class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors"
+                      placeholder="marie.tremblay@gmail.com" required>
+                  </div>
+                </div>
+              </div>
 
+              <!-- CONTENU ÉTAPE 2 -->
+              <div class="form-step hidden" data-step="2">
+                <h2 class="text-[25px] font-bold text-gray-800 mb-8">Montant du don</h2>
+                <div>
+                  <div class="grid grid-cols-3 gap-3">
+                    <button
+                      class="amount-btn w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors"
+                      data-value="25">25 $</button>
+                    <button
+                      class="amount-btn w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors"
+                      data-value="50">50 $</button>
+                    <button
+                      class="amount-btn w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors"
+                      data-value="100">100 $</button>
+                  </div>
 
-            <!-- BOUTONS DE NAVIGATION -->
-            <div class="mt-8 flex justify-between border-t border-gray-100 pt-6">
-              <button type="button" id="prev-btn"
-                class="invisible inline-flex justify-center items-center gap-x-2 text-sm font-semibold rounded-lg border border-gray-300 bg-white text-gray-800 shadow-sm hover:bg-gray-50 px-4 py-2 transition-colors">
-                Précédent
-              </button>
-              <button type="button" id="next-btn"
-                class="inline-flex justify-center items-center gap-x-2 text-sm font-semibold rounded-lg border border-transparent bg-blue-600 text-white hover:bg-blue-700 px-4 py-2 transition-colors">
-                Continuer
-              </button>
-            </div>
+                  <input id="customAmount" type="number" placeholder="Autre montant"
+                    class="mt-6 w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors" />
+                </div>
+              </div>
 
-            </form>
+              <!-- CONTENU ÉTAPE 3 -->
+              <div class="form-step hidden" data-step="3">
+                <h2 class="text-[25px] font-bold text-gray-800 mb-8">Mode de paiement</h2>
+                <div class="space-y-4">
+                  <select id="paymentMethod"
+                    class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors">
+                    <option value="">Sélectionner…</option>
+                    <option value="credit">Carte de crédit</option>
+                    <option value="interac">Virement Interac</option>
+                  </select>
+                </div>
+              </div>
+              <div class="form-step hidden" data-step="4">
+                <h2 class="text-[25px] font-bold text-gray-800">Raison du don</h2>
+                <div class="bg-blue-200 px-6 py-4 rounded-md text-[15px] flex items-center mb-8 mt-4">
+                  <svg viewBox="0 0 24 24" class="text-blue-600 w-4 h-4 sm:w-5 sm:h-5 mr-3">
+                    <path fill="currentColor"
+                      d="M12,0A12,12,0,1,0,24,12,12.013,12.013,0,0,0,12,0Zm.25,5a1.5,1.5,0,1,1-1.5,1.5A1.5,1.5,0,0,1,12.25,5ZM14.5,18.5h-4a1,1,0,0,1,0-2h.75a.25.25,0,0,0,.25-.25v-4.5a.25.25,0,0,0-.25-.25H10.5a1,1,0,0,1,0-2h1a2,2,0,0,1,2,2v4.75a.25.25,0,0,0,.25.25h.75a1,1,0,1,1,0,2Z">
+                    </path>
+                  </svg>
+                  <span class="text-blue-800">Cette étape n'est pas obligatoire.</span>
+                </div>
+
+                <form class="max-w-sm mx-auto">
+                  <textarea id="message" rows="4"
+                    class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors"
+                    placeholder="Écrivez votre raison de donner ici..."></textarea>
+                </form>
+              </div>
+              <div class="form-step hidden" data-step="5">
+                <h2 class="text-[25px] font-bold text-gray-800 mb-8">Consentement</h2>
+                <div class="space-y-4 text-sm text-gray-700">
+
+                  <label class="flex items-start gap-3">
+                    <input type="checkbox" class="mt-1 h-4 w-4 text-blue-600" required>
+                    <span class="text-left">J’accepte que mes informations soient utilisées pour traiter mon
+                      don.</span>
+                  </label>
+
+                  <label class="flex items-start gap-3">
+                    <input type="checkbox" class="mt-1 h-4 w-4 text-blue-600" required>
+                    <span class="text-left">Je confirme être âgé(e) de 18 ans ou plus et légalement autorisé(e) à
+                      effectuer ce
+                      don.</span>
+                  </label>
+
+                  <label class="flex items-start gap-3">
+                    <input type="checkbox" class="mt-1 h-4 w-4 text-blue-600">
+                    <span class="text-left">J’accepte de recevoir mon reçu officiel par courriel.</span>
+                  </label>
+
+                  <label class="flex items-start gap-3">
+                    <input type="checkbox" class="mt-1 h-4 w-4 text-blue-600">
+                    <span class="text-left">J’accepte d’être contacté(e) pour le suivi ou la confirmation de mon
+                      don.</span>
+                  </label>
+
+                  <label class="flex items-start gap-3">
+                    <input type="checkbox" class="mt-1 h-4 w-4 text-blue-600">
+                    <span class="text-left">J’accepte de recevoir des communications sur les activités, campagnes et
+                      projets de
+                      l’organisme.</span>
+                  </label>
+
+                  <label class="flex items-start gap-3">
+                    <input type="checkbox" class="mt-1 h-4 w-4 text-blue-600">
+                    <span class="text-left">J’autorise le partage de mes informations avec les partenaires autorisés
+                      pour la gestion du
+                      don.</span>
+                  </label>
+
+                  <label class="flex items-start gap-3">
+                    <input type="checkbox" class="mt-1 h-4 w-4 text-blue-600">
+                    <span class="text-left">J’accepte que mes données soient conservées conformément à la politique de
+                      confidentialité.</span>
+                  </label>
+
+                  <label class="flex items-start gap-3">
+                    <input type="checkbox" class="mt-1 h-4 w-4 text-blue-600" required>
+                    <span class="text-left">J’ai lu et j’accepte la <a href="#">politique de
+                        confidentialité</a>.</span>
+                  </label>
+
+                </div>
+              </div>
+
+              <div class="form-step hidden" data-step="6">
+                <div>
+                  <h2 class="text-[22px] font-bold text-gray-800 mb-8">On vous remercie pour votre don!</h2>
+                  <p class="mb-6 text-left">Votre don à la SPBA signifie énormément pour nous... et encore plus pour
+                    les animaux que nous
+                    protégeons.</p>
+                  <p class="mb-6 text-left">Grâce à votre générosité, nous pouvons offrir des soins, de la sécurité et
+                    de l'amour à ceux qui
+                    en ont le plus besoin.</p>
+                  <p class="text-left"><strong>Merci d'avoir choisi de faire une différence.</strong></p>
+                </div>
+              </div>
+
           </div>
-        </div>
 
+
+          <!-- BOUTONS DE NAVIGATION -->
+          <div class="mt-8 flex justify-between border-t border-gray-100 pt-6">
+            <button type="button" id="prev-btn"
+              class="invisible inline-flex justify-center items-center gap-x-2 text-sm font-semibold rounded-lg border border-gray-300 bg-white text-gray-800 shadow-sm hover:bg-gray-50 px-4 py-2 transition-colors">
+              Précédent
+            </button>
+            <button type="button" id="next-btn"
+              class="inline-flex justify-center items-center gap-x-2 text-sm font-semibold rounded-lg border border-transparent bg-blue-600 text-white hover:bg-blue-700 px-4 py-2 transition-colors">
+              Continuer
+            </button>
+          </div>
+
+          </form>
+        </div>
       </div>
+
     </div>
     </div>
   </main>

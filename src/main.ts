@@ -147,90 +147,56 @@ document.addEventListener('DOMContentLoaded', (): void => {
 });
 
 
-const amountButtons = document.querySelectorAll(".amount-btn");
-const customAmount = document.getElementById("customAmount") as HTMLInputElement;
-
-let selectedAmount: number | null = null;
-const MAX_AMOUNT = 500;
-
-// Sélection via boutons
-amountButtons.forEach(btn => {
-  btn.addEventListener("click", () => {
-    const value = Number(btn.dataset.amount);
-
-    selectedAmount = value;
-    customAmount.value = "";
-
-    // Style visuel
-    amountButtons.forEach(b => b.classList.remove("bg-indigo-100", "border-indigo-600"));
-    btn.classList.add("bg-indigo-100", "border-indigo-600");
-  });
-});
-
-// Saisie d’un montant personnalisé
-customAmount.addEventListener("input", () => {
-  const value = Number(customAmount.value);
-
-  if (value > MAX_AMOUNT) {
-    customAmount.value = MAX_AMOUNT.toString();
-  }
-
-  selectedAmount = Number(customAmount.value);
-
-  // Désactive visuellement les boutons
-  amountButtons.forEach(b => b.classList.remove("bg-indigo-100", "border-indigo-600"));
-});
-
-// Récupération du montant final
-export function getDonationAmount(): number | null {
-  if (!selectedAmount || selectedAmount <= 0 || selectedAmount > MAX_AMOUNT) {
-    return null;
-  }
-  return selectedAmount;
-}
-
-const paymentMethod = document.getElementById("paymentMethod") as HTMLSelectElement;
+const paymentButtons = document.querySelectorAll(".payment-option");
+const paymentFields = document.getElementById("paymentFields") as HTMLDivElement;
 
 const creditFields = document.getElementById("creditFields") as HTMLDivElement;
 const interacFields = document.getElementById("interacFields") as HTMLDivElement;
-const chequeFields = document.getElementById("chequeFields") as HTMLDivElement;
 
-paymentMethod.addEventListener("change", () => {
-  const value = paymentMethod.value;
+let selectedMethod: string | null = null;
 
-  creditFields.classList.add("hidden");
-  interacFields.classList.add("hidden");
-  chequeFields.classList.add("hidden");
+// Sélection visuelle + affichage des champs
+paymentButtons.forEach(btn => {
+  btn.addEventListener("click", () => {
+    selectedMethod = btn.getAttribute("data-method");
 
-  if (value === "credit") creditFields.classList.remove("hidden");
-  if (value === "interac") interacFields.classList.remove("hidden");
-  if (value === "cheque") chequeFields.classList.remove("hidden");
+    // Style actif
+    paymentButtons.forEach(b => b.classList.remove("border-blue-500", "bg-blue-50"));
+    btn.classList.add("border-blue-500", "bg-blue-50");
+
+    // Affichage des champs
+    paymentFields.classList.remove("hidden");
+    creditFields.classList.add("hidden");
+    interacFields.classList.add("hidden");
+
+    if (selectedMethod === "credit") creditFields.classList.remove("hidden");
+    if (selectedMethod === "interac") interacFields.classList.remove("hidden");
+  });
 });
 
 // Validation
 export function validatePayment(): string | null {
-  const value = paymentMethod.value;
+  if (!selectedMethod) return "Veuillez choisir un mode de paiement.";
 
-  if (!value) return "Veuillez choisir un mode de paiement.";
-
-  if (value === "credit") {
-    const num = (document.getElementById("cardNumber") as HTMLInputElement).value;
+  if (selectedMethod === "credit") {
     const name = (document.getElementById("cardName") as HTMLInputElement).value;
+    const num = (document.getElementById("cardNumber") as HTMLInputElement).value;
     const exp = (document.getElementById("cardExp") as HTMLInputElement).value;
     const cvv = (document.getElementById("cardCVV") as HTMLInputElement).value;
 
-    if (!name || !num || !exp || !cvv) {
-      return "Veuillez remplir les champs de la carte de crédit.";
-    }
+    if (!name || !num || !exp || !cvv)
+      return "Veuillez remplir tous les champs de la carte de crédit.";
   }
 
-  if (value === "interac") {
+  if (selectedMethod === "interac") {
     const email = (document.getElementById("interacEmail") as HTMLInputElement).value;
-    if (!email.includes("@")) return "Veuillez entrer un courriel Interac valide.";
+    if (!email.includes("@"))
+      return "Veuillez entrer un courriel Interac valide.";
   }
 
   return null;
 }
+
 
 // ---------------------------------------------------------
 // 3) SYSTÈME DE STEPS + NAVIGATION + REDIRECTION FINALE
