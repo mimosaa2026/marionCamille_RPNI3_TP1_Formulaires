@@ -107,180 +107,398 @@
     </nav>
   </header>
 
-  <main class="flex-1 py-16 sm:py-20">
-    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+  <main class="flex-1 py-20">
 
-      <!-- Titre -->
-      <h1 class="text-4xl sm:text-5xl md:text-6xl font-bold text-gray-900 mb-6 leading-tight aria-label">
-        Faire un don en ligne
-      </h1>
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-10 max-w-5xl mx-auto p-6">
 
-      <!-- Paragraphe principal -->
-      <p class="text-[18px] sm:text-[20px] text-gray-700 mb-6 max-w-3xl mx-auto leading-relaxed text-left">
-        Faire un don à la
-        <abbr title="Société de Protection des Bébés Animaux">SPBA</abbr>,
-        c’est offrir une chance réelle aux animaux qui ont besoin de soins,
-        de protection et d’un nouveau départ. Cette page vous permet de choisir
-        le type de contribution qui correspond à vos valeurs et de remplir les
-        informations nécessaires en toute simplicité.
-      </p>
+      <!-- STEPPER VERTICAL -->
+      <aside class="md:col-span-1">
 
-      <!-- Paragraphe secondaire -->
-      <p
-        class="text-[18px] sm:text-[20px] text-gray-700 font-semibold mb-10 max-w-3xl mx-auto leading-relaxed text-left">
-        Merci de contribuer à améliorer la vie de ceux qui ne peuvent pas parler pour eux.
-      </p>
-    </div>
+        <nav aria-label="Étapes du formulaire de don" class="space-y-6 w-full">
+          <ol class="space-y-6">
 
-    <!-- Séparateur -->
-    <div class="h-px max-w-6xl mx-auto my-12 sm:my-16 lg:my-20" style="background-image: linear-gradient(90deg,
-       rgba(149, 131, 198, 0) 1.46%,
-       rgba(149, 131, 198, 0.6) 40.83%,
-       rgba(149, 131, 198, 0.3) 65.57%,
-       rgba(149, 131, 198, 0) 107.92%);">
-    </div>
-    <div class="max-w-4xl mx-auto px-4 text-center">
-      <h2 class="text-[30px] font-bold mb-8 animate-fade-in">
-        Types de dons
-      </h2>
-    </div>
-    <div class="flex flex-wrap justify-center mt-10">
+            <!-- Étape 1 -->
+            <li>
+              <button type="button" class="stepper-item flex items-center space-x-4 w-full text-left" data-step="1">
 
-      <div class="p-4 max-w-sm">
-        <div class="flex rounded-lg h-full bg-black p-8 flex-col">
-          <div class="flex items-center mb-3">
-            <div
-              class="w-10 h-10 mr-3 inline-flex items-center justify-center rounded-full bg-indigo-500 text-white flex-shrink-0">
-              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="#fff">
-                <g fill="none" stroke="#fff" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.1"
-                  color="currentColor">
-                  <path d="M19.745 13a7 7 0 1 0-12.072-1" />
-                  <path
-                    d="M14 6c-1.105 0-2 .672-2 1.5S12.895 9 14 9s2 .672 2 1.5s-.895 1.5-2 1.5m0-6c.87 0 1.612.417 1.886 1M14 6V5m0 7c-.87 0-1.612-.417-1.886-1M14 12v1M3 14h2.395c.294 0 .584.066.847.194l2.042.988c.263.127.553.193.848.193h1.042c1.008 0 1.826.791 1.826 1.767c0 .04-.027.074-.066.085l-2.541.703a1.95 1.95 0 0 1-1.368-.124L5.842 16.75M12 16.5l4.593-1.411a1.985 1.985 0 0 1 2.204.753c.369.51.219 1.242-.319 1.552l-7.515 4.337a2 2 0 0 1-1.568.187L3 20.02" />
-                </g>
-              </svg>
+                <div
+                  class="step-circle w-10 h-10 rounded-full bg-gray-300 text-gray-600 flex items-center justify-center font-semibold">
+                  1
+                </div>
+
+                <span class="text-base font-medium text-gray-500">
+                  Type de don
+                </span>
+              </button>
+            </li>
+
+            <!-- Étape 2 -->
+
+            <li>
+              <button type="button" class="stepper-item flex items-center space-x-4 w-full text-left" data-step="2">
+
+                <div
+                  class="step-circle w-10 h-10 rounded-full bg-blue-600 text-white flex items-center justify-center font-semibold">
+                  2
+                </div>
+
+                <span class="text-base font-medium text-gray-900">
+                  Montant
+                </span>
+              </button>
+            </li>
+
+            <!-- Étape 3 -->
+            <li>
+              <button type="button" class="stepper-item flex items-center space-x-4 w-full text-left" data-step="3">
+
+                <div
+                  class="step-circle w-10 h-10 rounded-full bg-gray-300 text-gray-600 flex items-center justify-center font-semibold">
+                  3
+                </div>
+
+                <span class="text-base font-medium text-gray-500">
+                  Informations
+                </span>
+              </button>
+            </li>
+
+            <!-- Étape 4 -->
+            <li>
+              <button type="button" class="stepper-item flex items-center space-x-4 w-full text-left" data-step="4">
+
+                <div
+                  class="step-circle w-10 h-10 rounded-full bg-gray-300 text-gray-600 flex items-center justify-center font-semibold">
+                  4
+                </div>
+
+                <span class="text-base font-medium text-gray-500">
+                  Préférences
+                </span>
+              </button>
+            </li>
+
+            <!-- Étape 5 -->
+            <li>
+              <button type="button" class="stepper-item flex items-center space-x-4 w-full text-left" data-step="5">
+
+                <div
+                  class="step-circle w-10 h-10 rounded-full bg-gray-300 text-gray-600 flex items-center justify-center font-semibold">
+                  5
+                </div>
+
+                <span class="text-base font-medium text-gray-500">
+                  Confirmation
+                </span>
+              </button>
+            </li>
+
+          </ol>
+        </nav>
+      </aside>
+
+
+      <!-- FORMULAIRE -->
+      <section class="md:col-span-2">
+
+        <form id="donationForm" class="space-y-6">
+
+
+          <!-- ===================== -->
+          <!-- ÉTAPE 1 : MONTANT -->
+          <!-- ===================== -->
+
+          <div class="step" data-step="1">
+
+            <h2 class="text-xl font-semibold mb-4">
+              Choisissez un montant
+            </h2>
+
+            <div class="grid grid-cols-3 gap-4">
+
+              <button type="button" class="amount-btn py-3 rounded-lg border text-center hover:bg-blue-50"
+                data-value="30">
+                30$
+              </button>
+
+              <button type="button" class="amount-btn py-3 rounded-lg border text-center hover:bg-blue-50"
+                data-value="50">
+                50$
+              </button>
+
+              <button type="button" class="amount-btn py-3 rounded-lg border text-center hover:bg-blue-50"
+                data-value="100">
+                100$
+              </button>
+
             </div>
-            <h2 class="text-white text-[20px] font-medium">Don unique</h2>
-          </div>
-          <div class="flex flex-col justify-between flex-grow">
-            <p class="leading-relaxed text-[16px] text-white">
-              Il s'agit d'une contribution financière versée une seule fois, sans engagement de&#160;renouvellement.
+
+            <input type="number" id="customAmount" placeholder="Montant personnalisé" min="1"
+              class="mt-4 w-full border rounded-lg p-3" />
+
+            <p id="amountError" class="text-red-500 text-sm mt-2 hidden">
+              Veuillez choisir ou entrer un montant valide.
             </p>
-            <div class="flex mt-4">
 
-              <a class="inline-flex items-center gap-2 rounded-2xl bg-indigo-600 px-6 py-3 text-[14px] font-medium text-white transition-colors hover:bg-indigo-700 focus-visible:ring-4 focus-visible:ring-indigo-200 focus-visible:outline-none"
-                href="don-unique.html">
-                <span>Faire un don</span>
+            <button type="button" id="next1"
+              class="mt-6 w-full bg-blue-600 text-white py-3 rounded-lg hover:bg-blue-700">
+              Suivant
+            </button>
 
-                <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-                  stroke-width="1.5" stroke="currentColor" class="size-4 rtl:rotate-180">
-                  <path stroke-linecap="round" stroke-linejoin="round" d="M17.25 8.25 21 12m0 0-3.75 3.75M21 12H3" />
-                </svg>
-              </a>
-            </div>
           </div>
-        </div>
-      </div>
 
-      <div class="p-4 max-w-sm">
-        <div class="flex rounded-lg h-full bg-black p-8 flex-col">
-          <div class="flex items-center mb-3">
-            <div
-              class="w-10 h-10 mr-3 inline-flex items-center justify-center rounded-full bg-indigo-500 text-white flex-shrink-0">
-              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.1"
-                stroke="currentColor" class="size-6">
-                <path stroke-linecap="round" stroke-linejoin="round"
-                  d="M6.75 3v2.25M17.25 3v2.25M3 18.75V7.5a2.25 2.25 0 0 1 2.25-2.25h13.5A2.25 2.25 0 0 1 21 7.5v11.25m-18 0A2.25 2.25 0 0 0 5.25 21h13.5A2.25 2.25 0 0 0 21 18.75m-18 0v-7.5A2.25 2.25 0 0 1 5.25 9h13.5A2.25 2.25 0 0 1 21 11.25v7.5m-9-6h.008v.008H12v-.008ZM12 15h.008v.008H12V15Zm0 2.25h.008v.008H12v-.008ZM9.75 15h.008v.008H9.75V15Zm0 2.25h.008v.008H9.75v-.008ZM7.5 15h.008v.008H7.5V15Zm0 2.25h.008v.008H7.5v-.008Zm6.75-4.5h.008v.008h-.008v-.008Zm0 2.25h.008v.008h-.008V15Zm0 2.25h.008v.008h-.008v-.008Zm2.25-4.5h.008v.008H16.5v-.008Zm0 2.25h.008v.008H16.5V15Z" />
-              </svg>
+
+          <!-- ===================== -->
+          <!-- ÉTAPE 2 : TYPE DE DON -->
+          <!-- ===================== -->
+
+          <div class="step hidden" data-step="2">
+
+            <h2 class="text-xl font-semibold mb-4">
+              Type de don
+            </h2>
+
+            <div class="space-y-4">
+
+              <label class="flex items-center gap-3 border rounded-lg p-4 cursor-pointer hover:bg-blue-50">
+
+                <input type="radio" name="donationType" value="unique" checked class="w-5 h-5" />
+
+                <div>
+                  <p class="font-medium">
+                    Don unique
+                  </p>
+
+                  <p class="text-[14px] text-gray-500">
+                    Contribution financière versée une seule fois, sans engagement de renouvellement.
+                  </p>
+                </div>
+
+              </label>
+
+
+              <label class="flex items-center gap-3 border rounded-lg p-4 cursor-pointer hover:bg-blue-50">
+
+                <input type="radio" name="donationType" value="periodique" class="w-5 h-5" />
+
+                <div>
+                  <p class="font-medium">
+                    Don périodique
+                  </p>
+
+                  <p class="text-[14px] text-gray-500">
+                    Montant prélevé automatiquement à intervalles réguliers, comme chaque mois ou chaque année.
+                  </p>
+                </div>
+
+              </label>
+
+              <label class="flex items-center gap-3 border rounded-lg p-4 cursor-pointer hover:bg-blue-50">
+
+                <input type="radio" name="donationType" value="corporatif" class="w-5 h-5" />
+
+                <div>
+                  <p class="font-medium">
+                    Don corporatif
+                  </p>
+
+                  <p class="text-[14px] text-gray-500">
+                    Contribution financière provenant d'une entreprise ou d'un employeur.
+                  </p>
+                </div>
+
+              </label>
+
+              <label class="flex items-center gap-3 border rounded-lg p-4 cursor-pointer hover:bg-blue-50">
+
+                <input type="radio" name="donationType" value="hommage" class="w-5 h-5" />
+
+                <div>
+                  <p class="font-medium">
+                    Don en hommage
+                  </p>
+
+                  <p class="text-[14px] text-gray-500">
+                    Contribution faite en l'honneur d'une personne vivante.
+                  </p>
+                </div>
+
+              </label>
+
+              <label class="flex items-center gap-3 border rounded-lg p-4 cursor-pointer hover:bg-blue-50">
+
+                <input type="radio" name="donationType" value="commémoratif" class="w-5 h-5" />
+
+                <div>
+                  <p class="font-medium">
+                    Don commémoratif
+                  </p>
+
+                  <p class="text-[14px] text-gray-500">
+                    Contribution faite en mémoire d'un proche disparu.
+                </div>
+
+              </label>
+
             </div>
-            <h2 class="text-white text-[20px] font-medium">Don périodique</h2>
+
+            <div class="flex justify-between mt-6">
+
+              <button type="button" id="back2" class="px-6 py-3 rounded-lg border hover:bg-gray-100">
+                Retour
+              </button>
+
+              <button type="button" id="next2" class="px-6 py-3 rounded-lg bg-blue-600 text-white hover:bg-blue-700">
+                Suivant
+              </button>
+
+            </div>
+
           </div>
-          <div class="flex flex-col justify-between flex-grow">
-            <p class="leading-relaxed text-base text-white">
-              Il s'agit d'un montant prélevé automatiquement par intervalles réguliers, comme chaque mois ou chaque
-              année.
+
+
+          <!-- ===================== -->
+          <!-- ÉTAPE 3 : INFORMATIONS -->
+          <!-- ===================== -->
+
+          <div class="step hidden" data-step="3">
+
+            <h2 class="text-xl font-semibold mb-4">
+              Vos informations
+            </h2>
+
+            <input type="text" id="name" placeholder="Nom complet" class="w-full border rounded-lg p-3" />
+
+            <input type="email" id="email" placeholder="Adresse courriel" class="w-full border rounded-lg p-3 mt-4" />
+
+            <p id="infoError" class="text-red-500 text-sm mt-2 hidden">
+              Veuillez remplir tous les champs correctement.
             </p>
-            <div class="flex gap-4 mt-6">
 
-              <a class="inline-flex items-center gap-2 rounded-2xl bg-indigo-600 px-6 py-3 text-[14px] font-medium text-white transition-colors hover:bg-indigo-700 focus-visible:ring-4 focus-visible:ring-indigo-200 focus-visible:outline-none"
-                href="#">
-                <span>Faire un don</span>
+            <div class="flex justify-between mt-6">
 
-                <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-                  stroke-width="1.5" stroke="currentColor" class="size-4 rtl:rotate-180">
-                  <path stroke-linecap="round" stroke-linejoin="round" d="M17.25 8.25 21 12m0 0-3.75 3.75M21 12H3" />
-                </svg>
-              </a>
+              <button type="button" id="back3" class="px-6 py-3 rounded-lg border hover:bg-gray-100">
+                Retour
+              </button>
+
+              <button type="button" id="next3" class="px-6 py-3 rounded-lg bg-blue-600 text-white hover:bg-blue-700">
+                Suivant
+              </button>
+
             </div>
-          </div>
-        </div>
-      </div>
 
-      <div class="p-4 max-w-sm">
-        <div class="flex rounded-lg h-full bg-black p-8 flex-col">
-          <div class="flex items-center mb-3">
-            <div
-              class="w-10 h-10 mr-3 inline-flex items-center justify-center rounded-full bg-indigo-500 text-white flex-shrink-0">
-              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.1"
-                stroke="currentColor" class="size-6">
-                <path stroke-linecap="round" stroke-linejoin="round"
-                  d="M19.5 14.25v-2.625a3.375 3.375 0 0 0-3.375-3.375h-1.5A1.125 1.125 0 0 1 13.5 7.125v-1.5a3.375 3.375 0 0 0-3.375-3.375H8.25m0 12.75h7.5m-7.5 3H12M10.5 2.25H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 0 0-9-9Z" />
-              </svg>
+          </div>
+
+
+          <!-- ===================== -->
+          <!-- ÉTAPE 4 : PRÉFÉRENCES -->
+          <!-- ===================== -->
+
+          <div class="step hidden" data-step="4">
+
+            <h2 class="text-xl font-semibold mb-4">
+              Préférences
+            </h2>
+
+            <label class="flex items-center gap-3 mb-5">
+
+              <input type="checkbox" id="receipt" class="w-5 h-5" />
+
+              <span>
+                Je souhaite recevoir un reçu par courriel.
+              </span>
+
+            </label>
+
+            <label class="block">
+
+              <span class="text-sm font-medium text-gray-700">
+                Message (facultatif)
+              </span>
+
+              <textarea id="message" rows="4" placeholder="Écrivez un message..."
+                class="mt-2 w-full border rounded-lg p-3">
+          </textarea>
+
+            </label>
+
+            <div class="flex justify-between mt-6">
+
+              <button type="button" id="back4" class="px-6 py-3 rounded-lg border hover:bg-gray-100">
+                Retour
+              </button>
+
+              <button type="button" id="next4" class="px-6 py-3 rounded-lg bg-blue-600 text-white hover:bg-blue-700">
+                Suivant
+              </button>
+
             </div>
-            <h2 class="text-white text-[20px] font-medium">Don planifié</h2>
+
           </div>
-          <div class="flex flex-col justify-between flex-grow">
-            <p class="leading-relaxed text-base text-white">
-              Il s'agit d'une contribution prévue dans un testament ou un instrument financier, comme une assurance-vie
-              ou une fiducie.
-            </p>
-            <div class="flex gap-4 mt-6">
 
-              <a class="inline-flex items-center gap-2 rounded-2xl bg-indigo-600 px-6 py-3 text-[14px] font-medium text-white transition-colors hover:bg-indigo-700 focus-visible:ring-4 focus-visible:ring-indigo-200 focus-visible:outline-none"
-                href="#">
-                <span>Faire un don</span>
 
-                <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-                  stroke-width="1.5" stroke="currentColor" class="size-4 rtl:rotate-180">
-                  <path stroke-linecap="round" stroke-linejoin="round" d="M17.25 8.25 21 12m0 0-3.75 3.75M21 12H3" />
-                </svg>
-              </a>
+          <!-- ===================== -->
+          <!-- ÉTAPE 5 : CONFIRMATION -->
+          <!-- ===================== -->
+
+          <div class="step hidden" data-step="5">
+
+            <h2 class="text-xl font-semibold mb-4">
+              Confirmation
+            </h2>
+
+            <div class="bg-gray-50 rounded-lg p-5 space-y-3">
+
+              <p class="text-gray-700">
+                Montant :
+                <span id="confirmAmount" class="font-bold"></span>
+              </p>
+
+              <p class="text-gray-700">
+                Type de don :
+                <span id="confirmType" class="font-bold"></span>
+              </p>
+
+              <p class="text-gray-700">
+                Nom :
+                <span id="confirmName" class="font-bold"></span>
+              </p>
+
+              <p class="text-gray-700">
+                Courriel :
+                <span id="confirmEmail" class="font-bold"></span>
+              </p>
+
+              <p class="text-gray-700">
+                Reçu :
+                <span id="confirmReceipt" class="font-bold"></span>
+              </p>
+
+              <p class="text-gray-700">
+                Message :
+                <span id="confirmMessage" class="font-bold"></span>
+              </p>
+
             </div>
-          </div>
-        </div>
-      </div>
-      <div class="p-4 max-w-sm">
-        <div class="flex rounded-lg h-full bg-black p-8 flex-col">
-          <div class="flex items-center mb-3">
-            <div
-              class="w-10 h-10 mr-3 inline-flex items-center justify-center rounded-full bg-indigo-500 text-white flex-shrink-0">
-              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
-                stroke="currentColor" class="size-6">
-                <path stroke-linecap="round" stroke-linejoin="round"
-                  d="M12 6v12m-3-2.818.879.659c1.171.879 3.07.879 4.242 0 1.172-.879 1.172-2.303 0-3.182C13.536 12.219 12.768 12 12 12c-.725 0-1.45-.22-2.003-.659-1.106-.879-1.106-2.303 0-3.182s2.9-.879 4.006 0l.415.33M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
-              </svg>
-            </div>
-            <h2 class="text-white text-[20px] font-medium">Don commémoratif</h2>
-          </div>
-          <div class="flex flex-col justify-between flex-grow">
-            <p class="leading-relaxed text-base text-white">
-              Il s'agit d'une contribution offerte en mémoire d'un proche disparu.
-            </p>
-            <div class="flex gap-4 mt-6">
 
-              <a class="inline-flex items-center gap-2 rounded-2xl bg-indigo-600 px-6 py-3 text-[14px] font-medium text-white transition-colors hover:bg-indigo-700 focus-visible:ring-4 focus-visible:ring-indigo-200 focus-visible:outline-none"
-                href="#">
-                <span>Faire un don</span>
+            <div class="flex justify-between mt-6">
 
-                <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-                  stroke-width="1.5" stroke="currentColor" class="size-4 rtl:rotate-180">
-                  <path stroke-linecap="round" stroke-linejoin="round" d="M17.25 8.25 21 12m0 0-3.75 3.75M21 12H3" />
-                </svg>
-              </a>
+              <button type="button" id="back5" class="px-6 py-3 rounded-lg border hover:bg-gray-100">
+                Retour
+              </button>
+
+              <button type="submit" class="px-6 py-3 rounded-lg bg-green-600 text-white hover:bg-green-700">
+                Confirmer le don
+              </button>
+
             </div>
+
           </div>
-        </div>
-      </div>
+
+        </form>
+
+      </section>
+
     </div>
   </main>
 

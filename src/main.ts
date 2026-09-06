@@ -25,227 +25,549 @@ if (header) {
   });
 }
 
-document.addEventListener('DOMContentLoaded', (): void => {
-  let currentStep: number = 1;
-  const totalSteps: number = 6;
+// ==========================================
+// FORMULAIRE DE DON - MAIN.TS
+// ==========================================
 
-  // Sélection des éléments avec typage strict
-  const formSteps = document.querySelectorAll<HTMLDivElement>('.form-step');
-  const stepIndicators = document.querySelectorAll<HTMLLIElement>('.step-indicator');
-  const prevBtn = document.getElementById('prev-btn') as HTMLButtonElement | null;
-  const nextBtn = document.getElementById('next-btn') as HTMLButtonElement | null;
+// Formulaire
+const form = document.querySelector<HTMLFormElement>("#donationForm");
 
-  function updateForm(): void {
-    // 1. Gérer l'affichage des sections du formulaire (Masquer/Afficher)
-    formSteps.forEach((step: HTMLDivElement) => {
-      const stepNum: number = parseInt(step.dataset.step || '0', 10);
-      if (stepNum === currentStep) {
-        step.classList.remove('hidden');
-      } else {
-        step.classList.add('hidden');
-      }
-    });
+// Étapes
+const steps = document.querySelectorAll<HTMLElement>(".step");
+const stepperItems =
+  document.querySelectorAll<HTMLButtonElement>(".stepper-item");
 
-    if (prevBtn) {
-      if (currentStep === 1) {
-        prevBtn.classList.add('invisible');
-      } else {
-        prevBtn.classList.remove('invisible');
-      }
-    }
+// Boutons montant
+const amountButtons =
+  document.querySelectorAll<HTMLButtonElement>(".amount-btn");
 
-    if (nextBtn) {
-      if (currentStep === totalSteps) {
-        nextBtn.textContent = 'Soumettre';
-        
-        const firstname = (document.getElementById('firstname') as HTMLInputElement | null)?.value || '';
-        const lastname = (document.getElementById('lastname') as HTMLInputElement | null)?.value || '';
-        const email = (document.getElementById('email') as HTMLInputElement | null)?.value || '-';
-        
-        const summaryNameOpt = document.getElementById('summary-name') as HTMLSpanElement | null;
-        const summaryEmailOpt = document.getElementById('summary-email') as HTMLSpanElement | null;
-        
-        if (summaryNameOpt) summaryNameOpt.textContent = `${firstname} ${lastname}`.trim() || '-';
-        if (summaryEmailOpt) summaryEmailOpt.textContent = email;
-      } else {
-        nextBtn.textContent = 'Continuer';
-      }
-    }
+const customAmount =
+  document.querySelector<HTMLInputElement>("#customAmount");
 
-    // 4. Mettre à jour les styles et états du Stepper à gauche
-    stepIndicators.forEach((indicator: HTMLLIElement) => {
-      const stepNum: number = parseInt(indicator.dataset.step || '0', 10);
-      const icon = indicator.querySelector<HTMLSpanElement>('.step-icon');
-      const line = indicator.querySelector<HTMLDivElement>('.step-line');
-      const labelNum = indicator.querySelector<HTMLSpanElement>('.step-label-num');
-      const labelTitle = indicator.querySelector<HTMLSpanElement>('.step-label-title');
+// Boutons navigation
+const next1 = document.querySelector<HTMLButtonElement>("#next1");
+const next2 = document.querySelector<HTMLButtonElement>("#next2");
+const next3 = document.querySelector<HTMLButtonElement>("#next3");
+const next4 = document.querySelector<HTMLButtonElement>("#next4");
 
-      if (!icon || !labelNum || !labelTitle) return;
+const back2 = document.querySelector<HTMLButtonElement>("#back2");
+const back3 = document.querySelector<HTMLButtonElement>("#back3");
+const back4 = document.querySelector<HTMLButtonElement>("#back4");
+const back5 = document.querySelector<HTMLButtonElement>("#back5");
 
-      icon.className = "step-icon relative flex h-8 w-8 items-center justify-center rounded-full border-2 border-gray-300 bg-white text-sm font-semibold text-gray-500 transition-all duration-200";
-      if (line) line.className = "step-line absolute top-4 left-4 -ml-px mt-0.5 h-full w-0.5 bg-gray-300";
-      labelNum.className = "step-label-num text-sm font-medium text-gray-500";
-      labelTitle.className = "step-label-title text-sm font-medium text-gray-500";
-      icon.innerHTML = stepNum < 10 ? `0${stepNum}` : stepNum.toString();
+// Champs
+const nameInput =
+  document.querySelector<HTMLInputElement>("#name");
 
-      if (stepNum < currentStep) {
-        icon.className = "step-icon relative flex h-8 w-8 items-center justify-center rounded-full bg-green-500 text-white transition-all duration-200";
-        if (line) line.className = "step-line absolute top-4 left-4 -ml-px mt-0.5 h-full w-0.5 bg-green-500";
-        labelNum.className = "step-label-num text-sm font-medium text-green-500";
-        icon.innerHTML = `<svg class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M16.704 4.153a.75.75 0 01.143 1.052l-8 10.5a.75.75 0 01-1.127.075l-4.5-4.5a.75.75 0 011.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 011.05-.143z" clip-rule="evenodd" /></svg>`;
-      } else if (stepNum === currentStep) {
-        icon.className = "step-icon relative flex h-8 w-8 items-center justify-center rounded-full border-2 border-blue-600 bg-white text-sm font-semibold text-blue-600 transition-all duration-200";
-        if (line) line.className = "step-line absolute top-4 left-4 -ml-px mt-0.5 h-full w-0.5 bg-gray-300";
-        labelNum.className = "step-label-num text-sm font-medium text-blue-600";
-        labelTitle.className = "step-label-title text-sm font-medium text-gray-900";
-      }
-    });
-  }
+const emailInput =
+  document.querySelector<HTMLInputElement>("#email");
 
-  function validateCurrentStep(): boolean {
-    const activeStepContainer = document.querySelector<HTMLDivElement>(`.form-step[data-step="${currentStep}"]`);
-    if (!activeStepContainer) return true;
+const receiptInput =
+  document.querySelector<HTMLInputElement>("#receipt");
 
-    const inputs = activeStepContainer.querySelectorAll<HTMLInputElement>('input[required]');
-    let allValid: boolean = true;
+const messageInput =
+  document.querySelector<HTMLTextAreaElement>("#message");
 
-    inputs.forEach((input: HTMLInputElement) => {
-      if (!input.checkValidity()) {
-        input.reportValidity();
-        allValid = false;
-      }
-    });
-    return allValid;
-  }
+// Messages d'erreur
+const amountError =
+  document.querySelector<HTMLParagraphElement>("#amountError");
 
-  // Événement clic sur "Continuer / Soumettre"
-  nextBtn?.addEventListener('click', (): void => {
-    if (!validateCurrentStep()) return;
+const infoError =
+  document.querySelector<HTMLParagraphElement>("#infoError");
 
-    if (currentStep < totalSteps) {
-      currentStep++;
-      updateForm();
-    } else {
-      alert('Formulaire soumis avec succès!');
-      const form = document.getElementById('multi-step-form') as HTMLFormElement | null;
-      if (form) form.reset();
-      currentStep = 1;
-      updateForm();
-    }
-  });
+// Confirmation
+const confirmAmount =
+  document.querySelector<HTMLSpanElement>("#confirmAmount");
 
-  // Événement clic sur "Précédent"
-  prevBtn?.addEventListener('click', (): void => {
-    if (currentStep > 1) {
-      currentStep--;
-      updateForm();
-    }
-  });
+const confirmType =
+  document.querySelector<HTMLSpanElement>("#confirmType");
 
-  // Initialisation au chargement de la page
-  updateForm();
-});
+const confirmName =
+  document.querySelector<HTMLSpanElement>("#confirmName");
+
+const confirmEmail =
+  document.querySelector<HTMLSpanElement>("#confirmEmail");
+
+const confirmReceipt =
+  document.querySelector<HTMLSpanElement>("#confirmReceipt");
+
+const confirmMessage =
+  document.querySelector<HTMLSpanElement>("#confirmMessage");
 
 
-const paymentButtons = document.querySelectorAll(".payment-option");
-const paymentFields = document.getElementById("paymentFields") as HTMLDivElement;
+// ==========================================
+// VARIABLES
+// ==========================================
 
-const creditFields = document.getElementById("creditFields") as HTMLDivElement;
-const interacFields = document.getElementById("interacFields") as HTMLDivElement;
-
-let selectedMethod: string | null = null;
-
-// Sélection visuelle + affichage des champs
-paymentButtons.forEach(btn => {
-  btn.addEventListener("click", () => {
-    selectedMethod = btn.getAttribute("data-method");
-
-    // Style actif
-    paymentButtons.forEach(b => b.classList.remove("border-blue-500", "bg-blue-50"));
-    btn.classList.add("border-blue-500", "bg-blue-50");
-
-    // Affichage des champs
-    paymentFields.classList.remove("hidden");
-    creditFields.classList.add("hidden");
-    interacFields.classList.add("hidden");
-
-    if (selectedMethod === "credit") creditFields.classList.remove("hidden");
-    if (selectedMethod === "interac") interacFields.classList.remove("hidden");
-  });
-});
-
-// Validation
-export function validatePayment(): string | null {
-  if (!selectedMethod) return "Veuillez choisir un mode de paiement.";
-
-  if (selectedMethod === "credit") {
-    const name = (document.getElementById("cardName") as HTMLInputElement).value;
-    const num = (document.getElementById("cardNumber") as HTMLInputElement).value;
-    const exp = (document.getElementById("cardExp") as HTMLInputElement).value;
-    const cvv = (document.getElementById("cardCVV") as HTMLInputElement).value;
-
-    if (!name || !num || !exp || !cvv)
-      return "Veuillez remplir tous les champs de la carte de crédit.";
-  }
-
-  if (selectedMethod === "interac") {
-    const email = (document.getElementById("interacEmail") as HTMLInputElement).value;
-    if (!email.includes("@"))
-      return "Veuillez entrer un courriel Interac valide.";
-  }
-
-  return null;
-}
-
-
-// ---------------------------------------------------------
-// 3) SYSTÈME DE STEPS + NAVIGATION + REDIRECTION FINALE
-// ---------------------------------------------------------
-
-const nextBtn = document.getElementById("next-btn") as HTMLButtonElement;
-const prevBtn = document.getElementById("prev-btn") as HTMLButtonElement;
-
-const steps = document.querySelectorAll(".step");
 let currentStep = 1;
+let selectedAmount = 0;
 
-// 👉 Tu veux que la redirection soit à l'étape 6
-const FINAL_STEP = 6;
 
-// Affichage des steps
-function showStep(step: number) {
-  steps.forEach((s, i) => {
-    s.classList.toggle("hidden", i + 1 !== step);
+// ==========================================
+// AFFICHER UNE ÉTAPE
+// ==========================================
+
+function showStep(stepNumber: number): void {
+
+  currentStep = stepNumber;
+
+  // Afficher la bonne étape
+  steps.forEach((step) => {
+
+    const stepValue = Number(step.dataset.step);
+
+    if (stepValue === stepNumber) {
+      step.classList.remove("hidden");
+    } else {
+      step.classList.add("hidden");
+    }
+
   });
+
+
+  // Mettre à jour le stepper
+  stepperItems.forEach((item) => {
+
+    const stepValue = Number(item.dataset.step);
+
+    const circle =
+      item.querySelector<HTMLDivElement>(".step-circle");
+
+    const text =
+      item.querySelector<HTMLSpanElement>("span");
+
+    if (!circle || !text) return;
+
+
+    // Étape actuelle
+    if (stepValue === stepNumber) {
+
+      circle.classList.remove(
+        "bg-gray-300",
+        "bg-green-600",
+        "text-gray-600"
+      );
+
+      circle.classList.add(
+        "bg-blue-600",
+        "text-white"
+      );
+
+      text.classList.remove("text-gray-500");
+      text.classList.add("text-gray-900");
+    }
+
+
+    // Étape terminée
+    else if (stepValue < stepNumber) {
+
+      circle.classList.remove(
+        "bg-gray-300",
+        "bg-blue-600",
+        "text-gray-600"
+      );
+
+      circle.classList.add(
+        "bg-green-600",
+        "text-white"
+      );
+
+      text.classList.remove("text-gray-500");
+      text.classList.add("text-gray-900");
+    }
+
+
+    // Étape à venir
+    else {
+
+      circle.classList.remove(
+        "bg-blue-600",
+        "bg-green-600",
+        "text-white"
+      );
+
+      circle.classList.add(
+        "bg-gray-300",
+        "text-gray-600"
+      );
+
+      text.classList.remove("text-gray-900");
+      text.classList.add("text-gray-500");
+    }
+
+  });
+
 }
 
-// Bouton Continuer
-nextBtn.addEventListener("click", () => {
-  if (currentStep < FINAL_STEP) {
-    currentStep++;
-    showStep(currentStep);
 
-    prevBtn.classList.remove("invisible");
+// ==========================================
+// ÉTAPE 1 - MONTANT
+// ==========================================
 
-    // Si on arrive à l'étape 6 → changer le texte
-    if (currentStep === FINAL_STEP) {
-      nextBtn.textContent = "Terminer";
+amountButtons.forEach((button) => {
+
+  button.addEventListener("click", () => {
+
+    const value = Number(button.dataset.value);
+
+    selectedAmount = value;
+
+    // Effacer le montant personnalisé
+    if (customAmount) {
+      customAmount.value = "";
     }
-  } else {
-    // 👉 Redirection uniquement à l'étape 6
-    window.location.href = "index.php"; 
-  }
+
+
+    // Réinitialiser les boutons
+    amountButtons.forEach((btn) => {
+
+      btn.classList.remove(
+        "bg-blue-600",
+        "text-white",
+        "border-blue-600"
+      );
+
+      btn.classList.add("border-gray-300");
+
+    });
+
+
+    // Activer le bouton sélectionné
+    button.classList.remove("border-gray-300");
+
+    button.classList.add(
+      "bg-blue-600",
+      "text-white",
+      "border-blue-600"
+    );
+
+
+    // Cacher l'erreur
+    amountError?.classList.add("hidden");
+
+  });
+
 });
 
-// Bouton Précédent
-prevBtn.addEventListener("click", () => {
-  if (currentStep > 1) {
-    currentStep--;
-    showStep(currentStep);
 
-    nextBtn.textContent = "Continuer";
+// Montant personnalisé
+customAmount?.addEventListener("input", () => {
 
-    if (currentStep === 1) {
-      prevBtn.classList.add("invisible");
-    }
+  const value = Number(customAmount.value);
+
+  if (value > 0) {
+
+    selectedAmount = value;
+
+    // Désélectionner les boutons
+    amountButtons.forEach((button) => {
+
+      button.classList.remove(
+        "bg-blue-600",
+        "text-white",
+        "border-blue-600"
+      );
+
+      button.classList.add("border-gray-300");
+
+    });
+
+    amountError?.classList.add("hidden");
+
   }
+
 });
+
+
+// ==========================================
+// BOUTON SUIVANT - ÉTAPE 1
+// ==========================================
+
+next1?.addEventListener("click", () => {
+
+  if (selectedAmount <= 0) {
+
+    amountError?.classList.remove("hidden");
+
+    return;
+  }
+
+  amountError?.classList.add("hidden");
+
+  showStep(2);
+
+});
+
+
+// ==========================================
+// ÉTAPE 2 - TYPE DE DON
+// ==========================================
+
+next2?.addEventListener("click", () => {
+
+  showStep(3);
+
+});
+
+
+// Retour à l'étape 1
+back2?.addEventListener("click", () => {
+
+  showStep(1);
+
+});
+
+
+// ==========================================
+// ÉTAPE 3 - INFORMATIONS
+// ==========================================
+
+next3?.addEventListener("click", () => {
+
+  const name = nameInput?.value.trim() ?? "";
+  const email = emailInput?.value.trim() ?? "";
+
+
+  // Vérification du nom
+  if (name.length < 2) {
+
+    infoError?.classList.remove("hidden");
+
+    return;
+  }
+
+
+  // Vérification du courriel
+  if (!email.includes("@") || !email.includes(".")) {
+
+    infoError?.classList.remove("hidden");
+
+    return;
+  }
+
+
+  // Tout est valide
+  infoError?.classList.add("hidden");
+
+  showStep(4);
+
+});
+
+
+// Retour à l'étape 2
+back3?.addEventListener("click", () => {
+
+  showStep(2);
+
+});
+
+
+// ==========================================
+// ÉTAPE 4 - PRÉFÉRENCES
+// ==========================================
+
+next4?.addEventListener("click", () => {
+
+  updateConfirmation();
+
+  showStep(5);
+
+});
+
+
+// Retour à l'étape 3
+back4?.addEventListener("click", () => {
+
+  showStep(3);
+
+});
+
+
+// ==========================================
+// METTRE À JOUR LA CONFIRMATION
+// ==========================================
+
+function updateConfirmation(): void {
+
+  // Montant
+  if (confirmAmount) {
+
+    confirmAmount.textContent =
+      `${selectedAmount.toFixed(2)} $`;
+
+  }
+
+
+  // Type de don
+  const selectedType =
+    document.querySelector<HTMLInputElement>(
+      'input[name="donationType"]:checked'
+    );
+
+  if (confirmType) {
+
+    if (selectedType?.value === "periodique") {
+
+      confirmType.textContent = "Don périodique";
+
+    } else {
+
+      confirmType.textContent = "Don unique";
+
+    }
+
+    if (selectedType?.value === "corporatif") {
+
+      confirmType.textContent = "Don corporatif";
+
+    } else {
+
+      confirmType.textContent = "Don unique";
+
+    }
+
+    if (selectedType?.value === "hommage") {
+
+      confirmType.textContent = "Don en hommage";
+
+    } else {
+
+      confirmType.textContent = "Don unique";
+
+    }
+
+    if (selectedType?.value === "commemoratif") {
+
+      confirmType.textContent = "Don commémoratif";
+
+    } else {
+
+      confirmType.textContent = "Don unique";
+
+    }
+
+  }
+
+
+  // Nom
+  if (confirmName) {
+
+    confirmName.textContent =
+      nameInput?.value.trim() ?? "";
+
+  }
+
+
+  // Courriel
+  if (confirmEmail) {
+
+    confirmEmail.textContent =
+      emailInput?.value.trim() ?? "";
+
+  }
+
+
+  // Reçu
+  if (confirmReceipt) {
+
+    confirmReceipt.textContent =
+      receiptInput?.checked
+        ? "Oui"
+        : "Non";
+
+  }
+
+
+  // Message
+  if (confirmMessage) {
+
+    const message =
+      messageInput?.value.trim() ?? "";
+
+    confirmMessage.textContent =
+      message !== ""
+        ? message
+        : "Aucun message";
+
+  }
+
+}
+
+
+// ==========================================
+// RETOUR À L'ÉTAPE 4
+// ==========================================
+
+back5?.addEventListener("click", () => {
+
+  showStep(4);
+
+});
+
+
+// ==========================================
+// SOUMISSION DU FORMULAIRE
+// ==========================================
+
+form?.addEventListener("submit", (event) => {
+
+  event.preventDefault();
+
+  alert(
+    "Merci ! Votre don a été confirmé."
+  );
+
+  // Réinitialiser le formulaire
+  form.reset();
+
+  selectedAmount = 0;
+
+  // Réinitialiser l'apparence des boutons
+  amountButtons.forEach((button) => {
+
+    button.classList.remove(
+      "bg-blue-600",
+      "text-white",
+      "border-blue-600"
+    );
+
+    button.classList.add("border-gray-300");
+
+  });
+
+  // Retour à la première étape
+  showStep(1);
+
+});
+
+
+// ==========================================
+// STEPPER CLIQUABLE
+// ==========================================
+
+stepperItems.forEach((item) => {
+
+  item.addEventListener("click", () => {
+
+    const requestedStep =
+      Number(item.dataset.step);
+
+
+    // On permet seulement de revenir
+    // aux étapes déjà complétées
+    if (requestedStep < currentStep) {
+
+      showStep(requestedStep);
+
+    }
+
+  });
+
+});
+
+
+// ==========================================
+// INITIALISATION
+// ==========================================
+
+showStep(1);
