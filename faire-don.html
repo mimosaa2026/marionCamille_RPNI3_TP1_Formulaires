@@ -122,7 +122,7 @@
               <button type="button" class="stepper-item flex items-center space-x-4 w-full text-left" data-step="1">
 
                 <div
-                  class="step-circle w-10 h-10 rounded-full bg-gray-300 text-gray-600 flex items-center justify-center font-semibold">
+                  class="step-circle w-10 h-10 rounded-full bg-gray-300 text-gray-600 flex items-center justify-center font-semibold cursor-pointer">
                   1
                 </div>
 
@@ -138,7 +138,7 @@
               <button type="button" class="stepper-item flex items-center space-x-4 w-full text-left" data-step="2">
 
                 <div
-                  class="step-circle w-10 h-10 rounded-full bg-blue-600 text-white flex items-center justify-center font-semibold">
+                  class="step-circle w-10 h-10 rounded-full bg-blue-600 text-white flex items-center justify-center font-semibold cursor-pointer">
                   2
                 </div>
 
@@ -153,7 +153,7 @@
               <button type="button" class="stepper-item flex items-center space-x-4 w-full text-left" data-step="3">
 
                 <div
-                  class="step-circle w-10 h-10 rounded-full bg-gray-300 text-gray-600 flex items-center justify-center font-semibold">
+                  class="step-circle w-10 h-10 rounded-full bg-gray-300 text-gray-600 flex items-center justify-center font-semibold cursor-pointer">
                   3
                 </div>
 
@@ -168,7 +168,7 @@
               <button type="button" class="stepper-item flex items-center space-x-4 w-full text-left" data-step="4">
 
                 <div
-                  class="step-circle w-10 h-10 rounded-full bg-gray-300 text-gray-600 flex items-center justify-center font-semibold">
+                  class="step-circle w-10 h-10 rounded-full bg-gray-300 text-gray-600 flex items-center justify-center font-semibold cursor-pointer">
                   4
                 </div>
 
@@ -183,7 +183,7 @@
               <button type="button" class="stepper-item flex items-center space-x-4 w-full text-left" data-step="5">
 
                 <div
-                  class="step-circle w-10 h-10 rounded-full bg-gray-300 text-gray-600 flex items-center justify-center font-semibold">
+                  class="step-circle w-10 h-10 rounded-full bg-gray-300 text-gray-600 flex items-center justify-center font-semibold cursor-pointer">
                   5
                 </div>
 
@@ -400,16 +400,6 @@
               Préférences
             </h2>
 
-            <label class="flex items-center gap-3 mb-5">
-
-              <input type="checkbox" id="receipt" class="w-5 h-5" />
-
-              <span>
-                Je souhaite recevoir un reçu par courriel.
-              </span>
-
-            </label>
-
             <label class="block">
 
               <span class="text-sm font-medium text-gray-700">
@@ -469,10 +459,6 @@
                 <span id="confirmEmail" class="font-bold"></span>
               </p>
 
-              <p class="text-gray-700">
-                Reçu :
-                <span id="confirmReceipt" class="font-bold"></span>
-              </p>
 
               <p class="text-gray-700">
                 Message :
@@ -620,6 +606,7 @@
     </div>
   </footer>
   <script type="module" src="/src/main.ts"></script>
+  <script src="validation.js"></script>
 </body>
 
 </html>
