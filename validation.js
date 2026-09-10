@@ -43,7 +43,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
         circles.forEach((circle) => {
             circle.classList.remove("bg-blue-600", "text-white");
-            circle.classList.add("bg-gray-300", "text-gray-600");
+            circle.classList.add("bg-gray-300", "text-white");
         });
 
         const activeCircle = document.querySelector(`.stepper-item[data-step="${stepNumber}"] .step-circle`);
