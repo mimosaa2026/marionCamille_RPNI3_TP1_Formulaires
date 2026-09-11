@@ -1,169 +1,231 @@
-document.addEventListener("DOMContentLoaded", () => {
+// -----------------------------
+// Données (copie de ton JSON)
+// -----------------------------
+const data = {
+  pays: [
+    { name: "Canada", code: "CA" },
+    { name: "United States of America (the)", code: "US" },
+    // ajoute les autres si tu veux, mais pour la validation ça suffit
+  ],
+  provinces: [
+    { name: "Alberta", code: "AB" },
+    { name: "Quebec", code: "QC" },
+    // ...
+  ],
+  etats: [
+    { name: "Alabama", code: "AL" },
+    { name: "California", code: "CA" },
+    // ...
+  ]
+};
 
-    // ============================
-    // Sélecteurs principaux
-    // ============================
+// -----------------------------
+// Utilitaires erreurs
+// -----------------------------
+function showError(input, message) {
+  clearError(input);
 
-    const steps = document.querySelectorAll(".step");
-    const stepperItems = document.querySelectorAll(".stepper-item");
-    const circles = document.querySelectorAll(".step-circle");
+  const error = document.createElement("p");
+  error.className = "text-red-600 text-sm mt-1";
+  error.textContent = message;
 
-    const amountButtons = document.querySelectorAll(".amount-btn");
-    const customAmount = document.getElementById("customAmount");
-    const amountError = document.getElementById("amountError");
+  input.classList.add("border-red-600");
+  input.insertAdjacentElement("afterend", error);
+}
 
-    const nameField = document.getElementById("name");
-    const emailField = document.getElementById("email");
-    const infoError = document.getElementById("infoError");
+function clearError(input) {
+  input.classList.remove("border-red-600");
 
-    const messageField = document.getElementById("message");
+  const next = input.nextElementSibling;
+  if (next && next.classList.contains("text-red-600")) {
+    next.remove();
+  }
+}
 
-    const confirmAmount = document.getElementById("confirmAmount");
-    const confirmType = document.getElementById("confirmType");
-    const confirmName = document.getElementById("confirmName");
-    const confirmEmail = document.getElementById("confirmEmail");
-    const confirmMessage = document.getElementById("confirmMessage");
+// -----------------------------
+// Validations
+// -----------------------------
+function validateName(input) {
+  const value = input.value.trim();
+  if (value.length < 2) {
+    showError(input, "Nom invalide.");
+    return false;
+  }
+  clearError(input);
+  return true;
+}
 
-    const form = document.getElementById("donationForm");
+function validateEmail(input) {
+  const value = input.value.trim();
+  const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  if (!regex.test(value)) {
+    showError(input, "Courriel invalide.");
+    return false;
+  }
+  clearError(input);
+  return true;
+}
 
-    let selectedAmount = null;
+function validatePhone(input) {
+  const value = input.value.trim();
+  if (value.length < 7) {
+    showError(input, "Téléphone invalide.");
+    return false;
+  }
+  clearError(input);
+  return true;
+}
 
+function validateAmount(amountInput, selectedAmount) {
+  clearError(amountInput);
 
-    // ============================
-    // Gestion du stepper
-    // ============================
+  const custom = amountInput.value.trim();
+  const finalAmount = custom !== "" ? Number(custom) : selectedAmount;
 
-    function goToStep(stepNumber) {
-        steps.forEach((step) => {
-            step.classList.add("hidden");
-        });
+  if (!finalAmount || finalAmount <= 0 || isNaN(finalAmount)) {
+    showError(amountInput, "Veuillez entrer un montant valide.");
+    return false;
+  }
+  return true;
+}
 
-        const activeStep = document.querySelector(`.step[data-step="${stepNumber}"]`);
-        activeStep.classList.remove("hidden");
+function validatePayment(input) {
+  if (!input.value) {
+    showError(input, "Veuillez choisir un mode de paiement.");
+    return false;
+  }
+  clearError(input);
+  return true;
+}
 
-        circles.forEach((circle) => {
-            circle.classList.remove("bg-blue-600", "text-white");
-            circle.classList.add("bg-gray-300", "text-white");
-        });
+function validateCountry(input) {
+  const value = input.value;
+  const exists = data.pays.some(p => p.code === value);
+  if (!exists) {
+    showError(input, "Pays invalide.");
+    return false;
+  }
+  clearError(input);
+  return true;
+}
 
-        const activeCircle = document.querySelector(`.stepper-item[data-step="${stepNumber}"] .step-circle`);
-        if (activeCircle) {
-            activeCircle.classList.add("bg-blue-600", "text-white");
-            activeCircle.classList.remove("bg-gray-300", "text-gray-600");
-        }
+function validateRegion(countryInput, regionInput) {
+  const country = countryInput.value;
+  const region = regionInput.value;
+
+  if (country === "CA") {
+    const exists = data.provinces.some(p => p.code === region);
+    if (!exists) {
+      showError(regionInput, "Province invalide.");
+      return false;
     }
-
-
-    // ============================
-    // Étape 1 : Montant
-    // ============================
-
-    amountButtons.forEach((btn) => {
-        btn.addEventListener("click", () => {
-            selectedAmount = btn.dataset.value;
-            customAmount.value = "";
-            amountError.classList.add("hidden");
-
-            amountButtons.forEach((b) => b.classList.remove("bg-blue-100", "border-blue-600"));
-            btn.classList.add("bg-blue-100", "border-blue-600");
-        });
-    });
-
-    customAmount.addEventListener("input", () => {
-        selectedAmount = customAmount.value;
-        amountButtons.forEach((b) => b.classList.remove("bg-blue-100", "border-blue-600"));
-        amountError.classList.add("hidden");
-    });
-
-    document.getElementById("next1").addEventListener("click", () => {
-        if (!selectedAmount || selectedAmount < 1) {
-            amountError.classList.remove("hidden");
-            return;
-        }
-        goToStep(2);
-    });
-
-
-    // ============================
-    // Étape 2 : Type de don
-    // ============================
-
-    document.getElementById("next2").addEventListener("click", () => {
-        goToStep(3);
-    });
-
-    document.getElementById("back2").addEventListener("click", () => {
-        goToStep(1);
-    });
-
-
-    // ============================
-    // Étape 3 : Informations
-    // ============================
-
-    function validateInfo() {
-        const nameValid = nameField.value.trim().length >= 2;
-        const emailValid = emailField.value.includes("@") && emailField.value.includes(".");
-
-        if (!nameValid || !emailValid) {
-            infoError.classList.remove("hidden");
-            return false;
-        }
-
-        infoError.classList.add("hidden");
-        return true;
+  } else if (country === "US") {
+    const exists = data.etats.some(e => e.code === region);
+    if (!exists) {
+      showError(regionInput, "État invalide.");
+      return false;
     }
+  }
 
-    document.getElementById("next3").addEventListener("click", () => {
-        if (!validateInfo()) return;
-        goToStep(4);
-    });
+  clearError(regionInput);
+  return true;
+}
 
-    document.getElementById("back3").addEventListener("click", () => {
-        goToStep(2);
-    });
+// -----------------------------
+// Intégration avec ton formulaire
+// -----------------------------
+let selectedAmount = null;
 
+// boutons de montant
+document.querySelectorAll(".amount-btn").forEach(btn => {
+  btn.addEventListener("click", () => {
+    selectedAmount = Number(btn.dataset.value);
 
-    // ============================
-    // Étape 4 : Préférences
-    // ============================
-
-    document.getElementById("next4").addEventListener("click", () => {
-        // Remplir la confirmation
-        const donationType = document.querySelector('input[name="donationType"]:checked').value;
-
-        confirmAmount.textContent = selectedAmount + "$";
-        confirmType.textContent = donationType;
-        confirmName.textContent = nameField.value;
-        confirmEmail.textContent = emailField.value;
-        confirmMessage.textContent = messageField.value || "Aucun message";
-
-        goToStep(5);
-    });
-
-    document.getElementById("back4").addEventListener("click", () => {
-        goToStep(3);
-    });
-
-
-    // ============================
-    // Étape 5 : Confirmation
-    // ============================
-
-    document.getElementById("back5").addEventListener("click", () => {
-        goToStep(4);
-    });
-
-
-    // ============================
-    // Soumission finale
-    // ============================
-
-    form.addEventListener("submit", (e) => {
-        if (!selectedAmount || !validateInfo()) {
-            e.preventDefault();
-            alert("Veuillez compléter correctement les étapes.");
-        }
-    });
-
+    document.querySelectorAll(".amount-btn").forEach(b =>
+      b.classList.remove("bg-indigo-600", "text-white")
+    );
+    btn.classList.add("bg-indigo-600", "text-white");
+  });
 });
+
+// navigation stepper
+function goToStep(step) {
+  document.querySelectorAll(".step-content").forEach(section => {
+    const s = Number(section.dataset.step);
+    section.classList.toggle("hidden", s !== step);
+  });
+
+  document.querySelectorAll(".stepper-item").forEach(item => {
+    const itemStep = Number(item.dataset.step);
+    const circle = item.querySelector(".step-circle");
+    const label = item.querySelector("span:last-child");
+
+    if (itemStep === step) {
+      circle.classList.remove("bg-gray-300", "text-gray-600");
+      circle.classList.add("bg-indigo-600", "text-white");
+      label.classList.remove("text-gray-500");
+      label.classList.add("text-gray-900");
+    } else {
+      circle.classList.add("bg-gray-300", "text-gray-600");
+      circle.classList.remove("bg-indigo-600", "text-white");
+      label.classList.add("text-gray-500");
+      label.classList.remove("text-gray-900");
+    }
+  });
+}
+
+document.querySelectorAll(".stepper-item").forEach(btn => {
+  btn.addEventListener("click", () => {
+    const step = Number(btn.dataset.step);
+    goToStep(step);
+  });
+});
+
+// boutons next/back
+document.getElementById("next1")?.addEventListener("click", () => {
+  const amountInput = document.getElementById("customAmount");
+  if (!validateAmount(amountInput, selectedAmount)) return;
+  goToStep(2);
+});
+
+document.getElementById("back1")?.addEventListener("click", () => goToStep(1));
+
+document.getElementById("next2")?.addEventListener("click", () => {
+  const nameInput = document.getElementById("name");
+  const emailInput = document.getElementById("email");
+  const phoneInput = document.getElementById("phone");
+  const countryInput = document.getElementById("country");
+  const regionInput = document.getElementById("region");
+
+  const ok =
+    validateName(nameInput) &&
+    validateEmail(emailInput) &&
+    validatePhone(phoneInput) &&
+    validateCountry(countryInput) &&
+    validateRegion(countryInput, regionInput);
+
+  if (!ok) return;
+  goToStep(3);
+});
+
+document.getElementById("back2")?.addEventListener("click", () => goToStep(2));
+
+// submit
+document.getElementById("donationForm")?.addEventListener("submit", e => {
+  e.preventDefault();
+
+  const paymentInput = document.getElementById("payment");
+  const amountInput = document.getElementById("customAmount");
+
+  const ok =
+    validatePayment(paymentInput) &&
+    validateAmount(amountInput, selectedAmount);
+
+  if (!ok) return;
+
+  // ici tu peux envoyer au backend
+  console.log("Formulaire valide, prêt à être envoyé.");
+});
+
+// étape initiale
+goToStep(1);
