@@ -1,0 +1,15 @@
+{
+  "type_don": {
+    "vide": "Veuillez sélectionner un type de don.",
+    "invalide": "Le type de don sélectionné est invalide."
+  },
+  "montant": {
+    "vide": "Veuillez entrer un montant.",
+    "pattern": "Le montant doit être un nombre valide.",
+    "min": "Le montant doit être supérieur au minimum requis."
+  },
+  "email": {
+    "vide": "Veuillez entrer votre adresse courriel.",
+    "type": "Veuillez entrer une adresse courriel valide."
+  }
+}
