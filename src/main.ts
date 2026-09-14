@@ -25,549 +25,624 @@ if (header) {
   });
 }
 
-// ==========================================
-// FORMULAIRE DE DON - MAIN.TS
-// ==========================================
-
-// Formulaire
 const form = document.querySelector<HTMLFormElement>("#donationForm");
+const steps = document.querySelectorAll<HTMLElement>(".form-step");
 
-// Étapes
-const steps = document.querySelectorAll<HTMLElement>(".step");
-const stepperItems =
-  document.querySelectorAll<HTMLButtonElement>(".stepper-item");
+const nextBtn = document.querySelector<HTMLButtonElement>("#nextBtn");
+const prevBtn = document.querySelector<HTMLButtonElement>("#prevBtn");
+const submitBtn = document.querySelector<HTMLButtonElement>("#submitBtn");
 
-// Boutons montant
-const amountButtons =
-  document.querySelectorAll<HTMLButtonElement>(".amount-btn");
+const successMessage =
+  document.querySelector<HTMLElement>("#successMessage");
 
-const customAmount =
-  document.querySelector<HTMLInputElement>("#customAmount");
-
-// Boutons navigation
-const next1 = document.querySelector<HTMLButtonElement>("#next1");
-const next2 = document.querySelector<HTMLButtonElement>("#next2");
-const next3 = document.querySelector<HTMLButtonElement>("#next3");
-const next4 = document.querySelector<HTMLButtonElement>("#next4");
-
-const back2 = document.querySelector<HTMLButtonElement>("#back2");
-const back3 = document.querySelector<HTMLButtonElement>("#back3");
-const back4 = document.querySelector<HTMLButtonElement>("#back4");
-const back5 = document.querySelector<HTMLButtonElement>("#back5");
-
-// Champs
-const nameInput =
-  document.querySelector<HTMLInputElement>("#name");
-
-const emailInput =
-  document.querySelector<HTMLInputElement>("#email");
-
-const receiptInput =
-  document.querySelector<HTMLInputElement>("#receipt");
-
-const messageInput =
-  document.querySelector<HTMLTextAreaElement>("#message");
-
-// Messages d'erreur
-const amountError =
-  document.querySelector<HTMLParagraphElement>("#amountError");
-
-const infoError =
-  document.querySelector<HTMLParagraphElement>("#infoError");
-
-// Confirmation
-const confirmAmount =
-  document.querySelector<HTMLSpanElement>("#confirmAmount");
-
-const confirmType =
-  document.querySelector<HTMLSpanElement>("#confirmType");
-
-const confirmName =
-  document.querySelector<HTMLSpanElement>("#confirmName");
-
-const confirmEmail =
-  document.querySelector<HTMLSpanElement>("#confirmEmail");
-
-const confirmReceipt =
-  document.querySelector<HTMLSpanElement>("#confirmReceipt");
-
-const confirmMessage =
-  document.querySelector<HTMLSpanElement>("#confirmMessage");
-
-
-// ==========================================
-// VARIABLES
-// ==========================================
+const stepperButtons =
+  document.querySelectorAll<HTMLButtonElement>(".stepper-button");
 
 let currentStep = 1;
-let selectedAmount = 0;
+const totalSteps = steps.length;
 
-
-// ==========================================
+// --------------------------------------------------
 // AFFICHER UNE ÉTAPE
-// ==========================================
+// --------------------------------------------------
 
-function showStep(stepNumber: number): void {
+function showStep(step: number, direction: "next" | "back" = "next"): void {
+  steps.forEach((section) => {
+    const sectionStep = Number(section.dataset.step);
 
-  currentStep = stepNumber;
+    if (sectionStep === step) {
+      section.classList.remove("hidden");
 
-  // Afficher la bonne étape
-  steps.forEach((step) => {
+      // Position de départ de l'animation
+      if (direction === "next") {
+        section.classList.add("opacity-0", "translate-x-4");
+      } else {
+        section.classList.add("opacity-0", "-translate-x-4");
+      }
 
-    const stepValue = Number(step.dataset.step);
+      requestAnimationFrame(() => {
+        section.classList.remove(
+          "opacity-0",
+          "translate-x-4",
+          "-translate-x-4"
+        );
 
-    if (stepValue === stepNumber) {
-      step.classList.remove("hidden");
+        section.classList.add("opacity-100", "translate-x-0");
+      });
     } else {
-      step.classList.add("hidden");
+      section.classList.add("hidden");
+      section.classList.remove(
+        "opacity-100",
+        "opacity-0",
+        "translate-x-4",
+        "-translate-x-4",
+        "translate-x-0"
+      );
     }
-
   });
 
+  updateStepper();
+  updateButtons();
 
-  // Mettre à jour le stepper
-  stepperItems.forEach((item) => {
+  if (step === 5) {
+    updateReview();
+  }
 
-    const stepValue = Number(item.dataset.step);
-
-    const circle =
-      item.querySelector<HTMLDivElement>(".step-circle");
-
-    const text =
-      item.querySelector<HTMLSpanElement>("span");
-
-    if (!circle || !text) return;
-
-
-    // Étape actuelle
-    if (stepValue === stepNumber) {
-
-      circle.classList.remove(
-        "bg-gray-300",
-        "bg-green-600",
-        "text-gray-600"
-      );
-
-      circle.classList.add(
-        "bg-blue-600",
-        "text-white"
-      );
-
-      text.classList.remove("text-gray-500");
-      text.classList.add("text-gray-900");
-    }
-
-
-    // Étape terminée
-    else if (stepValue < stepNumber) {
-
-      circle.classList.remove(
-        "bg-gray-300",
-        "bg-blue-600",
-        "text-gray-600"
-      );
-
-      circle.classList.add(
-        "bg-green-600",
-        "text-white"
-      );
-
-      text.classList.remove("text-gray-500");
-      text.classList.add("text-gray-900");
-    }
-
-
-    // Étape à venir
-    else {
-
-      circle.classList.remove(
-        "bg-blue-600",
-        "bg-green-600",
-        "text-white"
-      );
-
-      circle.classList.add(
-        "bg-gray-300",
-        "text-gray-600"
-      );
-
-      text.classList.remove("text-gray-900");
-      text.classList.add("text-gray-500");
-    }
-
+  window.scrollTo({
+    top: 0,
+    behavior: "smooth",
   });
-
 }
 
+// --------------------------------------------------
+// METTRE À JOUR LE STEPPER
+// --------------------------------------------------
 
-// ==========================================
-// ÉTAPE 1 - MONTANT
-// ==========================================
+function updateStepper(): void {
+  stepperButtons.forEach((button) => {
+    const stepNumber = Number(button.dataset.stepButton);
 
-amountButtons.forEach((button) => {
+    const circle = button.querySelector<HTMLElement>(".step-circle");
+    const label = button.querySelector<HTMLElement>(".step-label");
 
-  button.addEventListener("click", () => {
+    if (!circle || !label) return;
 
-    const value = Number(button.dataset.value);
-
-    selectedAmount = value;
-
-    // Effacer le montant personnalisé
-    if (customAmount) {
-      customAmount.value = "";
-    }
-
-
-    // Réinitialiser les boutons
-    amountButtons.forEach((btn) => {
-
-      btn.classList.remove(
-        "bg-blue-600",
-        "text-white",
-        "border-blue-600"
-      );
-
-      btn.classList.add("border-gray-300");
-
-    });
-
-
-    // Activer le bouton sélectionné
-    button.classList.remove("border-gray-300");
-
-    button.classList.add(
-      "bg-blue-600",
-      "text-white",
-      "border-blue-600"
-    );
-
-
-    // Cacher l'erreur
-    amountError?.classList.add("hidden");
-
-  });
-
-});
-
-
-// Montant personnalisé
-customAmount?.addEventListener("input", () => {
-
-  const value = Number(customAmount.value);
-
-  if (value > 0) {
-
-    selectedAmount = value;
-
-    // Désélectionner les boutons
-    amountButtons.forEach((button) => {
+    // Étape terminée
+    if (stepNumber < currentStep) {
+      button.disabled = false;
 
       button.classList.remove(
-        "bg-blue-600",
-        "text-white",
-        "border-blue-600"
+        "opacity-50",
+        "cursor-not-allowed"
       );
 
-      button.classList.add("border-gray-300");
+      button.classList.add(
+        "cursor-pointer",
+        "hover:translate-x-1"
+      );
 
-    });
+      circle.classList.remove(
+        "bg-slate-200",
+        "text-slate-500",
+        "bg-blue-600",
+        "text-white"
+      );
 
-    amountError?.classList.add("hidden");
+      circle.classList.add(
+        "bg-green-500",
+        "text-white"
+      );
 
-  }
+      circle.innerHTML = "✓";
 
-});
+      label.classList.remove(
+        "text-slate-500",
+        "text-blue-600"
+      );
 
+      label.classList.add("text-green-600");
+    }
 
-// ==========================================
-// BOUTON SUIVANT - ÉTAPE 1
-// ==========================================
+    // Étape actuelle
+    else if (stepNumber === currentStep) {
+      button.disabled = true;
 
-next1?.addEventListener("click", () => {
+      button.classList.remove(
+        "cursor-pointer",
+        "hover:translate-x-1"
+      );
 
-  if (selectedAmount <= 0) {
+      button.classList.add(
+        "opacity-100",
+        "cursor-not-allowed"
+      );
 
-    amountError?.classList.remove("hidden");
+      circle.classList.remove(
+        "bg-slate-200",
+        "text-slate-500",
+        "bg-green-500"
+      );
 
-    return;
-  }
+      circle.classList.add(
+        "bg-blue-600",
+        "text-white"
+      );
 
-  amountError?.classList.add("hidden");
+      circle.innerHTML = String(stepNumber);
 
-  showStep(2);
+      label.classList.remove(
+        "text-slate-500",
+        "text-green-600"
+      );
 
-});
+      label.classList.add("text-blue-600");
+    }
 
+    // Étape future
+    else {
+      button.disabled = true;
 
-// ==========================================
-// ÉTAPE 2 - TYPE DE DON
-// ==========================================
+      button.classList.remove(
+        "cursor-pointer",
+        "hover:translate-x-1"
+      );
 
-next2?.addEventListener("click", () => {
+      button.classList.add(
+        "opacity-50",
+        "cursor-not-allowed"
+      );
 
-  showStep(3);
+      circle.classList.remove(
+        "bg-blue-600",
+        "text-white",
+        "bg-green-500"
+      );
 
-});
+      circle.classList.add(
+        "bg-slate-200",
+        "text-slate-500"
+      );
 
+      circle.innerHTML = String(stepNumber);
 
-// Retour à l'étape 1
-back2?.addEventListener("click", () => {
+      label.classList.remove(
+        "text-blue-600",
+        "text-green-600"
+      );
 
-  showStep(1);
+      label.classList.add("text-slate-500");
+    }
+  });
+}
 
-});
+// --------------------------------------------------
+// BOUTONS SUIVANT / PRÉCÉDENT
+// --------------------------------------------------
 
+function updateButtons(): void {
+  if (!nextBtn || !prevBtn || !submitBtn) return;
 
-// ==========================================
-// ÉTAPE 3 - INFORMATIONS
-// ==========================================
+  prevBtn.classList.toggle("hidden", currentStep === 1);
+  nextBtn.classList.toggle("hidden", currentStep === totalSteps);
+  submitBtn.classList.toggle("hidden", currentStep !== totalSteps);
+}
 
-next3?.addEventListener("click", () => {
+// --------------------------------------------------
+// VALIDATION DE L'ÉTAPE 1
+// --------------------------------------------------
 
-  const name = nameInput?.value.trim() ?? "";
-  const email = emailInput?.value.trim() ?? "";
-
-
-  // Vérification du nom
-  if (name.length < 2) {
-
-    infoError?.classList.remove("hidden");
-
-    return;
-  }
-
-
-  // Vérification du courriel
-  if (!email.includes("@") || !email.includes(".")) {
-
-    infoError?.classList.remove("hidden");
-
-    return;
-  }
-
-
-  // Tout est valide
-  infoError?.classList.add("hidden");
-
-  showStep(4);
-
-});
-
-
-// Retour à l'étape 2
-back3?.addEventListener("click", () => {
-
-  showStep(2);
-
-});
-
-
-// ==========================================
-// ÉTAPE 4 - PRÉFÉRENCES
-// ==========================================
-
-next4?.addEventListener("click", () => {
-
-  updateConfirmation();
-
-  showStep(5);
-
-});
-
-
-// Retour à l'étape 3
-back4?.addEventListener("click", () => {
-
-  showStep(3);
-
-});
-
-
-// ==========================================
-// METTRE À JOUR LA CONFIRMATION
-// ==========================================
-
-function updateConfirmation(): void {
-
-  // Montant
-  if (confirmAmount) {
-
-    confirmAmount.textContent =
-      `${selectedAmount.toFixed(2)} $`;
-
-  }
-
-
-  // Type de don
+function validateStep1(): boolean {
   const selectedType =
     document.querySelector<HTMLInputElement>(
       'input[name="donationType"]:checked'
     );
 
-  if (confirmType) {
+  const error =
+    document.querySelector<HTMLElement>("#donationTypeError");
 
-    if (selectedType?.value === "periodique") {
-
-      confirmType.textContent = "Don périodique";
-
-    } else {
-
-      confirmType.textContent = "Don unique";
-
-    }
-
-    if (selectedType?.value === "corporatif") {
-
-      confirmType.textContent = "Don corporatif";
-
-    } else {
-
-      confirmType.textContent = "Don unique";
-
-    }
-
-    if (selectedType?.value === "hommage") {
-
-      confirmType.textContent = "Don en hommage";
-
-    } else {
-
-      confirmType.textContent = "Don unique";
-
-    }
-
-    if (selectedType?.value === "commemoratif") {
-
-      confirmType.textContent = "Don commémoratif";
-
-    } else {
-
-      confirmType.textContent = "Don unique";
-
-    }
-
+  if (!selectedType) {
+    error?.classList.remove("hidden");
+    return false;
   }
 
+  error?.classList.add("hidden");
 
-  // Nom
-  if (confirmName) {
-
-    confirmName.textContent =
-      nameInput?.value.trim() ?? "";
-
-  }
-
-
-  // Courriel
-  if (confirmEmail) {
-
-    confirmEmail.textContent =
-      emailInput?.value.trim() ?? "";
-
-  }
-
-
-  // Reçu
-  if (confirmReceipt) {
-
-    confirmReceipt.textContent =
-      receiptInput?.checked
-        ? "Oui"
-        : "Non";
-
-  }
-
-
-  // Message
-  if (confirmMessage) {
-
-    const message =
-      messageInput?.value.trim() ?? "";
-
-    confirmMessage.textContent =
-      message !== ""
-        ? message
-        : "Aucun message";
-
-  }
-
+  return true;
 }
 
+// --------------------------------------------------
+// VALIDATION DE L'ÉTAPE 2
+// --------------------------------------------------
 
-// ==========================================
-// RETOUR À L'ÉTAPE 4
-// ==========================================
-
-back5?.addEventListener("click", () => {
-
-  showStep(4);
-
-});
-
-
-// ==========================================
-// SOUMISSION DU FORMULAIRE
-// ==========================================
-
-form?.addEventListener("submit", (event) => {
-
-  event.preventDefault();
-
-  alert(
-    "Merci ! Votre don a été confirmé."
-  );
-
-  // Réinitialiser le formulaire
-  form.reset();
-
-  selectedAmount = 0;
-
-  // Réinitialiser l'apparence des boutons
-  amountButtons.forEach((button) => {
-
-    button.classList.remove(
-      "bg-blue-600",
-      "text-white",
-      "border-blue-600"
+function validateStep2(): boolean {
+  const selectedAmount =
+    document.querySelector<HTMLInputElement>(
+      'input[name="amount"]:checked'
     );
 
-    button.classList.add("border-gray-300");
+  const customAmount =
+    document.querySelector<HTMLInputElement>("#customAmount");
 
-  });
+  const error =
+    document.querySelector<HTMLElement>("#amountError");
 
-  // Retour à la première étape
-  showStep(1);
+  const amountIsValid =
+    selectedAmount !== null ||
+    (customAmount !== null &&
+      customAmount.value.trim() !== "" &&
+      Number(customAmount.value) > 0);
 
-});
+  if (!amountIsValid) {
+    error?.classList.remove("hidden");
+    return false;
+  }
 
+  error?.classList.add("hidden");
 
-// ==========================================
-// STEPPER CLIQUABLE
-// ==========================================
+  return true;
+}
 
-stepperItems.forEach((item) => {
+// --------------------------------------------------
+// VALIDATION DE L'ÉTAPE 3
+// --------------------------------------------------
 
-  item.addEventListener("click", () => {
+function validateStep3(): boolean {
+  const fields = [
+    "firstName",
+    "lastName",
+    "email",
+    "address",
+  ];
 
-    const requestedStep =
-      Number(item.dataset.step);
+  let valid = true;
 
+  fields.forEach((fieldId) => {
+    const field =
+      document.querySelector<HTMLInputElement>(`#${fieldId}`);
 
-    // On permet seulement de revenir
-    // aux étapes déjà complétées
-    if (requestedStep < currentStep) {
+    const error =
+      document.querySelector<HTMLElement>(
+        `#${fieldId}Error`
+      );
 
-      showStep(requestedStep);
+    if (!field || field.value.trim() === "") {
+      error?.classList.remove("hidden");
 
+      field?.classList.add(
+        "border-red-500",
+        "ring-1",
+        "ring-red-500"
+      );
+
+      valid = false;
+    } else {
+      error?.classList.add("hidden");
+
+      field.classList.remove(
+        "border-red-500",
+        "ring-1",
+        "ring-red-500"
+      );
     }
-
   });
 
+  const email =
+    document.querySelector<HTMLInputElement>("#email");
+
+  if (email && email.value.trim() !== "") {
+    const emailRegex =
+      /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+    if (!emailRegex.test(email.value)) {
+      const error =
+        document.querySelector<HTMLElement>("#emailError");
+
+      error?.classList.remove("hidden");
+
+      email.classList.add(
+        "border-red-500",
+        "ring-1",
+        "ring-red-500"
+      );
+
+      valid = false;
+    }
+  }
+
+  return valid;
+}
+
+// --------------------------------------------------
+// VALIDATION DE L'ÉTAPE 4
+// --------------------------------------------------
+
+function validateStep4(): boolean {
+  const paymentMethod =
+    document.querySelector<HTMLSelectElement>(
+      "#paymentMethod"
+    );
+
+  const cardNumber =
+    document.querySelector<HTMLInputElement>(
+      "#cardNumber"
+    );
+
+  const expiry =
+    document.querySelector<HTMLInputElement>("#expiry");
+
+  const cvv =
+    document.querySelector<HTMLInputElement>("#cvv");
+
+  const terms =
+    document.querySelector<HTMLInputElement>("#terms");
+
+  const error =
+    document.querySelector<HTMLElement>("#paymentError");
+
+  if (
+    !paymentMethod ||
+    paymentMethod.value === "" ||
+    !cardNumber ||
+    cardNumber.value.trim() === "" ||
+    !expiry ||
+    expiry.value.trim() === "" ||
+    !cvv ||
+    cvv.value.trim() === "" ||
+    !terms ||
+    !terms.checked
+  ) {
+    error?.classList.remove("hidden");
+    return false;
+  }
+
+  error?.classList.add("hidden");
+
+  return true;
+}
+
+// --------------------------------------------------
+// VALIDATION DE L'ÉTAPE ACTUELLE
+// --------------------------------------------------
+
+function validateCurrentStep(): boolean {
+  switch (currentStep) {
+    case 1:
+      return validateStep1();
+
+    case 2:
+      return validateStep2();
+
+    case 3:
+      return validateStep3();
+
+    case 4:
+      return validateStep4();
+
+    case 5:
+      return true;
+
+    default:
+      return false;
+  }
+}
+
+// --------------------------------------------------
+// RÉCUPÉRER LE MONTANT
+// --------------------------------------------------
+
+function getDonationAmount(): string {
+  const selectedAmount =
+    document.querySelector<HTMLInputElement>(
+      'input[name="amount"]:checked'
+    );
+
+  const customAmount =
+    document.querySelector<HTMLInputElement>(
+      "#customAmount"
+    );
+
+  if (customAmount && customAmount.value.trim() !== "") {
+    return `${customAmount.value} $`;
+  }
+
+  if (selectedAmount) {
+    return `${selectedAmount.value} $`;
+  }
+
+  return "Non sélectionné";
+}
+
+// --------------------------------------------------
+// METTRE À JOUR LA PAGE DE VÉRIFICATION
+// --------------------------------------------------
+
+function updateReview(): void {
+  const donationType =
+    document.querySelector<HTMLInputElement>(
+      'input[name="donationType"]:checked'
+    );
+
+  const firstName =
+    document.querySelector<HTMLInputElement>("#firstName");
+
+  const lastName =
+    document.querySelector<HTMLInputElement>("#lastName");
+
+  const email =
+    document.querySelector<HTMLInputElement>("#email");
+
+  const address =
+    document.querySelector<HTMLInputElement>("#address");
+
+  const paymentMethod =
+    document.querySelector<HTMLSelectElement>(
+      "#paymentMethod"
+    );
+
+  const cardNumber =
+    document.querySelector<HTMLInputElement>(
+      "#cardNumber"
+    );
+
+  const reviewDonationType =
+    document.querySelector<HTMLElement>(
+      "#reviewDonationType"
+    );
+
+  const reviewAmount =
+    document.querySelector<HTMLElement>(
+      "#reviewAmount"
+    );
+
+  const reviewName =
+    document.querySelector<HTMLElement>(
+      "#reviewName"
+    );
+
+  const reviewEmail =
+    document.querySelector<HTMLElement>(
+      "#reviewEmail"
+    );
+
+  const reviewAddress =
+    document.querySelector<HTMLElement>(
+      "#reviewAddress"
+    );
+
+  const reviewPayment =
+    document.querySelector<HTMLElement>(
+      "#reviewPayment"
+    );
+
+  const reviewCard =
+    document.querySelector<HTMLElement>(
+      "#reviewCard"
+    );
+
+  if (reviewDonationType) {
+    reviewDonationType.textContent =
+      donationType?.value ?? "Non sélectionné";
+  }
+
+  if (reviewAmount) {
+    reviewAmount.textContent = getDonationAmount();
+  }
+
+  if (reviewName) {
+    reviewName.textContent =
+      `${firstName?.value ?? ""} ${lastName?.value ?? ""}`;
+  }
+
+  if (reviewEmail) {
+    reviewEmail.textContent =
+      email?.value ?? "";
+  }
+
+  if (reviewAddress) {
+    reviewAddress.textContent =
+      address?.value ?? "";
+  }
+
+  if (reviewPayment) {
+    reviewPayment.textContent =
+      paymentMethod?.value ?? "Non sélectionné";
+  }
+
+  if (reviewCard) {
+    const value = cardNumber?.value ?? "";
+
+    if (value.length >= 4) {
+      reviewCard.textContent =
+        `•••• •••• •••• ${value.slice(-4)}`;
+    } else {
+      reviewCard.textContent =
+        "Non renseignée";
+    }
+  }
+}
+
+// --------------------------------------------------
+// BOUTON SUIVANT
+// --------------------------------------------------
+
+nextBtn?.addEventListener("click", () => {
+  if (!validateCurrentStep()) {
+    return;
+  }
+
+  if (currentStep < totalSteps) {
+    currentStep++;
+
+    showStep(currentStep, "next");
+  }
 });
 
+// --------------------------------------------------
+// BOUTON PRÉCÉDENT
+// --------------------------------------------------
 
-// ==========================================
+prevBtn?.addEventListener("click", () => {
+  if (currentStep > 1) {
+    currentStep--;
+
+    showStep(currentStep, "back");
+  }
+});
+
+// --------------------------------------------------
+// STEPPER : RETOUR AUX ÉTAPES TERMINÉES
+// --------------------------------------------------
+
+stepperButtons.forEach((button) => {
+  button.addEventListener("click", () => {
+    const targetStep =
+      Number(button.dataset.stepButton);
+
+    // Seulement les étapes déjà complétées
+    if (targetStep < currentStep) {
+      currentStep = targetStep;
+
+      showStep(currentStep, "back");
+    }
+  });
+});
+
+// --------------------------------------------------
+// ENVOI DU FORMULAIRE
+// --------------------------------------------------
+
+form?.addEventListener("submit", (event) => {
+  event.preventDefault();
+
+  if (!validateCurrentStep()) {
+    return;
+  }
+
+  if (successMessage) {
+    successMessage.classList.remove("hidden");
+
+    successMessage.classList.add(
+      "opacity-0",
+      "translate-y-2"
+    );
+
+    requestAnimationFrame(() => {
+      successMessage.classList.remove(
+        "opacity-0",
+        "translate-y-2"
+      );
+
+      successMessage.classList.add(
+        "opacity-100",
+        "translate-y-0"
+      );
+    });
+  }
+
+  form.classList.add("hidden");
+});
+
+// --------------------------------------------------
 // INITIALISATION
-// ==========================================
+// --------------------------------------------------
 
 showStep(1);
