@@ -4,8 +4,11 @@ import "/src/css/style.css";
 // MENU MOBILE
 // =====================================================
 
-const mobileMenuBtn = document.getElementById("mobile-menu-btn");
-const mobileMenu = document.getElementById("mobile-menu");
+const mobileMenuBtn =
+  document.getElementById("mobile-menu-btn");
+
+const mobileMenu =
+  document.getElementById("mobile-menu");
 
 if (mobileMenuBtn && mobileMenu) {
   mobileMenuBtn.addEventListener("click", () => {
@@ -13,111 +16,96 @@ if (mobileMenuBtn && mobileMenu) {
   });
 }
 
+
 // =====================================================
 // HEADER - OMBRE AU SCROLL
 // =====================================================
 
-const header = document.querySelector<HTMLElement>("header");
+const header =
+  document.querySelector<HTMLElement>("header");
 
 if (header) {
   window.addEventListener("scroll", () => {
-    header.classList.toggle("shadow-xl", window.scrollY > 100);
+    header.classList.toggle(
+      "shadow-xl",
+      window.scrollY > 100
+    );
   });
 }
 
-// =====================================================
-// MESSAGE DE REMERCIEMENT SUR L'ACCUEIL
-// =====================================================
-
-const thankYouMessage =
-  document.querySelector<HTMLElement>("#thankYouMessage");
-
-const donationSubmitted =
-  sessionStorage.getItem("donSubmitted");
-
-if (donationSubmitted === "true" && thankYouMessage) {
-  thankYouMessage.classList.remove("hidden");
-
-  thankYouMessage.classList.add(
-    "opacity-0",
-    "-translate-y-2"
-  );
-
-  requestAnimationFrame(() => {
-    thankYouMessage.classList.remove(
-      "opacity-0",
-      "-translate-y-2"
-    );
-
-    thankYouMessage.classList.add(
-      "opacity-100",
-      "translate-y-0"
-    );
-  });
-
-  sessionStorage.removeItem("donSubmitted");
-
-  setTimeout(() => {
-    thankYouMessage.classList.add(
-      "opacity-0",
-      "-translate-y-2"
-    );
-
-    setTimeout(() => {
-      thankYouMessage.classList.add("hidden");
-    }, 300);
-  }, 6000);
-}
 
 // =====================================================
 // FORMULAIRE
 // =====================================================
 
 const form =
-  document.querySelector<HTMLFormElement>("#donationForm");
+  document.querySelector<HTMLFormElement>(
+    "#donationForm"
+  );
 
 const steps =
-  document.querySelectorAll<HTMLElement>(".form-step");
+  document.querySelectorAll<HTMLElement>(
+    ".etape-formulaire"
+  );
 
 const nextBtn =
-  document.querySelector<HTMLButtonElement>("#nextBtn");
+  document.querySelector<HTMLButtonElement>(
+    "#nextBtn"
+  );
 
 const prevBtn =
-  document.querySelector<HTMLButtonElement>("#prevBtn");
+  document.querySelector<HTMLButtonElement>(
+    "#prevBtn"
+  );
 
 const submitBtn =
-  document.querySelector<HTMLButtonElement>("#submitBtn");
+  document.querySelector<HTMLButtonElement>(
+    "#submitBtn"
+  );
+
+const successMessage =
+  document.querySelector<HTMLElement>(
+    "#successMessage"
+  );
 
 const stepperButtons =
   document.querySelectorAll<HTMLButtonElement>(
-    ".stepper-button"
+    ".bouton-etape"
   );
 
 let currentStep = 1;
 
 const totalSteps = steps.length;
 
+
 // =====================================================
 // FONCTIONS UTILITAIRES
 // =====================================================
 
-function getInput(id: string): HTMLInputElement | null {
+function getInput(
+  id: string
+): HTMLInputElement | null {
   return document.querySelector<HTMLInputElement>(
     `#${id}`
   );
 }
 
-function getSelect(id: string): HTMLSelectElement | null {
+function getSelect(
+  id: string
+): HTMLSelectElement | null {
   return document.querySelector<HTMLSelectElement>(
     `#${id}`
   );
 }
 
-function getElement(id: string): HTMLElement | null {
+function getElement(
+  id: string
+): HTMLElement | null {
   return document.querySelector<HTMLElement>(
     `#${id}`
   );
 }
+
 
 // =====================================================
 // DATE DE NAISSANCE
@@ -129,6 +117,7 @@ const dobYear = getSelect("dobYear");
 
 const birthdateError =
   getElement("birthdateError");
+
 
 // =====================================================
 // GÉNÉRER LES ANNÉES
@@ -159,6 +148,7 @@ function populateYears(): void {
   }
 }
 
+
 // =====================================================
 // GÉNÉRER LES JOURS
 // =====================================================
@@ -166,8 +156,7 @@ function populateYears(): void {
 function populateDays(): void {
   if (!dobDay) return;
 
-  const previousDay =
-    dobDay.value;
+  const previousDay = dobDay.value;
 
   const month =
     Number(dobMonth?.value);
@@ -237,6 +226,7 @@ dobYear?.addEventListener(
   populateDays
 );
 
+
 // =====================================================
 // ERREURS DATE DE NAISSANCE
 // =====================================================
@@ -278,8 +268,9 @@ function showBirthdateError(
   return false;
 }
 
+
 // =====================================================
-// VALIDATION DATE + 18 ANS
+// VALIDATION DATE DE NAISSANCE
 // =====================================================
 
 function validateBirthdate(): boolean {
@@ -313,12 +304,12 @@ function validateBirthdate(): boolean {
       day
     );
 
-  const validDate =
+  const isValidDate =
     birthdate.getFullYear() === year &&
     birthdate.getMonth() === month - 1 &&
     birthdate.getDate() === day;
 
-  if (!validDate) {
+  if (!isValidDate) {
     return showBirthdateError(
       "Veuillez sélectionner une date valide."
     );
@@ -352,7 +343,7 @@ function validateBirthdate(): boolean {
     (
       monthDifference === 0 &&
       today.getDate() <
-      birthdate.getDate()
+        birthdate.getDate()
     )
   ) {
     age--;
@@ -364,7 +355,9 @@ function validateBirthdate(): boolean {
     );
   }
 
-  birthdateError?.classList.add("hidden");
+  birthdateError?.classList.add(
+    "hidden"
+  );
 
   removeBirthdateErrorStyle();
 
@@ -386,6 +379,7 @@ function validateBirthdate(): boolean {
   }
 );
 
+
 // =====================================================
 // TYPE DE DON
 // =====================================================
@@ -401,35 +395,36 @@ const recurringOptions =
 const memorialOptions =
   getElement("memorialOptions");
 
-const plannedOptions =
-  getElement("plannedOptions");
-
-function updatetypeDonOptions(): void {
+function updateTypeDonOptions(): void {
   const selected =
     document.querySelector<HTMLInputElement>(
       'input[name="typeDon"]:checked'
     );
 
-  recurringOptions?.classList.add("hidden");
-  memorialOptions?.classList.add("hidden");
-  plannedOptions?.classList.add("hidden");
+  recurringOptions?.classList.add(
+    "hidden"
+  );
+
+  memorialOptions?.classList.add(
+    "hidden"
+  );
 
   if (!selected) return;
 
-  if (selected.value === "Don récurrent") {
+  if (
+    selected.value ===
+    "Don récurrent"
+  ) {
     recurringOptions?.classList.remove(
       "hidden"
     );
   }
 
-  if (selected.value === "Don commémoratif") {
+  if (
+    selected.value ===
+    "Don commémoratif"
+  ) {
     memorialOptions?.classList.remove(
-      "hidden"
-    );
-  }
-
-  if (selected.value === "Don planifié") {
-    plannedOptions?.classList.remove(
       "hidden"
     );
   }
@@ -440,18 +435,21 @@ typeDonInputs.forEach(
     radio.addEventListener(
       "change",
       () => {
-        updatetypeDonOptions();
+        updateTypeDonOptions();
 
         getElement(
           "typeDonError"
-        )?.classList.add("hidden");
+        )?.classList.add(
+          "hidden"
+        );
       }
     );
   }
 );
 
+
 // =====================================================
-// MONTANTS
+// MONTANT
 // =====================================================
 
 const amountRadios =
@@ -473,7 +471,9 @@ amountRadios.forEach(
 
         getElement(
           "amountError"
-        )?.classList.add("hidden");
+        )?.classList.add(
+          "hidden"
+        );
       }
     );
   }
@@ -482,7 +482,9 @@ amountRadios.forEach(
 customAmount?.addEventListener(
   "input",
   () => {
-    if (customAmount.value.trim() !== "") {
+    if (
+      customAmount.value.trim() !== ""
+    ) {
       amountRadios.forEach(
         (radio) => {
           radio.checked = false;
@@ -492,51 +494,70 @@ customAmount?.addEventListener(
 
     getElement(
       "amountError"
-    )?.classList.add("hidden");
+    )?.classList.add(
+      "hidden"
+    );
   }
 );
 
+
 // =====================================================
-// FORMAT NUMÉRO DE TÉLÉPHONE
-// (418) 555-1234
+// TÉLÉPHONE
+// FORMAT : (418) 555-1234
 // =====================================================
 
 const phone =
   getInput("phone");
 
+function formatPhoneNumber(
+  input: HTMLInputElement
+): void {
+  const digits =
+    input.value
+      .replace(/\D/g, "")
+      .slice(0, 10);
+
+  if (digits.length === 0) {
+    input.value = "";
+    return;
+  }
+
+  if (digits.length <= 3) {
+    input.value =
+      `(${digits}`;
+
+    return;
+  }
+
+  if (digits.length <= 6) {
+    input.value =
+      `(${digits.slice(0, 3)}) ${digits.slice(3)}`;
+
+    return;
+  }
+
+  input.value =
+    `(${digits.slice(0, 3)}) ${digits.slice(3, 6)}-${digits.slice(6)}`;
+}
+
 phone?.addEventListener(
   "input",
   () => {
-    let value =
-      phone.value
-        .replace(/\D/g, "")
-        .slice(0, 10);
-
-    if (value.length === 0) {
-      phone.value = "";
-    }
-
-    else if (value.length <= 3) {
-      phone.value =
-        `(${value}`;
-    }
-
-    else if (value.length <= 6) {
-      phone.value =
-        `(${value.slice(0, 3)}) ${value.slice(3)}`;
-    }
-
-    else {
-      phone.value =
-        `(${value.slice(0, 3)}) ${value.slice(3, 6)}-${value.slice(6)}`;
-    }
+    formatPhoneNumber(phone);
   }
 );
 
+
 // =====================================================
-// FORMAT CODE POSTAL
-// G1A 1A1
+// CODE POSTAL
+// FORMAT : G1A 1A1
 // =====================================================
+
+const postalCode =
+  getInput("postalCode");
+
+const billingPostalCode =
+  getInput("billingPostalCode");
 
 function formatPostalCode(
   input: HTMLInputElement
@@ -555,16 +576,16 @@ function formatPostalCode(
   input.value = value;
 }
 
-const postalCode =
-  getInput("postalCode");
-
-const billingPostalCode =
-  getInput("billingPostalCode");
-
 postalCode?.addEventListener(
   "input",
   () => {
     formatPostalCode(postalCode);
+
+    postalCode.classList.remove(
+      "border-red-500",
+      "ring-1",
+      "ring-red-500"
+    );
   }
 );
 
@@ -577,6 +598,7 @@ billingPostalCode?.addEventListener(
   }
 );
 
+
 // =====================================================
 // ADRESSE DE FACTURATION
 // =====================================================
@@ -585,7 +607,9 @@ const sameBillingAddress =
   getInput("sameBillingAddress");
 
 const billingAddressFields =
-  getElement("billingAddressFields");
+  getElement(
+    "billingAddressFields"
+  );
 
 function updateBillingAddress(): void {
   if (
@@ -608,8 +632,9 @@ sameBillingAddress?.addEventListener(
 
 updateBillingAddress();
 
+
 // =====================================================
-// FORMAT NUMÉRO DE CARTE
+// NUMÉRO DE CARTE
 // =====================================================
 
 const cardNumber =
@@ -625,13 +650,24 @@ cardNumber?.addEventListener(
 
     cardNumber.value =
       value
-        .replace(/(.{4})/g, "$1 ")
+        .replace(
+          /(.{4})/g,
+          "$1 "
+        )
         .trim();
+
+    getElement(
+      "paymentError"
+    )?.classList.add(
+      "hidden"
+    );
   }
 );
 
+
 // =====================================================
-// FORMAT EXPIRATION
+// EXPIRATION
+// FORMAT : MM/AA
 // =====================================================
 
 const expiry =
@@ -651,11 +687,18 @@ expiry?.addEventListener(
     }
 
     expiry.value = value;
+
+    getElement(
+      "paymentError"
+    )?.classList.add(
+      "hidden"
+    );
   }
 );
 
+
 // =====================================================
-// FORMAT CVV
+// CVV
 // =====================================================
 
 const cvv =
@@ -668,8 +711,15 @@ cvv?.addEventListener(
       cvv.value
         .replace(/\D/g, "")
         .slice(0, 4);
+
+    getElement(
+      "paymentError"
+    )?.classList.add(
+      "hidden"
+    );
   }
 );
+
 
 // =====================================================
 // AFFICHER UNE ÉTAPE
@@ -677,7 +727,8 @@ cvv?.addEventListener(
 
 function showStep(
   step: number,
-  direction: "next" | "back" = "next"
+  direction:
+    "next" | "back" = "next"
 ): void {
   steps.forEach(
     (section) => {
@@ -695,28 +746,34 @@ function showStep(
           "opacity-0"
         );
 
-        if (direction === "next") {
+        if (
+          direction === "next"
+        ) {
           section.classList.add(
             "translate-x-4"
           );
-        } else {
+        }
+
+        else {
           section.classList.add(
             "-translate-x-4"
           );
         }
 
-        requestAnimationFrame(() => {
-          section.classList.remove(
-            "opacity-0",
-            "translate-x-4",
-            "-translate-x-4"
-          );
+        requestAnimationFrame(
+          () => {
+            section.classList.remove(
+              "opacity-0",
+              "translate-x-4",
+              "-translate-x-4"
+            );
 
-          section.classList.add(
-            "opacity-100",
-            "translate-x-0"
-          );
-        });
+            section.classList.add(
+              "opacity-100",
+              "translate-x-0"
+            );
+          }
+        );
       }
 
       else {
@@ -742,6 +799,7 @@ function showStep(
   }
 }
 
+
 // =====================================================
 // STEPPER
 // =====================================================
@@ -756,20 +814,28 @@ function updateStepper(): void {
 
       const circle =
         button.querySelector<HTMLElement>(
-          ".step-circle"
+          ".cercle-etape"
         );
 
       const label =
         button.querySelector<HTMLElement>(
-          ".step-label"
+          ".libelle-etape"
         );
 
-      if (!circle || !label) {
+      if (
+        !circle ||
+        !label
+      ) {
         return;
       }
 
+      // ---------------------------------------------
       // ÉTAPE TERMINÉE
-      if (stepNumber < currentStep) {
+      // ---------------------------------------------
+
+      if (
+        stepNumber < currentStep
+      ) {
         button.disabled = false;
 
         button.classList.remove(
@@ -778,8 +844,7 @@ function updateStepper(): void {
         );
 
         button.classList.add(
-          "cursor-pointer",
-          "hover:translate-x-1"
+          "cursor-pointer"
         );
 
         circle.classList.remove(
@@ -789,7 +854,7 @@ function updateStepper(): void {
         );
 
         circle.classList.add(
-          "bg-green-500",
+          "bg-[#496E60]",
           "text-white"
         );
 
@@ -802,31 +867,33 @@ function updateStepper(): void {
         );
 
         label.classList.add(
-          "text-green-600"
+          "text-[#496E60]"
         );
       }
 
+      // ---------------------------------------------
       // ÉTAPE ACTUELLE
+      // ---------------------------------------------
+
       else if (
         stepNumber === currentStep
       ) {
         button.disabled = true;
 
         button.classList.remove(
-          "cursor-pointer",
-          "hover:translate-x-1",
-          "opacity-50"
+          "opacity-50",
+          "cursor-pointer"
         );
 
         button.classList.add(
           "opacity-100",
-          "cursor-not-allowed"
+          "cursor-default"
         );
 
         circle.classList.remove(
           "bg-slate-200",
           "text-slate-500",
-          "bg-green-500"
+          "bg-[#496E60]"
         );
 
         circle.classList.add(
@@ -834,12 +901,12 @@ function updateStepper(): void {
           "text-white"
         );
 
-        circle.innerHTML =
+        circle.textContent =
           String(stepNumber);
 
         label.classList.remove(
           "text-slate-500",
-          "text-green-600"
+          "text-[#496E60]"
         );
 
         label.classList.add(
@@ -847,14 +914,17 @@ function updateStepper(): void {
         );
       }
 
+      // ---------------------------------------------
       // ÉTAPE FUTURE
+      // ---------------------------------------------
+
       else {
         button.disabled = true;
 
         button.classList.remove(
+          "opacity-100",
           "cursor-pointer",
-          "hover:translate-x-1",
-          "opacity-100"
+          "cursor-default"
         );
 
         button.classList.add(
@@ -863,7 +933,7 @@ function updateStepper(): void {
         );
 
         circle.classList.remove(
-          "bg-green-500",
+          "bg-[#496E60]",
           "bg-[#CD5C08]",
           "text-white"
         );
@@ -873,11 +943,11 @@ function updateStepper(): void {
           "text-slate-500"
         );
 
-        circle.innerHTML =
+        circle.textContent =
           String(stepNumber);
 
         label.classList.remove(
-          "text-green-600",
+          "text-[#496E60]",
           "text-[#CD5C08]"
         );
 
@@ -889,8 +959,9 @@ function updateStepper(): void {
   );
 }
 
+
 // =====================================================
-// BOUTONS
+// BOUTONS PRÉCÉDENT / SUIVANT / CONFIRMER
 // =====================================================
 
 function updateButtons(): void {
@@ -918,48 +989,81 @@ function updateButtons(): void {
   );
 }
 
+
 // =====================================================
-// VALIDATION CHAMP TEXTE
+// STYLE D'ERREUR
 // =====================================================
 
-function validateTextField(
-  id: string
-): boolean {
-  const field =
-    getInput(id);
-
-  const error =
-    getElement(`${id}Error`);
-
-  if (
-    !field ||
-    field.value.trim() === ""
-  ) {
-    error?.classList.remove(
-      "hidden"
-    );
-
-    field?.classList.add(
-      "border-red-500",
-      "ring-1",
-      "ring-red-500"
-    );
-
-    return false;
-  }
-
-  error?.classList.add(
-    "hidden"
+function showFieldError(
+  field:
+    | HTMLInputElement
+    | HTMLSelectElement
+): void {
+  field.classList.add(
+    "border-red-500",
+    "ring-1",
+    "ring-red-500"
   );
+}
 
+function removeFieldError(
+  field:
+    | HTMLInputElement
+    | HTMLSelectElement
+): void {
   field.classList.remove(
     "border-red-500",
     "ring-1",
     "ring-red-500"
   );
-
-  return true;
 }
+
+
+// =====================================================
+// VALIDATION TEXTE
+// =====================================================
+
+function validateTextField(
+  id: string,
+  errorId?: string
+): boolean {
+  const field =
+    getInput(id);
+
+  if (!field) {
+    return false;
+  }
+
+  const valid =
+    field.value.trim() !== "";
+
+  if (!valid) {
+    showFieldError(field);
+
+    if (errorId) {
+      getElement(
+        errorId
+      )?.classList.remove(
+        "hidden"
+      );
+    }
+  }
+
+  else {
+    removeFieldError(field);
+
+    if (errorId) {
+      getElement(
+        errorId
+      )?.classList.add(
+        "hidden"
+      );
+    }
+  }
+
+  return valid;
+}
+
 
 // =====================================================
 // VALIDATION ÉTAPE 1
@@ -975,86 +1079,86 @@ function validateStep1(): boolean {
     getElement("typeDonError");
 
   if (!selectedType) {
-    error?.classList.remove("hidden");
-
-    if (error) {
-      error.textContent =
-        "Veuillez sélectionner un type de don.";
-    }
+    error?.classList.remove(
+      "hidden"
+    );
 
     return false;
   }
+
+  // DON RÉCURRENT
 
   if (
     selectedType.value ===
     "Don récurrent"
   ) {
     const frequency =
-      getSelect("donationFrequency");
+      getSelect(
+        "donationFrequency"
+      );
 
     const firstPaymentDate =
-      getInput("firstPaymentDate");
+      getInput(
+        "firstPaymentDate"
+      );
 
     if (
       !frequency?.value ||
       !firstPaymentDate?.value
     ) {
-      error?.classList.remove("hidden");
-
       if (error) {
         error.textContent =
           "Veuillez sélectionner la fréquence et la date du premier prélèvement.";
+
+        error.classList.remove(
+          "hidden"
+        );
       }
 
       return false;
     }
   }
+
+  // DON COMMÉMORATIF
 
   if (
     selectedType.value ===
     "Don commémoratif"
   ) {
     const memorialName =
-      getInput("memorialName");
+      getInput(
+        "memorialName"
+      );
 
     if (
       !memorialName ||
       memorialName.value.trim() === ""
     ) {
-      error?.classList.remove("hidden");
-
       if (error) {
         error.textContent =
           "Veuillez indiquer le nom de la personne.";
+
+        error.classList.remove(
+          "hidden"
+        );
       }
 
       return false;
     }
   }
 
-  if (
-    selectedType.value ===
-    "Don planifié"
-  ) {
-    const plannedType =
-      getSelect("plannedtypeDon");
+  if (error) {
+    error.textContent =
+      "Veuillez sélectionner un type de don.";
 
-    if (!plannedType?.value) {
-      error?.classList.remove("hidden");
-
-      if (error) {
-        error.textContent =
-          "Veuillez sélectionner un type de don planifié.";
-      }
-
-      return false;
-    }
+    error.classList.add(
+      "hidden"
+    );
   }
-
-  error?.classList.add("hidden");
 
   return true;
 }
+
 
 // =====================================================
 // VALIDATION ÉTAPE 2
@@ -1066,27 +1170,33 @@ function validateStep2(): boolean {
       'input[name="amount"]:checked'
     );
 
-  const error =
-    getElement("amountError");
-
   const customValue =
     Number(
       customAmount?.value ?? 0
     );
+
+  const error =
+    getElement("amountError");
 
   const valid =
     selectedAmount !== null ||
     customValue > 0;
 
   if (!valid) {
-    error?.classList.remove("hidden");
+    error?.classList.remove(
+      "hidden"
+    );
+
     return false;
   }
 
-  error?.classList.add("hidden");
+  error?.classList.add(
+    "hidden"
+  );
 
   return true;
 }
+
 
 // =====================================================
 // VALIDATION CODE POSTAL
@@ -1095,13 +1205,11 @@ function validateStep2(): boolean {
 function isValidPostalCode(
   value: string
 ): boolean {
-  const postalRegex =
-    /^[A-Z]\d[A-Z][ -]?\d[A-Z]\d$/i;
-
-  return postalRegex.test(
+  return /^[A-Z]\d[A-Z] \d[A-Z]\d$/i.test(
     value.trim()
   );
 }
+
 
 // =====================================================
 // VALIDATION ÉTAPE 3
@@ -1110,11 +1218,31 @@ function isValidPostalCode(
 function validateStep3(): boolean {
   let valid = true;
 
-  if (!validateTextField("firstName")) {
+  // PRÉNOM
+
+  if (
+    !validateTextField(
+      "firstName",
+      "firstNameError"
+    )
+  ) {
     valid = false;
   }
 
-  if (!validateTextField("lastName")) {
+  // NOM
+
+  if (
+    !validateTextField(
+      "lastName",
+      "lastNameError"
+    )
+  ) {
+    valid = false;
+  }
+
+  // DATE DE NAISSANCE
+
+  if (!validateBirthdate()) {
     valid = false;
   }
 
@@ -1139,11 +1267,9 @@ function validateStep3(): boolean {
       "hidden"
     );
 
-    email?.classList.add(
-      "border-red-500",
-      "ring-1",
-      "ring-red-500"
-    );
+    if (email) {
+      showFieldError(email);
+    }
 
     valid = false;
   }
@@ -1153,23 +1279,36 @@ function validateStep3(): boolean {
       "hidden"
     );
 
-    email.classList.remove(
-      "border-red-500",
-      "ring-1",
-      "ring-red-500"
-    );
+    removeFieldError(email);
   }
 
-  // DATE DE NAISSANCE
+  // TÉLÉPHONE FACULTATIF
 
-  if (!validateBirthdate()) {
-    valid = false;
+  if (
+    phone &&
+    phone.value.trim() !== ""
+  ) {
+    const phoneDigits =
+      phone.value.replace(
+        /\D/g,
+        ""
+      );
+
+    if (
+      phoneDigits.length !== 10
+    ) {
+      showFieldError(phone);
+
+      valid = false;
+    }
+
+    else {
+      removeFieldError(phone);
+    }
   }
 
-  // ADRESSE
-
-  if (!validateTextField("address")) {
-    valid = false;
+  else if (phone) {
+    removeFieldError(phone);
   }
 
   // VILLE
@@ -1181,21 +1320,15 @@ function validateStep3(): boolean {
     !city ||
     city.value.trim() === ""
   ) {
-    city?.classList.add(
-      "border-red-500",
-      "ring-1",
-      "ring-red-500"
-    );
+    if (city) {
+      showFieldError(city);
+    }
 
     valid = false;
   }
 
   else {
-    city.classList.remove(
-      "border-red-500",
-      "ring-1",
-      "ring-red-500"
-    );
+    removeFieldError(city);
   }
 
   // PROVINCE
@@ -1203,21 +1336,22 @@ function validateStep3(): boolean {
   const province =
     getSelect("province");
 
-  if (!province?.value) {
-    province?.classList.add(
-      "border-red-500",
-      "ring-1",
-      "ring-red-500"
-    );
+  if (
+    !province ||
+    province.value === ""
+  ) {
+    if (province) {
+      showFieldError(
+        province
+      );
+    }
 
     valid = false;
   }
 
   else {
-    province.classList.remove(
-      "border-red-500",
-      "ring-1",
-      "ring-red-500"
+    removeFieldError(
+      province
     );
   }
 
@@ -1229,25 +1363,48 @@ function validateStep3(): boolean {
       postalCode.value
     )
   ) {
-    postalCode?.classList.add(
-      "border-red-500",
-      "ring-1",
-      "ring-red-500"
-    );
+    if (postalCode) {
+      showFieldError(
+        postalCode
+      );
+    }
 
     valid = false;
   }
 
   else {
-    postalCode.classList.remove(
-      "border-red-500",
-      "ring-1",
-      "ring-red-500"
+    removeFieldError(
+      postalCode
+    );
+  }
+
+  // PAYS
+
+  const country =
+    getSelect("country");
+
+  if (
+    !country ||
+    country.value === ""
+  ) {
+    if (country) {
+      showFieldError(
+        country
+      );
+    }
+
+    valid = false;
+  }
+
+  else {
+    removeFieldError(
+      country
     );
   }
 
   return valid;
 }
+
 
 // =====================================================
 // VALIDATION EXPIRATION
@@ -1256,12 +1413,18 @@ function validateStep3(): boolean {
 function isValidExpiry(
   value: string
 ): boolean {
-  if (!/^\d{2}\/\d{2}$/.test(value)) {
+  if (
+    !/^\d{2}\/\d{2}$/.test(
+      value
+    )
+  ) {
     return false;
   }
 
-  const [monthString, yearString] =
-    value.split("/");
+  const [
+    monthString,
+    yearString
+  ] = value.split("/");
 
   const month =
     Number(monthString);
@@ -1299,13 +1462,16 @@ function isValidExpiry(
   return true;
 }
 
+
 // =====================================================
 // VALIDATION ÉTAPE 4
 // =====================================================
 
 function validateStep4(): boolean {
   const paymentMethod =
-    getSelect("paymentMethod");
+    getSelect(
+      "paymentMethod"
+    );
 
   const cardName =
     getInput("cardName");
@@ -1313,8 +1479,10 @@ function validateStep4(): boolean {
   const terms =
     getInput("terms");
 
-  const error =
-    getElement("paymentError");
+  const paymentError =
+    getElement(
+      "paymentError"
+    );
 
   const cleanCard =
     cardNumber?.value
@@ -1324,23 +1492,105 @@ function validateStep4(): boolean {
     cvv?.value
       .replace(/\D/g, "") ?? "";
 
-  let valid =
-    paymentMethod !== null &&
-    paymentMethod.value !== "" &&
+  let valid = true;
 
-    cardName !== null &&
-    cardName.value.trim() !== "" &&
+  // MÉTHODE
 
-    cleanCard.length === 16 &&
+  if (
+    !paymentMethod ||
+    paymentMethod.value === ""
+  ) {
+    if (paymentMethod) {
+      showFieldError(
+        paymentMethod
+      );
+    }
 
-    expiry !== null &&
-    isValidExpiry(expiry.value) &&
+    valid = false;
+  }
 
-    cleanCvv.length >= 3 &&
-    cleanCvv.length <= 4 &&
+  else {
+    removeFieldError(
+      paymentMethod
+    );
+  }
 
-    terms !== null &&
-    terms.checked;
+  // NOM SUR CARTE
+
+  if (
+    !cardName ||
+    cardName.value.trim() === ""
+  ) {
+    if (cardName) {
+      showFieldError(cardName);
+    }
+
+    valid = false;
+  }
+
+  else {
+    removeFieldError(cardName);
+  }
+
+  // NUMÉRO DE CARTE
+
+  if (
+    !cardNumber ||
+    cleanCard.length !== 16
+  ) {
+    if (cardNumber) {
+      showFieldError(
+        cardNumber
+      );
+    }
+
+    valid = false;
+  }
+
+  else {
+    removeFieldError(
+      cardNumber
+    );
+  }
+
+  // EXPIRATION
+
+  if (
+    !expiry ||
+    !isValidExpiry(
+      expiry.value
+    )
+  ) {
+    if (expiry) {
+      showFieldError(expiry);
+    }
+
+    valid = false;
+  }
+
+  else {
+    removeFieldError(expiry);
+  }
+
+  // CVV
+
+  if (
+    !cvv ||
+    (
+      cleanCvv.length !== 3 &&
+      cleanCvv.length !== 4
+    )
+  ) {
+    if (cvv) {
+      showFieldError(cvv);
+    }
+
+    valid = false;
+  }
+
+  else {
+    removeFieldError(cvv);
+  }
 
   // ADRESSE DE FACTURATION DIFFÉRENTE
 
@@ -1349,40 +1599,99 @@ function validateStep4(): boolean {
     !sameBillingAddress.checked
   ) {
     const billingAddress =
-      getInput("billingAddress");
+      getInput(
+        "billingAddress"
+      );
 
     const billingCity =
-      getInput("billingCity");
-
-    const billingPostal =
-      getInput("billingPostalCode");
+      getInput(
+        "billingCity"
+      );
 
     if (
-      !billingAddress?.value.trim() ||
-      !billingCity?.value.trim() ||
-      !billingPostal ||
+      !billingAddress ||
+      billingAddress.value.trim() === ""
+    ) {
+      if (billingAddress) {
+        showFieldError(
+          billingAddress
+        );
+      }
+
+      valid = false;
+    }
+
+    else {
+      removeFieldError(
+        billingAddress
+      );
+    }
+
+    if (
+      !billingCity ||
+      billingCity.value.trim() === ""
+    ) {
+      if (billingCity) {
+        showFieldError(
+          billingCity
+        );
+      }
+
+      valid = false;
+    }
+
+    else {
+      removeFieldError(
+        billingCity
+      );
+    }
+
+    if (
+      !billingPostalCode ||
       !isValidPostalCode(
-        billingPostal.value
+        billingPostalCode.value
       )
     ) {
+      if (billingPostalCode) {
+        showFieldError(
+          billingPostalCode
+        );
+      }
+
       valid = false;
+    }
+
+    else {
+      removeFieldError(
+        billingPostalCode
+      );
     }
   }
 
-  if (!valid) {
-    error?.classList.remove(
-      "hidden"
-    );
+  // CONDITIONS
 
-    return false;
+  if (
+    !terms ||
+    !terms.checked
+  ) {
+    valid = false;
   }
 
-  error?.classList.add(
-    "hidden"
-  );
+  if (!valid) {
+    paymentError?.classList.remove(
+      "hidden"
+    );
+  }
 
-  return true;
+  else {
+    paymentError?.classList.add(
+      "hidden"
+    );
+  }
+
+  return valid;
 }
+
 
 // =====================================================
 // VALIDATION ÉTAPE 5
@@ -1390,10 +1699,14 @@ function validateStep4(): boolean {
 
 function validateStep5(): boolean {
   const confirmation =
-    getInput("finalConfirmation");
+    getInput(
+      "finalConfirmation"
+    );
 
   const error =
-    getElement("confirmationError");
+    getElement(
+      "confirmationError"
+    );
 
   if (
     !confirmation ||
@@ -1412,6 +1725,7 @@ function validateStep5(): boolean {
 
   return true;
 }
+
 
 // =====================================================
 // VALIDATION ÉTAPE ACTUELLE
@@ -1439,8 +1753,9 @@ function validateCurrentStep(): boolean {
   }
 }
 
+
 // =====================================================
-// RÉCUPÉRER LE MONTANT
+// MONTANT DU DON
 // =====================================================
 
 function getDonationAmount(): string {
@@ -1460,11 +1775,12 @@ function getDonationAmount(): string {
     return `${selected.value} $`;
   }
 
-  return "Non sélectionné";
+  return "—";
 }
 
+
 // =====================================================
-// RÉCUPÉRER DATE DE NAISSANCE
+// DATE DE NAISSANCE POUR LE RÉSUMÉ
 // =====================================================
 
 function getBirthdate(): string {
@@ -1473,7 +1789,7 @@ function getBirthdate(): string {
     !dobMonth?.value ||
     !dobYear?.value
   ) {
-    return "Non renseignée";
+    return "—";
   }
 
   const day =
@@ -1488,56 +1804,52 @@ function getBirthdate(): string {
       "0"
     );
 
-  return `${day}/${month}/${dobYear.value}`;
+  return (
+    `${day}/${month}/${dobYear.value}`
+  );
 }
 
+
 // =====================================================
-// CONSTRUIRE L'ADRESSE COMPLÈTE
+// LOCALISATION POUR LE RÉSUMÉ
 // =====================================================
 
-function getFullAddress(): string {
-  const address =
-    getInput("address")?.value.trim() ?? "";
-
-  const apartment =
-    getInput("apartment")?.value.trim() ?? "";
-
+function getLocation(): string {
   const city =
-    getInput("city")?.value.trim() ?? "";
+    getInput("city")
+      ?.value
+      .trim() ?? "";
 
   const province =
-    getSelect("province")?.value ?? "";
+    getSelect("province")
+      ?.value ?? "";
 
   const postal =
-    getInput("postalCode")?.value.trim() ?? "";
+    postalCode
+      ?.value
+      .trim() ?? "";
 
-  let street = address;
-
-  if (apartment) {
-    street +=
-      `, app. ${apartment}`;
-  }
-
-  const location =
-    [city, province]
-      .filter(Boolean)
-      .join(", ");
+  const country =
+    getSelect("country")
+      ?.value ?? "";
 
   return [
-    street,
-    location,
-    postal
+    city,
+    province,
+    postal,
+    country
   ]
     .filter(Boolean)
     .join(", ");
 }
 
+
 // =====================================================
-// PAGE DE VÉRIFICATION
+// RÉSUMÉ FINAL
 // =====================================================
 
 function updateReview(): void {
-  const typeDon =
+  const selectedType =
     document.querySelector<HTMLInputElement>(
       'input[name="typeDon"]:checked'
     );
@@ -1552,114 +1864,127 @@ function updateReview(): void {
     getInput("email");
 
   const paymentMethod =
-    getSelect("paymentMethod");
+    getSelect(
+      "paymentMethod"
+    );
 
-  const donationPurpose =
-    getSelect("donationPurpose");
-
-  const donationFrequency =
-    getSelect("donationFrequency");
 
   // TYPE DE DON
 
   const verifTypeDon =
-    getElement("verifTypeDon");
+    getElement(
+      "verifTypeDon"
+    );
 
   if (verifTypeDon) {
     verifTypeDon.textContent =
-      typeDon?.value ??
-      "Non sélectionné";
+      selectedType?.value ?? "—";
   }
+
 
   // FRÉQUENCE
 
   const reviewFrequencyRow =
-    getElement("reviewFrequencyRow");
+    getElement(
+      "reviewFrequencyRow"
+    );
 
   const reviewFrequency =
-    getElement("reviewFrequency");
+    getElement(
+      "reviewFrequency"
+    );
 
   if (
-    typeDon?.value ===
+    selectedType?.value ===
     "Don récurrent"
   ) {
-    reviewFrequencyRow?.classList.remove(
-      "hidden"
-    );
+    const frequency =
+      getSelect(
+        "donationFrequency"
+      );
+
+    reviewFrequencyRow
+      ?.classList.remove(
+        "hidden"
+      );
 
     if (reviewFrequency) {
       reviewFrequency.textContent =
-        donationFrequency?.value ||
-        "Non sélectionnée";
+        frequency?.value ?? "—";
     }
   }
 
   else {
-    reviewFrequencyRow?.classList.add(
-      "hidden"
-    );
+    reviewFrequencyRow
+      ?.classList.add(
+        "hidden"
+      );
   }
+
 
   // MONTANT
 
   const reviewAmount =
-    getElement("reviewAmount");
+    getElement(
+      "reviewAmount"
+    );
 
   if (reviewAmount) {
     reviewAmount.textContent =
       getDonationAmount();
   }
 
-  // AFFECTATION
-
-  const reviewPurpose =
-    getElement("reviewPurpose");
-
-  if (reviewPurpose) {
-    reviewPurpose.textContent =
-      donationPurpose?.options[
-        donationPurpose.selectedIndex
-      ]?.text ??
-      "Non sélectionnée";
-  }
 
   // NOM
 
   const reviewName =
-    getElement("reviewName");
+    getElement(
+      "reviewName"
+    );
 
   if (reviewName) {
-    reviewName.textContent =
+    const fullName =
       `${firstName?.value ?? ""} ${lastName?.value ?? ""}`
-        .trim() ||
-      "Non renseigné";
+        .trim();
+
+    reviewName.textContent =
+      fullName || "—";
   }
+
 
   // DATE DE NAISSANCE
 
   const reviewBirthdate =
-    getElement("reviewBirthdate");
+    getElement(
+      "reviewBirthdate"
+    );
 
   if (reviewBirthdate) {
     reviewBirthdate.textContent =
       getBirthdate();
   }
 
+
   // COURRIEL
 
   const reviewEmail =
-    getElement("reviewEmail");
+    getElement(
+      "reviewEmail"
+    );
 
   if (reviewEmail) {
     reviewEmail.textContent =
-      email?.value ||
-      "Non renseigné";
+      email?.value.trim() ||
+      "—";
   }
+
 
   // TÉLÉPHONE
 
   const reviewPhone =
-    getElement("reviewPhone");
+    getElement(
+      "reviewPhone"
+    );
 
   if (reviewPhone) {
     reviewPhone.textContent =
@@ -1667,49 +1992,58 @@ function updateReview(): void {
       "Non renseigné";
   }
 
-  // ADRESSE
+
+  // LOCALISATION
 
   const reviewAddress =
-    getElement("reviewAddress");
+    getElement(
+      "reviewAddress"
+    );
 
   if (reviewAddress) {
     reviewAddress.textContent =
-      getFullAddress() ||
-      "Non renseignée";
+      getLocation() || "—";
   }
+
 
   // MÉTHODE DE PAIEMENT
 
   const reviewPayment =
-    getElement("reviewPayment");
+    getElement(
+      "reviewPayment"
+    );
 
   if (reviewPayment) {
     reviewPayment.textContent =
       paymentMethod?.value ||
-      "Non sélectionné";
+      "—";
   }
+
 
   // CARTE MASQUÉE
 
   const reviewCard =
-    getElement("reviewCard");
+    getElement(
+      "reviewCard"
+    );
 
   if (reviewCard) {
-    const value =
+    const digits =
       cardNumber?.value
         .replace(/\D/g, "") ?? "";
 
-    if (value.length >= 4) {
+    if (digits.length >= 4) {
       reviewCard.textContent =
-        `•••• •••• •••• ${value.slice(-4)}`;
+        `•••• •••• •••• ${digits.slice(-4)}`;
     }
 
     else {
       reviewCard.textContent =
-        "Non renseignée";
+        "—";
     }
   }
 }
+
 
 // =====================================================
 // BOUTON SUIVANT
@@ -1718,11 +2052,16 @@ function updateReview(): void {
 nextBtn?.addEventListener(
   "click",
   () => {
-    if (!validateCurrentStep()) {
+    if (
+      !validateCurrentStep()
+    ) {
       return;
     }
 
-    if (currentStep < totalSteps) {
+    if (
+      currentStep <
+      totalSteps
+    ) {
       currentStep++;
 
       showStep(
@@ -1732,6 +2071,7 @@ nextBtn?.addEventListener(
     }
   }
 );
+
 
 // =====================================================
 // BOUTON PRÉCÉDENT
@@ -1751,9 +2091,11 @@ prevBtn?.addEventListener(
   }
 );
 
+
 // =====================================================
 // STEPPER
-// RETOUR AUX ÉTAPES PRÉCÉDENTES SEULEMENT
+// ON PEUT REVENIR EN ARRIÈRE,
+// MAIS PAS ALLER VERS UNE ÉTAPE FUTURE
 // =====================================================
 
 stepperButtons.forEach(
@@ -1783,39 +2125,124 @@ stepperButtons.forEach(
   }
 );
 
+
 // =====================================================
 // ENLEVER LES ERREURS PENDANT LA SAISIE
 // =====================================================
 
-[
-  "firstName",
-  "lastName",
-  "email",
-  "address",
-  "city",
-  "postalCode",
-  "cardName"
-].forEach(
-  (id) => {
-    const input =
-      getInput(id);
+const firstName =
+  getInput("firstName");
 
-    input?.addEventListener(
-      "input",
-      () => {
-        input.classList.remove(
-          "border-red-500",
-          "ring-1",
-          "ring-red-500"
-        );
+const lastName =
+  getInput("lastName");
 
-        getElement(
-          `${id}Error`
-        )?.classList.add("hidden");
-      }
+const email =
+  getInput("email");
+
+const city =
+  getInput("city");
+
+firstName?.addEventListener(
+  "input",
+  () => {
+    removeFieldError(
+      firstName
+    );
+
+    getElement(
+      "firstNameError"
+    )?.classList.add(
+      "hidden"
     );
   }
 );
+
+lastName?.addEventListener(
+  "input",
+  () => {
+    removeFieldError(
+      lastName
+    );
+
+    getElement(
+      "lastNameError"
+    )?.classList.add(
+      "hidden"
+    );
+  }
+);
+
+email?.addEventListener(
+  "input",
+  () => {
+    removeFieldError(email);
+
+    getElement(
+      "emailError"
+    )?.classList.add(
+      "hidden"
+    );
+  }
+);
+
+city?.addEventListener(
+  "input",
+  () => {
+    removeFieldError(city);
+  }
+);
+
+phone?.addEventListener(
+  "input",
+  () => {
+    removeFieldError(phone);
+  }
+);
+
+
+// =====================================================
+// PAIEMENT - RETIRER MESSAGE D'ERREUR
+// =====================================================
+
+getSelect(
+  "paymentMethod"
+)?.addEventListener(
+  "change",
+  () => {
+    getElement(
+      "paymentError"
+    )?.classList.add(
+      "hidden"
+    );
+  }
+);
+
+getInput(
+  "cardName"
+)?.addEventListener(
+  "input",
+  () => {
+    getElement(
+      "paymentError"
+    )?.classList.add(
+      "hidden"
+    );
+  }
+);
+
+getInput(
+  "terms"
+)?.addEventListener(
+  "change",
+  () => {
+    getElement(
+      "paymentError"
+    )?.classList.add(
+      "hidden"
+    );
+  }
+);
+
 
 // =====================================================
 // CONFIRMATION FINALE
@@ -1828,12 +2255,15 @@ getInput(
   () => {
     getElement(
       "confirmationError"
-    )?.classList.add("hidden");
+    )?.classList.add(
+      "hidden"
+    );
   }
 );
 
+
 // =====================================================
-// SOUMISSION DU FORMULAIRE
+// SOUMISSION
 // =====================================================
 
 form?.addEventListener(
@@ -1841,19 +2271,50 @@ form?.addEventListener(
   (event) => {
     event.preventDefault();
 
-    if (!validateCurrentStep()) {
+    if (!validateStep5()) {
       return;
     }
 
-    sessionStorage.setItem(
-      "donSubmitted",
-      "true"
+    // Afficher le message de succès
+
+    successMessage?.classList.remove(
+      "hidden"
     );
 
-    window.location.href =
-      "/index.html";
+    // Cacher les boutons
+
+    prevBtn?.classList.add(
+      "hidden"
+    );
+
+    submitBtn?.classList.add(
+      "hidden"
+    );
+
+    // Désactiver le formulaire
+
+    form
+      .querySelectorAll<
+        HTMLInputElement |
+        HTMLSelectElement |
+        HTMLTextAreaElement |
+        HTMLButtonElement
+      >(
+        "input, select, textarea, button"
+      )
+      .forEach(
+        (element) => {
+          element.disabled = true;
+        }
+      );
+
+    successMessage?.scrollIntoView({
+      behavior: "smooth",
+      block: "center"
+    });
   }
 );
+
 
 // =====================================================
 // INITIALISATION
@@ -1863,7 +2324,7 @@ if (
   form &&
   totalSteps > 0
 ) {
-  updatetypeDonOptions();
+  updateTypeDonOptions();
   updateBillingAddress();
 
   showStep(
