@@ -4,11 +4,8 @@ import "/src/css/style.css";
 // MENU MOBILE
 // =====================================================
 
-const mobileMenuBtn =
-  document.getElementById("mobile-menu-btn");
-
-const mobileMenu =
-  document.getElementById("mobile-menu");
+const mobileMenuBtn = document.getElementById("mobile-menu-btn");
+const mobileMenu = document.getElementById("mobile-menu");
 
 if (mobileMenuBtn && mobileMenu) {
   mobileMenuBtn.addEventListener("click", () => {
@@ -16,29 +13,64 @@ if (mobileMenuBtn && mobileMenu) {
   });
 }
 
-
 // =====================================================
 // HEADER - OMBRE AU SCROLL
 // =====================================================
 
-const header =
-  document.querySelector<HTMLElement>("header");
+const header = document.querySelector<HTMLElement>("header");
 
 if (header) {
   window.addEventListener("scroll", () => {
-    const currentScroll = window.pageYOffset;
-
-    if (currentScroll > 100) {
-      header.classList.add("shadow-xl");
-    } else {
-      header.classList.remove("shadow-xl");
-    }
+    header.classList.toggle("shadow-xl", window.scrollY > 100);
   });
 }
 
+// =====================================================
+// MESSAGE DE REMERCIEMENT SUR L'ACCUEIL
+// =====================================================
+
+const thankYouMessage =
+  document.querySelector<HTMLElement>("#thankYouMessage");
+
+const donationSubmitted =
+  sessionStorage.getItem("donSubmitted");
+
+if (donationSubmitted === "true" && thankYouMessage) {
+  thankYouMessage.classList.remove("hidden");
+
+  thankYouMessage.classList.add(
+    "opacity-0",
+    "-translate-y-2"
+  );
+
+  requestAnimationFrame(() => {
+    thankYouMessage.classList.remove(
+      "opacity-0",
+      "-translate-y-2"
+    );
+
+    thankYouMessage.classList.add(
+      "opacity-100",
+      "translate-y-0"
+    );
+  });
+
+  sessionStorage.removeItem("donSubmitted");
+
+  setTimeout(() => {
+    thankYouMessage.classList.add(
+      "opacity-0",
+      "-translate-y-2"
+    );
+
+    setTimeout(() => {
+      thankYouMessage.classList.add("hidden");
+    }, 300);
+  }, 6000);
+}
 
 // =====================================================
-// FORMULAIRE MULTI-ÉTAPES
+// FORMULAIRE
 // =====================================================
 
 const form =
@@ -56,9 +88,6 @@ const prevBtn =
 const submitBtn =
   document.querySelector<HTMLButtonElement>("#submitBtn");
 
-const successMessage =
-  document.querySelector<HTMLElement>("#successMessage");
-
 const stepperButtons =
   document.querySelectorAll<HTMLButtonElement>(
     ".stepper-button"
@@ -68,6 +97,579 @@ let currentStep = 1;
 
 const totalSteps = steps.length;
 
+// =====================================================
+// FONCTIONS UTILITAIRES
+// =====================================================
+
+function getInput(id: string): HTMLInputElement | null {
+  return document.querySelector<HTMLInputElement>(
+    `#${id}`
+  );
+}
+
+function getSelect(id: string): HTMLSelectElement | null {
+  return document.querySelector<HTMLSelectElement>(
+    `#${id}`
+  );
+}
+
+function getElement(id: string): HTMLElement | null {
+  return document.querySelector<HTMLElement>(
+    `#${id}`
+  );
+}
+
+// =====================================================
+// DATE DE NAISSANCE
+// =====================================================
+
+const dobDay = getSelect("dobDay");
+const dobMonth = getSelect("dobMonth");
+const dobYear = getSelect("dobYear");
+
+const birthdateError =
+  getElement("birthdateError");
+
+// =====================================================
+// GÉNÉRER LES ANNÉES
+// =====================================================
+
+function populateYears(): void {
+  if (!dobYear) return;
+
+  while (dobYear.options.length > 1) {
+    dobYear.remove(1);
+  }
+
+  const currentYear =
+    new Date().getFullYear();
+
+  for (
+    let year = currentYear;
+    year >= 1900;
+    year--
+  ) {
+    const option =
+      document.createElement("option");
+
+    option.value = String(year);
+    option.textContent = String(year);
+
+    dobYear.appendChild(option);
+  }
+}
+
+// =====================================================
+// GÉNÉRER LES JOURS
+// =====================================================
+
+function populateDays(): void {
+  if (!dobDay) return;
+
+  const previousDay =
+    dobDay.value;
+
+  const month =
+    Number(dobMonth?.value);
+
+  const year =
+    Number(dobYear?.value);
+
+  let numberOfDays = 31;
+
+  if (month === 2) {
+    const leapYear =
+      year > 0 &&
+      (
+        year % 400 === 0 ||
+        (
+          year % 4 === 0 &&
+          year % 100 !== 0
+        )
+      );
+
+    numberOfDays =
+      leapYear ? 29 : 28;
+  }
+
+  else if (
+    [4, 6, 9, 11].includes(month)
+  ) {
+    numberOfDays = 30;
+  }
+
+  while (dobDay.options.length > 1) {
+    dobDay.remove(1);
+  }
+
+  for (
+    let day = 1;
+    day <= numberOfDays;
+    day++
+  ) {
+    const option =
+      document.createElement("option");
+
+    option.value = String(day);
+    option.textContent = String(day);
+
+    dobDay.appendChild(option);
+  }
+
+  if (
+    previousDay &&
+    Number(previousDay) <= numberOfDays
+  ) {
+    dobDay.value = previousDay;
+  }
+}
+
+populateYears();
+populateDays();
+
+dobMonth?.addEventListener(
+  "change",
+  populateDays
+);
+
+dobYear?.addEventListener(
+  "change",
+  populateDays
+);
+
+// =====================================================
+// ERREURS DATE DE NAISSANCE
+// =====================================================
+
+function addBirthdateErrorStyle(): void {
+  [dobDay, dobMonth, dobYear].forEach(
+    (select) => {
+      select?.classList.add(
+        "border-red-500",
+        "ring-1",
+        "ring-red-500"
+      );
+    }
+  );
+}
+
+function removeBirthdateErrorStyle(): void {
+  [dobDay, dobMonth, dobYear].forEach(
+    (select) => {
+      select?.classList.remove(
+        "border-red-500",
+        "ring-1",
+        "ring-red-500"
+      );
+    }
+  );
+}
+
+function showBirthdateError(
+  message: string
+): false {
+  if (birthdateError) {
+    birthdateError.textContent = message;
+    birthdateError.classList.remove("hidden");
+  }
+
+  addBirthdateErrorStyle();
+
+  return false;
+}
+
+// =====================================================
+// VALIDATION DATE + 18 ANS
+// =====================================================
+
+function validateBirthdate(): boolean {
+  if (
+    !dobDay ||
+    !dobMonth ||
+    !dobYear
+  ) {
+    return false;
+  }
+
+  const day =
+    Number(dobDay.value);
+
+  const month =
+    Number(dobMonth.value);
+
+  const year =
+    Number(dobYear.value);
+
+  if (!day || !month || !year) {
+    return showBirthdateError(
+      "Veuillez sélectionner votre date de naissance."
+    );
+  }
+
+  const birthdate =
+    new Date(
+      year,
+      month - 1,
+      day
+    );
+
+  const validDate =
+    birthdate.getFullYear() === year &&
+    birthdate.getMonth() === month - 1 &&
+    birthdate.getDate() === day;
+
+  if (!validDate) {
+    return showBirthdateError(
+      "Veuillez sélectionner une date valide."
+    );
+  }
+
+  const today = new Date();
+
+  today.setHours(
+    0,
+    0,
+    0,
+    0
+  );
+
+  if (birthdate > today) {
+    return showBirthdateError(
+      "La date de naissance ne peut pas être dans le futur."
+    );
+  }
+
+  let age =
+    today.getFullYear() -
+    birthdate.getFullYear();
+
+  const monthDifference =
+    today.getMonth() -
+    birthdate.getMonth();
+
+  if (
+    monthDifference < 0 ||
+    (
+      monthDifference === 0 &&
+      today.getDate() <
+      birthdate.getDate()
+    )
+  ) {
+    age--;
+  }
+
+  if (age < 18) {
+    return showBirthdateError(
+      "Vous devez avoir 18 ans ou plus pour effectuer un don."
+    );
+  }
+
+  birthdateError?.classList.add("hidden");
+
+  removeBirthdateErrorStyle();
+
+  return true;
+}
+
+[dobDay, dobMonth, dobYear].forEach(
+  (select) => {
+    select?.addEventListener(
+      "change",
+      () => {
+        birthdateError?.classList.add(
+          "hidden"
+        );
+
+        removeBirthdateErrorStyle();
+      }
+    );
+  }
+);
+
+// =====================================================
+// TYPE DE DON
+// =====================================================
+
+const typeDonInputs =
+  document.querySelectorAll<HTMLInputElement>(
+    'input[name="typeDon"]'
+  );
+
+const recurringOptions =
+  getElement("recurringOptions");
+
+const memorialOptions =
+  getElement("memorialOptions");
+
+const plannedOptions =
+  getElement("plannedOptions");
+
+function updatetypeDonOptions(): void {
+  const selected =
+    document.querySelector<HTMLInputElement>(
+      'input[name="typeDon"]:checked'
+    );
+
+  recurringOptions?.classList.add("hidden");
+  memorialOptions?.classList.add("hidden");
+  plannedOptions?.classList.add("hidden");
+
+  if (!selected) return;
+
+  if (selected.value === "Don récurrent") {
+    recurringOptions?.classList.remove(
+      "hidden"
+    );
+  }
+
+  if (selected.value === "Don commémoratif") {
+    memorialOptions?.classList.remove(
+      "hidden"
+    );
+  }
+
+  if (selected.value === "Don planifié") {
+    plannedOptions?.classList.remove(
+      "hidden"
+    );
+  }
+}
+
+typeDonInputs.forEach(
+  (radio) => {
+    radio.addEventListener(
+      "change",
+      () => {
+        updatetypeDonOptions();
+
+        getElement(
+          "typeDonError"
+        )?.classList.add("hidden");
+      }
+    );
+  }
+);
+
+// =====================================================
+// MONTANTS
+// =====================================================
+
+const amountRadios =
+  document.querySelectorAll<HTMLInputElement>(
+    'input[name="amount"]'
+  );
+
+const customAmount =
+  getInput("customAmount");
+
+amountRadios.forEach(
+  (radio) => {
+    radio.addEventListener(
+      "change",
+      () => {
+        if (customAmount) {
+          customAmount.value = "";
+        }
+
+        getElement(
+          "amountError"
+        )?.classList.add("hidden");
+      }
+    );
+  }
+);
+
+customAmount?.addEventListener(
+  "input",
+  () => {
+    if (customAmount.value.trim() !== "") {
+      amountRadios.forEach(
+        (radio) => {
+          radio.checked = false;
+        }
+      );
+    }
+
+    getElement(
+      "amountError"
+    )?.classList.add("hidden");
+  }
+);
+
+// =====================================================
+// FORMAT NUMÉRO DE TÉLÉPHONE
+// (418) 555-1234
+// =====================================================
+
+const phone =
+  getInput("phone");
+
+phone?.addEventListener(
+  "input",
+  () => {
+    let value =
+      phone.value
+        .replace(/\D/g, "")
+        .slice(0, 10);
+
+    if (value.length === 0) {
+      phone.value = "";
+    }
+
+    else if (value.length <= 3) {
+      phone.value =
+        `(${value}`;
+    }
+
+    else if (value.length <= 6) {
+      phone.value =
+        `(${value.slice(0, 3)}) ${value.slice(3)}`;
+    }
+
+    else {
+      phone.value =
+        `(${value.slice(0, 3)}) ${value.slice(3, 6)}-${value.slice(6)}`;
+    }
+  }
+);
+
+// =====================================================
+// FORMAT CODE POSTAL
+// G1A 1A1
+// =====================================================
+
+function formatPostalCode(
+  input: HTMLInputElement
+): void {
+  let value =
+    input.value
+      .toUpperCase()
+      .replace(/[^A-Z0-9]/g, "")
+      .slice(0, 6);
+
+  if (value.length > 3) {
+    value =
+      `${value.slice(0, 3)} ${value.slice(3)}`;
+  }
+
+  input.value = value;
+}
+
+const postalCode =
+  getInput("postalCode");
+
+const billingPostalCode =
+  getInput("billingPostalCode");
+
+postalCode?.addEventListener(
+  "input",
+  () => {
+    formatPostalCode(postalCode);
+  }
+);
+
+billingPostalCode?.addEventListener(
+  "input",
+  () => {
+    formatPostalCode(
+      billingPostalCode
+    );
+  }
+);
+
+// =====================================================
+// ADRESSE DE FACTURATION
+// =====================================================
+
+const sameBillingAddress =
+  getInput("sameBillingAddress");
+
+const billingAddressFields =
+  getElement("billingAddressFields");
+
+function updateBillingAddress(): void {
+  if (
+    !sameBillingAddress ||
+    !billingAddressFields
+  ) {
+    return;
+  }
+
+  billingAddressFields.classList.toggle(
+    "hidden",
+    sameBillingAddress.checked
+  );
+}
+
+sameBillingAddress?.addEventListener(
+  "change",
+  updateBillingAddress
+);
+
+updateBillingAddress();
+
+// =====================================================
+// FORMAT NUMÉRO DE CARTE
+// =====================================================
+
+const cardNumber =
+  getInput("cardNumber");
+
+cardNumber?.addEventListener(
+  "input",
+  () => {
+    const value =
+      cardNumber.value
+        .replace(/\D/g, "")
+        .slice(0, 16);
+
+    cardNumber.value =
+      value
+        .replace(/(.{4})/g, "$1 ")
+        .trim();
+  }
+);
+
+// =====================================================
+// FORMAT EXPIRATION
+// =====================================================
+
+const expiry =
+  getInput("expiry");
+
+expiry?.addEventListener(
+  "input",
+  () => {
+    let value =
+      expiry.value
+        .replace(/\D/g, "")
+        .slice(0, 4);
+
+    if (value.length >= 3) {
+      value =
+        `${value.slice(0, 2)}/${value.slice(2)}`;
+    }
+
+    expiry.value = value;
+  }
+);
+
+// =====================================================
+// FORMAT CVV
+// =====================================================
+
+const cvv =
+  getInput("cvv");
+
+cvv?.addEventListener(
+  "input",
+  () => {
+    cvv.value =
+      cvv.value
+        .replace(/\D/g, "")
+        .slice(0, 4);
+  }
+);
 
 // =====================================================
 // AFFICHER UNE ÉTAPE
@@ -77,59 +679,60 @@ function showStep(
   step: number,
   direction: "next" | "back" = "next"
 ): void {
-
-  steps.forEach((section) => {
-
-    const sectionStep =
-      Number(section.dataset.step);
-
-    if (sectionStep === step) {
-
-      section.classList.remove("hidden");
-
-      // Position de départ de l'animation
-      if (direction === "next") {
-
-        section.classList.add(
-          "opacity-0",
-          "translate-x-4"
+  steps.forEach(
+    (section) => {
+      const sectionStep =
+        Number(
+          section.dataset.step
         );
 
-      } else {
+      if (sectionStep === step) {
+        section.classList.remove(
+          "hidden"
+        );
 
         section.classList.add(
-          "opacity-0",
-          "-translate-x-4"
+          "opacity-0"
         );
+
+        if (direction === "next") {
+          section.classList.add(
+            "translate-x-4"
+          );
+        } else {
+          section.classList.add(
+            "-translate-x-4"
+          );
+        }
+
+        requestAnimationFrame(() => {
+          section.classList.remove(
+            "opacity-0",
+            "translate-x-4",
+            "-translate-x-4"
+          );
+
+          section.classList.add(
+            "opacity-100",
+            "translate-x-0"
+          );
+        });
       }
 
-      requestAnimationFrame(() => {
+      else {
+        section.classList.add(
+          "hidden"
+        );
 
         section.classList.remove(
-          "opacity-0",
+          "opacity-100",
+          "translate-x-0",
           "translate-x-4",
           "-translate-x-4"
         );
-
-        section.classList.add(
-          "opacity-100",
-          "translate-x-0"
-        );
-      });
-
-    } else {
-
-      section.classList.add("hidden");
-
-      section.classList.remove(
-        "opacity-100",
-        "opacity-0",
-        "translate-x-4",
-        "-translate-x-4",
-        "translate-x-0"
-      );
+      }
     }
-  });
+  );
 
   updateStepper();
   updateButtons();
@@ -137,172 +740,165 @@ function showStep(
   if (step === 5) {
     updateReview();
   }
-
-  window.scrollTo({
-    top: 0,
-    behavior: "smooth",
-  });
 }
 
-
 // =====================================================
-// METTRE À JOUR LE STEPPER
+// STEPPER
 // =====================================================
 
 function updateStepper(): void {
+  stepperButtons.forEach(
+    (button) => {
+      const stepNumber =
+        Number(
+          button.dataset.stepButton
+        );
 
-  stepperButtons.forEach((button) => {
+      const circle =
+        button.querySelector<HTMLElement>(
+          ".step-circle"
+        );
 
-    const stepNumber =
-      Number(button.dataset.stepButton);
+      const label =
+        button.querySelector<HTMLElement>(
+          ".step-label"
+        );
 
-    const circle =
-      button.querySelector<HTMLElement>(".step-circle");
+      if (!circle || !label) {
+        return;
+      }
 
-    const label =
-      button.querySelector<HTMLElement>(".step-label");
+      // ÉTAPE TERMINÉE
+      if (stepNumber < currentStep) {
+        button.disabled = false;
 
-    if (!circle || !label) return;
+        button.classList.remove(
+          "opacity-50",
+          "cursor-not-allowed"
+        );
 
+        button.classList.add(
+          "cursor-pointer",
+          "hover:translate-x-1"
+        );
 
-    // -------------------------------------------------
-    // ÉTAPE TERMINÉE
-    // -------------------------------------------------
+        circle.classList.remove(
+          "bg-slate-200",
+          "text-slate-500",
+          "bg-[#CD5C08]"
+        );
 
-    if (stepNumber < currentStep) {
+        circle.classList.add(
+          "bg-green-500",
+          "text-white"
+        );
 
-      button.disabled = false;
+        circle.innerHTML =
+          "&#10004;";
 
-      button.classList.remove(
-        "opacity-50",
-        "cursor-not-allowed"
-      );
+        label.classList.remove(
+          "text-slate-500",
+          "text-[#CD5C08]"
+        );
 
-      button.classList.add(
-        "cursor-pointer",
-        "hover:translate-x-1"
-      );
+        label.classList.add(
+          "text-green-600"
+        );
+      }
 
-      circle.classList.remove(
-        "bg-slate-200",
-        "text-slate-500",
-        "bg-blue-600",
-        "text-white"
-      );
+      // ÉTAPE ACTUELLE
+      else if (
+        stepNumber === currentStep
+      ) {
+        button.disabled = true;
 
-      circle.classList.add(
-        "bg-green-500",
-        "text-white"
-      );
+        button.classList.remove(
+          "cursor-pointer",
+          "hover:translate-x-1",
+          "opacity-50"
+        );
 
-      circle.innerHTML = "&#10004;";
+        button.classList.add(
+          "opacity-100",
+          "cursor-not-allowed"
+        );
 
-      label.classList.remove(
-        "text-slate-500",
-        "text-blue-600"
-      );
+        circle.classList.remove(
+          "bg-slate-200",
+          "text-slate-500",
+          "bg-green-500"
+        );
 
-      label.classList.add(
-        "text-green-600"
-      );
+        circle.classList.add(
+          "bg-[#CD5C08]",
+          "text-white"
+        );
+
+        circle.innerHTML =
+          String(stepNumber);
+
+        label.classList.remove(
+          "text-slate-500",
+          "text-green-600"
+        );
+
+        label.classList.add(
+          "text-[#CD5C08]"
+        );
+      }
+
+      // ÉTAPE FUTURE
+      else {
+        button.disabled = true;
+
+        button.classList.remove(
+          "cursor-pointer",
+          "hover:translate-x-1",
+          "opacity-100"
+        );
+
+        button.classList.add(
+          "opacity-50",
+          "cursor-not-allowed"
+        );
+
+        circle.classList.remove(
+          "bg-green-500",
+          "bg-[#CD5C08]",
+          "text-white"
+        );
+
+        circle.classList.add(
+          "bg-slate-200",
+          "text-slate-500"
+        );
+
+        circle.innerHTML =
+          String(stepNumber);
+
+        label.classList.remove(
+          "text-green-600",
+          "text-[#CD5C08]"
+        );
+
+        label.classList.add(
+          "text-slate-500"
+        );
+      }
     }
-
-
-    // -------------------------------------------------
-    // ÉTAPE ACTUELLE
-    // -------------------------------------------------
-
-    else if (stepNumber === currentStep) {
-
-      button.disabled = true;
-
-      button.classList.remove(
-        "cursor-pointer",
-        "hover:translate-x-1"
-      );
-
-      button.classList.add(
-        "opacity-100",
-        "cursor-not-allowed"
-      );
-
-      circle.classList.remove(
-        "bg-slate-200",
-        "text-slate-500",
-        "bg-green-500"
-      );
-
-      circle.classList.add(
-        "bg-[#CD5C08]",
-        "text-white"
-      );
-
-      circle.innerHTML =
-        String(stepNumber);
-
-      label.classList.remove(
-        "text-slate-500",
-        "text-green-600"
-      );
-
-      label.classList.add(
-        "text-[#CD5C08]"
-      );
-    }
-
-
-    // -------------------------------------------------
-    // ÉTAPE FUTURE
-    // -------------------------------------------------
-
-    else {
-
-      button.disabled = true;
-
-      button.classList.remove(
-        "cursor-pointer",
-        "hover:translate-x-1"
-      );
-
-      button.classList.add(
-        "opacity-50",
-        "cursor-not-allowed"
-      );
-
-      circle.classList.remove(
-        "bg-blue-600",
-        "text-white",
-        "bg-green-500"
-      );
-
-      circle.classList.add(
-        "bg-slate-200",
-        "text-slate-500"
-      );
-
-      circle.innerHTML =
-        String(stepNumber);
-
-      label.classList.remove(
-        "text-blue-600",
-        "text-green-600"
-      );
-
-      label.classList.add(
-        "text-slate-500"
-      );
-    }
-  });
+  );
 }
 
-
 // =====================================================
-// BOUTONS SUIVANT / PRÉCÉDENT
+// BOUTONS
 // =====================================================
 
 function updateButtons(): void {
-
-  if (!nextBtn || !prevBtn || !submitBtn) {
+  if (
+    !nextBtn ||
+    !prevBtn ||
+    !submitBtn
+  ) {
     return;
   }
 
@@ -322,28 +918,137 @@ function updateButtons(): void {
   );
 }
 
+// =====================================================
+// VALIDATION CHAMP TEXTE
+// =====================================================
+
+function validateTextField(
+  id: string
+): boolean {
+  const field =
+    getInput(id);
+
+  const error =
+    getElement(`${id}Error`);
+
+  if (
+    !field ||
+    field.value.trim() === ""
+  ) {
+    error?.classList.remove(
+      "hidden"
+    );
+
+    field?.classList.add(
+      "border-red-500",
+      "ring-1",
+      "ring-red-500"
+    );
+
+    return false;
+  }
+
+  error?.classList.add(
+    "hidden"
+  );
+
+  field.classList.remove(
+    "border-red-500",
+    "ring-1",
+    "ring-red-500"
+  );
+
+  return true;
+}
 
 // =====================================================
-// VALIDATION DE L'ÉTAPE 1
+// VALIDATION ÉTAPE 1
 // =====================================================
 
 function validateStep1(): boolean {
-
   const selectedType =
     document.querySelector<HTMLInputElement>(
-      'input[name="donationType"]:checked'
+      'input[name="typeDon"]:checked'
     );
 
   const error =
-    document.querySelector<HTMLElement>(
-      "#donationTypeError"
-    );
+    getElement("typeDonError");
 
   if (!selectedType) {
-
     error?.classList.remove("hidden");
 
+    if (error) {
+      error.textContent =
+        "Veuillez sélectionner un type de don.";
+    }
+
     return false;
+  }
+
+  if (
+    selectedType.value ===
+    "Don récurrent"
+  ) {
+    const frequency =
+      getSelect("donationFrequency");
+
+    const firstPaymentDate =
+      getInput("firstPaymentDate");
+
+    if (
+      !frequency?.value ||
+      !firstPaymentDate?.value
+    ) {
+      error?.classList.remove("hidden");
+
+      if (error) {
+        error.textContent =
+          "Veuillez sélectionner la fréquence et la date du premier prélèvement.";
+      }
+
+      return false;
+    }
+  }
+
+  if (
+    selectedType.value ===
+    "Don commémoratif"
+  ) {
+    const memorialName =
+      getInput("memorialName");
+
+    if (
+      !memorialName ||
+      memorialName.value.trim() === ""
+    ) {
+      error?.classList.remove("hidden");
+
+      if (error) {
+        error.textContent =
+          "Veuillez indiquer le nom de la personne.";
+      }
+
+      return false;
+    }
+  }
+
+  if (
+    selectedType.value ===
+    "Don planifié"
+  ) {
+    const plannedType =
+      getSelect("plannedtypeDon");
+
+    if (!plannedType?.value) {
+      error?.classList.remove("hidden");
+
+      if (error) {
+        error.textContent =
+          "Veuillez sélectionner un type de don planifié.";
+      }
+
+      return false;
+    }
   }
 
   error?.classList.add("hidden");
@@ -351,40 +1056,30 @@ function validateStep1(): boolean {
   return true;
 }
 
-
 // =====================================================
-// VALIDATION DE L'ÉTAPE 2
+// VALIDATION ÉTAPE 2
 // =====================================================
 
 function validateStep2(): boolean {
-
   const selectedAmount =
     document.querySelector<HTMLInputElement>(
       'input[name="amount"]:checked'
     );
 
-  const customAmount =
-    document.querySelector<HTMLInputElement>(
-      "#customAmount"
-    );
-
   const error =
-    document.querySelector<HTMLElement>(
-      "#amountError"
+    getElement("amountError");
+
+  const customValue =
+    Number(
+      customAmount?.value ?? 0
     );
 
-  const amountIsValid =
+  const valid =
     selectedAmount !== null ||
-    (
-      customAmount !== null &&
-      customAmount.value.trim() !== "" &&
-      Number(customAmount.value) > 0
-    );
+    customValue > 0;
 
-  if (!amountIsValid) {
-
+  if (!valid) {
     error?.classList.remove("hidden");
-
     return false;
   }
 
@@ -393,242 +1088,337 @@ function validateStep2(): boolean {
   return true;
 }
 
+// =====================================================
+// VALIDATION CODE POSTAL
+// =====================================================
+
+function isValidPostalCode(
+  value: string
+): boolean {
+  const postalRegex =
+    /^[A-Z]\d[A-Z][ -]?\d[A-Z]\d$/i;
+
+  return postalRegex.test(
+    value.trim()
+  );
+}
 
 // =====================================================
-// VALIDATION DE L'ÉTAPE 3
+// VALIDATION ÉTAPE 3
 // =====================================================
 
 function validateStep3(): boolean {
-
-  const fields = [
-    "firstName",
-    "lastName",
-    "email",
-    "dateNaissance",
-    "address",
-  ];
-
   let valid = true;
 
+  if (!validateTextField("firstName")) {
+    valid = false;
+  }
 
-  // -------------------------------------------------
-  // VALIDATION DES CHAMPS
-  // -------------------------------------------------
+  if (!validateTextField("lastName")) {
+    valid = false;
+  }
 
-  fields.forEach((fieldId) => {
-
-    const field =
-      document.querySelector<HTMLInputElement>(
-        `#${fieldId}`
-      );
-
-    const error =
-      document.querySelector<HTMLElement>(
-        `#${fieldId}Error`
-      );
-
-    if (
-      !field ||
-      field.value.trim() === ""
-    ) {
-
-      error?.classList.remove("hidden");
-
-      field?.classList.add(
-        "border-red-500",
-        "ring-1",
-        "ring-red-500"
-      );
-
-      valid = false;
-
-    } else {
-
-      error?.classList.add("hidden");
-
-      field.classList.remove(
-        "border-red-500",
-        "ring-1",
-        "ring-red-500"
-      );
-    }
-  });
-
-
-  // -------------------------------------------------
-  // VALIDATION DU COURRIEL
-  // -------------------------------------------------
+  // COURRIEL
 
   const email =
-    document.querySelector<HTMLInputElement>(
-      "#email"
-    );
+    getInput("email");
+
+  const emailError =
+    getElement("emailError");
+
+  const emailRegex =
+    /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
   if (
-    email &&
-    email.value.trim() !== ""
+    !email ||
+    !emailRegex.test(
+      email.value.trim()
+    )
   ) {
+    emailError?.classList.remove(
+      "hidden"
+    );
 
-    const emailRegex =
-      /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    email?.classList.add(
+      "border-red-500",
+      "ring-1",
+      "ring-red-500"
+    );
 
-    if (!emailRegex.test(email.value)) {
-
-      const error =
-        document.querySelector<HTMLElement>(
-          "#emailError"
-        );
-
-      error?.classList.remove("hidden");
-
-      email.classList.add(
-        "border-red-500",
-        "ring-1",
-        "ring-red-500"
-      );
-
-      valid = false;
-    }
+    valid = false;
   }
 
-
-  // -------------------------------------------------
-  // VALIDATION DE LA DATE DE NAISSANCE
-  // -------------------------------------------------
-
-  const dateNaissance =
-    document.querySelector<HTMLInputElement>(
-      "#dateNaissance"
+  else {
+    emailError?.classList.add(
+      "hidden"
     );
 
-  const dateNaissanceError =
-    document.querySelector<HTMLElement>(
-      "#dateNaissanceError"
+    email.classList.remove(
+      "border-red-500",
+      "ring-1",
+      "ring-red-500"
     );
+  }
+
+  // DATE DE NAISSANCE
+
+  if (!validateBirthdate()) {
+    valid = false;
+  }
+
+  // ADRESSE
+
+  if (!validateTextField("address")) {
+    valid = false;
+  }
+
+  // VILLE
+
+  const city =
+    getInput("city");
 
   if (
-    dateNaissance &&
-    dateNaissance.value !== ""
+    !city ||
+    city.value.trim() === ""
   ) {
-
-    const dateChoisie =
-      new Date(
-        `${dateNaissance.value}T00:00:00`
-      );
-
-    const aujourdHui =
-      new Date();
-
-    aujourdHui.setHours(
-      0,
-      0,
-      0,
-      0
+    city?.classList.add(
+      "border-red-500",
+      "ring-1",
+      "ring-red-500"
     );
 
-
-    // Date dans le futur
-    if (dateChoisie > aujourdHui) {
-
-      dateNaissanceError?.classList.remove(
-        "hidden"
-      );
-
-      dateNaissance.classList.add(
-        "border-red-500",
-        "ring-1",
-        "ring-red-500"
-      );
-
-      valid = false;
-
-    } else {
-
-      dateNaissanceError?.classList.add(
-        "hidden"
-      );
-
-      dateNaissance.classList.remove(
-        "border-red-500",
-        "ring-1",
-        "ring-red-500"
-      );
-    }
+    valid = false;
   }
 
+  else {
+    city.classList.remove(
+      "border-red-500",
+      "ring-1",
+      "ring-red-500"
+    );
+  }
+
+  // PROVINCE
+
+  const province =
+    getSelect("province");
+
+  if (!province?.value) {
+    province?.classList.add(
+      "border-red-500",
+      "ring-1",
+      "ring-red-500"
+    );
+
+    valid = false;
+  }
+
+  else {
+    province.classList.remove(
+      "border-red-500",
+      "ring-1",
+      "ring-red-500"
+    );
+  }
+
+  // CODE POSTAL
+
+  if (
+    !postalCode ||
+    !isValidPostalCode(
+      postalCode.value
+    )
+  ) {
+    postalCode?.classList.add(
+      "border-red-500",
+      "ring-1",
+      "ring-red-500"
+    );
+
+    valid = false;
+  }
+
+  else {
+    postalCode.classList.remove(
+      "border-red-500",
+      "ring-1",
+      "ring-red-500"
+    );
+  }
 
   return valid;
 }
 
-
 // =====================================================
-// VALIDATION DE L'ÉTAPE 4
+// VALIDATION EXPIRATION
 // =====================================================
 
-function validateStep4(): boolean {
-
-  const paymentMethod =
-    document.querySelector<HTMLSelectElement>(
-      "#paymentMethod"
-    );
-
-  const cardNumber =
-    document.querySelector<HTMLInputElement>(
-      "#cardNumber"
-    );
-
-  const expiry =
-    document.querySelector<HTMLInputElement>(
-      "#expiry"
-    );
-
-  const cvv =
-    document.querySelector<HTMLInputElement>(
-      "#cvv"
-    );
-
-  const terms =
-    document.querySelector<HTMLInputElement>(
-      "#terms"
-    );
-
-  const error =
-    document.querySelector<HTMLElement>(
-      "#paymentError"
-    );
-
-  if (
-    !paymentMethod ||
-    paymentMethod.value === "" ||
-    !cardNumber ||
-    cardNumber.value.trim() === "" ||
-    !expiry ||
-    expiry.value.trim() === "" ||
-    !cvv ||
-    cvv.value.trim() === "" ||
-    !terms ||
-    !terms.checked
-  ) {
-
-    error?.classList.remove("hidden");
-
+function isValidExpiry(
+  value: string
+): boolean {
+  if (!/^\d{2}\/\d{2}$/.test(value)) {
     return false;
   }
 
-  error?.classList.add("hidden");
+  const [monthString, yearString] =
+    value.split("/");
+
+  const month =
+    Number(monthString);
+
+  const year =
+    Number(yearString);
+
+  if (
+    month < 1 ||
+    month > 12
+  ) {
+    return false;
+  }
+
+  const today =
+    new Date();
+
+  const currentYear =
+    today.getFullYear() % 100;
+
+  const currentMonth =
+    today.getMonth() + 1;
+
+  if (year < currentYear) {
+    return false;
+  }
+
+  if (
+    year === currentYear &&
+    month < currentMonth
+  ) {
+    return false;
+  }
 
   return true;
 }
 
+// =====================================================
+// VALIDATION ÉTAPE 4
+// =====================================================
+
+function validateStep4(): boolean {
+  const paymentMethod =
+    getSelect("paymentMethod");
+
+  const cardName =
+    getInput("cardName");
+
+  const terms =
+    getInput("terms");
+
+  const error =
+    getElement("paymentError");
+
+  const cleanCard =
+    cardNumber?.value
+      .replace(/\D/g, "") ?? "";
+
+  const cleanCvv =
+    cvv?.value
+      .replace(/\D/g, "") ?? "";
+
+  let valid =
+    paymentMethod !== null &&
+    paymentMethod.value !== "" &&
+
+    cardName !== null &&
+    cardName.value.trim() !== "" &&
+
+    cleanCard.length === 16 &&
+
+    expiry !== null &&
+    isValidExpiry(expiry.value) &&
+
+    cleanCvv.length >= 3 &&
+    cleanCvv.length <= 4 &&
+
+    terms !== null &&
+    terms.checked;
+
+  // ADRESSE DE FACTURATION DIFFÉRENTE
+
+  if (
+    sameBillingAddress &&
+    !sameBillingAddress.checked
+  ) {
+    const billingAddress =
+      getInput("billingAddress");
+
+    const billingCity =
+      getInput("billingCity");
+
+    const billingPostal =
+      getInput("billingPostalCode");
+
+    if (
+      !billingAddress?.value.trim() ||
+      !billingCity?.value.trim() ||
+      !billingPostal ||
+      !isValidPostalCode(
+        billingPostal.value
+      )
+    ) {
+      valid = false;
+    }
+  }
+
+  if (!valid) {
+    error?.classList.remove(
+      "hidden"
+    );
+
+    return false;
+  }
+
+  error?.classList.add(
+    "hidden"
+  );
+
+  return true;
+}
 
 // =====================================================
-// VALIDATION DE L'ÉTAPE ACTUELLE
+// VALIDATION ÉTAPE 5
+// =====================================================
+
+function validateStep5(): boolean {
+  const confirmation =
+    getInput("finalConfirmation");
+
+  const error =
+    getElement("confirmationError");
+
+  if (
+    !confirmation ||
+    !confirmation.checked
+  ) {
+    error?.classList.remove(
+      "hidden"
+    );
+
+    return false;
+  }
+
+  error?.classList.add(
+    "hidden"
+  );
+
+  return true;
+}
+
+// =====================================================
+// VALIDATION ÉTAPE ACTUELLE
 // =====================================================
 
 function validateCurrentStep(): boolean {
-
   switch (currentStep) {
-
     case 1:
       return validateStep1();
 
@@ -642,254 +1432,284 @@ function validateCurrentStep(): boolean {
       return validateStep4();
 
     case 5:
-      return true;
+      return validateStep5();
 
     default:
       return false;
   }
 }
 
-
 // =====================================================
 // RÉCUPÉRER LE MONTANT
 // =====================================================
 
 function getDonationAmount(): string {
-
-  const selectedAmount =
+  const selected =
     document.querySelector<HTMLInputElement>(
       'input[name="amount"]:checked'
-    );
-
-  const customAmount =
-    document.querySelector<HTMLInputElement>(
-      "#customAmount"
     );
 
   if (
     customAmount &&
     customAmount.value.trim() !== ""
   ) {
-
     return `${customAmount.value} $`;
   }
 
-  if (selectedAmount) {
-
-    return `${selectedAmount.value} $`;
+  if (selected) {
+    return `${selected.value} $`;
   }
 
   return "Non sélectionné";
 }
 
+// =====================================================
+// RÉCUPÉRER DATE DE NAISSANCE
+// =====================================================
+
+function getBirthdate(): string {
+  if (
+    !dobDay?.value ||
+    !dobMonth?.value ||
+    !dobYear?.value
+  ) {
+    return "Non renseignée";
+  }
+
+  const day =
+    dobDay.value.padStart(
+      2,
+      "0"
+    );
+
+  const month =
+    dobMonth.value.padStart(
+      2,
+      "0"
+    );
+
+  return `${day}/${month}/${dobYear.value}`;
+}
 
 // =====================================================
-// METTRE À JOUR LA PAGE DE VÉRIFICATION
+// CONSTRUIRE L'ADRESSE COMPLÈTE
+// =====================================================
+
+function getFullAddress(): string {
+  const address =
+    getInput("address")?.value.trim() ?? "";
+
+  const apartment =
+    getInput("apartment")?.value.trim() ?? "";
+
+  const city =
+    getInput("city")?.value.trim() ?? "";
+
+  const province =
+    getSelect("province")?.value ?? "";
+
+  const postal =
+    getInput("postalCode")?.value.trim() ?? "";
+
+  let street = address;
+
+  if (apartment) {
+    street +=
+      `, app. ${apartment}`;
+  }
+
+  const location =
+    [city, province]
+      .filter(Boolean)
+      .join(", ");
+
+  return [
+    street,
+    location,
+    postal
+  ]
+    .filter(Boolean)
+    .join(", ");
+}
+
+// =====================================================
+// PAGE DE VÉRIFICATION
 // =====================================================
 
 function updateReview(): void {
-
-  const donationType =
+  const typeDon =
     document.querySelector<HTMLInputElement>(
-      'input[name="donationType"]:checked'
+      'input[name="typeDon"]:checked'
     );
 
   const firstName =
-    document.querySelector<HTMLInputElement>(
-      "#firstName"
-    );
+    getInput("firstName");
 
   const lastName =
-    document.querySelector<HTMLInputElement>(
-      "#lastName"
-    );
+    getInput("lastName");
 
   const email =
-    document.querySelector<HTMLInputElement>(
-      "#email"
-    );
-
-  const dateNaissance =
-    document.querySelector<HTMLInputElement>(
-      "#dateNaissance"
-    );
-
-  const address =
-    document.querySelector<HTMLInputElement>(
-      "#address"
-    );
+    getInput("email");
 
   const paymentMethod =
-    document.querySelector<HTMLSelectElement>(
-      "#paymentMethod"
-    );
+    getSelect("paymentMethod");
 
-  const cardNumber =
-    document.querySelector<HTMLInputElement>(
-      "#cardNumber"
-    );
+  const donationPurpose =
+    getSelect("donationPurpose");
 
+  const donationFrequency =
+    getSelect("donationFrequency");
 
-  const reviewDonationType =
-    document.querySelector<HTMLElement>(
-      "#reviewDonationType"
-    );
-
-  const reviewAmount =
-    document.querySelector<HTMLElement>(
-      "#reviewAmount"
-    );
-
-  const reviewName =
-    document.querySelector<HTMLElement>(
-      "#reviewName"
-    );
-
-  const reviewEmail =
-    document.querySelector<HTMLElement>(
-      "#reviewEmail"
-    );
-
-  const reviewDateNaissance =
-    document.querySelector<HTMLElement>(
-      "#reviewDateNaissance"
-    );
-
-  const reviewAddress =
-    document.querySelector<HTMLElement>(
-      "#reviewAddress"
-    );
-
-  const reviewPayment =
-    document.querySelector<HTMLElement>(
-      "#reviewPayment"
-    );
-
-  const reviewCard =
-    document.querySelector<HTMLElement>(
-      "#reviewCard"
-    );
-
-
-  // -------------------------------------------------
   // TYPE DE DON
-  // -------------------------------------------------
 
-  if (reviewDonationType) {
+  const verifTypeDon =
+    getElement("verifTypeDon");
 
-    reviewDonationType.textContent =
-      donationType?.value ??
+  if (verifTypeDon) {
+    verifTypeDon.textContent =
+      typeDon?.value ??
       "Non sélectionné";
   }
 
+  // FRÉQUENCE
 
-  // -------------------------------------------------
+  const reviewFrequencyRow =
+    getElement("reviewFrequencyRow");
+
+  const reviewFrequency =
+    getElement("reviewFrequency");
+
+  if (
+    typeDon?.value ===
+    "Don récurrent"
+  ) {
+    reviewFrequencyRow?.classList.remove(
+      "hidden"
+    );
+
+    if (reviewFrequency) {
+      reviewFrequency.textContent =
+        donationFrequency?.value ||
+        "Non sélectionnée";
+    }
+  }
+
+  else {
+    reviewFrequencyRow?.classList.add(
+      "hidden"
+    );
+  }
+
   // MONTANT
-  // -------------------------------------------------
+
+  const reviewAmount =
+    getElement("reviewAmount");
 
   if (reviewAmount) {
-
     reviewAmount.textContent =
       getDonationAmount();
   }
 
+  // AFFECTATION
 
-  // -------------------------------------------------
+  const reviewPurpose =
+    getElement("reviewPurpose");
+
+  if (reviewPurpose) {
+    reviewPurpose.textContent =
+      donationPurpose?.options[
+        donationPurpose.selectedIndex
+      ]?.text ??
+      "Non sélectionnée";
+  }
+
   // NOM
-  // -------------------------------------------------
+
+  const reviewName =
+    getElement("reviewName");
 
   if (reviewName) {
-
     reviewName.textContent =
-      `${firstName?.value ?? ""} ${lastName?.value ?? ""}`;
+      `${firstName?.value ?? ""} ${lastName?.value ?? ""}`
+        .trim() ||
+      "Non renseigné";
   }
 
+  // DATE DE NAISSANCE
 
-  // -------------------------------------------------
+  const reviewBirthdate =
+    getElement("reviewBirthdate");
+
+  if (reviewBirthdate) {
+    reviewBirthdate.textContent =
+      getBirthdate();
+  }
+
   // COURRIEL
-  // -------------------------------------------------
+
+  const reviewEmail =
+    getElement("reviewEmail");
 
   if (reviewEmail) {
-
     reviewEmail.textContent =
-      email?.value ?? "";
+      email?.value ||
+      "Non renseigné";
   }
 
+  // TÉLÉPHONE
 
-  // -------------------------------------------------
-  // DATE DE NAISSANCE
-  // -------------------------------------------------
+  const reviewPhone =
+    getElement("reviewPhone");
 
-  if (reviewDateNaissance) {
-
-    if (
-      dateNaissance &&
-      dateNaissance.value !== ""
-    ) {
-
-      const date =
-        new Date(
-          `${dateNaissance.value}T00:00:00`
-        );
-
-      reviewDateNaissance.textContent =
-        date.toLocaleDateString(
-          "fr-CA"
-        );
-
-    } else {
-
-      reviewDateNaissance.textContent =
-        "Non renseignée";
-    }
+  if (reviewPhone) {
+    reviewPhone.textContent =
+      phone?.value.trim() ||
+      "Non renseigné";
   }
 
-
-  // -------------------------------------------------
   // ADRESSE
-  // -------------------------------------------------
+
+  const reviewAddress =
+    getElement("reviewAddress");
 
   if (reviewAddress) {
-
     reviewAddress.textContent =
-      address?.value ?? "";
+      getFullAddress() ||
+      "Non renseignée";
   }
 
+  // MÉTHODE DE PAIEMENT
 
-  // -------------------------------------------------
-  // MODE DE PAIEMENT
-  // -------------------------------------------------
+  const reviewPayment =
+    getElement("reviewPayment");
 
   if (reviewPayment) {
-
     reviewPayment.textContent =
-      paymentMethod?.value ??
+      paymentMethod?.value ||
       "Non sélectionné";
   }
 
+  // CARTE MASQUÉE
 
-  // -------------------------------------------------
-  // CARTE
-  // -------------------------------------------------
+  const reviewCard =
+    getElement("reviewCard");
 
   if (reviewCard) {
-
     const value =
-      cardNumber?.value ?? "";
+      cardNumber?.value
+        .replace(/\D/g, "") ?? "";
 
     if (value.length >= 4) {
-
       reviewCard.textContent =
         `•••• •••• •••• ${value.slice(-4)}`;
+    }
 
-    } else {
-
+    else {
       reviewCard.textContent =
         "Non renseignée";
     }
   }
 }
-
 
 // =====================================================
 // BOUTON SUIVANT
@@ -898,13 +1718,11 @@ function updateReview(): void {
 nextBtn?.addEventListener(
   "click",
   () => {
-
     if (!validateCurrentStep()) {
       return;
     }
 
     if (currentStep < totalSteps) {
-
       currentStep++;
 
       showStep(
@@ -915,7 +1733,6 @@ nextBtn?.addEventListener(
   }
 );
 
-
 // =====================================================
 // BOUTON PRÉCÉDENT
 // =====================================================
@@ -923,9 +1740,7 @@ nextBtn?.addEventListener(
 prevBtn?.addEventListener(
   "click",
   () => {
-
     if (currentStep > 1) {
-
       currentStep--;
 
       showStep(
@@ -936,28 +1751,25 @@ prevBtn?.addEventListener(
   }
 );
 
-
 // =====================================================
-// STEPPER : RETOUR AUX ÉTAPES TERMINÉES
+// STEPPER
+// RETOUR AUX ÉTAPES PRÉCÉDENTES SEULEMENT
 // =====================================================
 
 stepperButtons.forEach(
   (button) => {
-
     button.addEventListener(
       "click",
       () => {
-
         const targetStep =
           Number(
             button.dataset.stepButton
           );
 
-        // Seulement les étapes déjà complétées
         if (
-          targetStep < currentStep
+          targetStep <
+          currentStep
         ) {
-
           currentStep =
             targetStep;
 
@@ -971,57 +1783,91 @@ stepperButtons.forEach(
   }
 );
 
+// =====================================================
+// ENLEVER LES ERREURS PENDANT LA SAISIE
+// =====================================================
+
+[
+  "firstName",
+  "lastName",
+  "email",
+  "address",
+  "city",
+  "postalCode",
+  "cardName"
+].forEach(
+  (id) => {
+    const input =
+      getInput(id);
+
+    input?.addEventListener(
+      "input",
+      () => {
+        input.classList.remove(
+          "border-red-500",
+          "ring-1",
+          "ring-red-500"
+        );
+
+        getElement(
+          `${id}Error`
+        )?.classList.add("hidden");
+      }
+    );
+  }
+);
 
 // =====================================================
-// ENVOI DU FORMULAIRE
+// CONFIRMATION FINALE
+// =====================================================
+
+getInput(
+  "finalConfirmation"
+)?.addEventListener(
+  "change",
+  () => {
+    getElement(
+      "confirmationError"
+    )?.classList.add("hidden");
+  }
+);
+
+// =====================================================
+// SOUMISSION DU FORMULAIRE
 // =====================================================
 
 form?.addEventListener(
   "submit",
   (event) => {
-
     event.preventDefault();
 
     if (!validateCurrentStep()) {
       return;
     }
 
-    if (successMessage) {
-
-      successMessage.classList.remove(
-        "hidden"
-      );
-
-      successMessage.classList.add(
-        "opacity-0",
-        "translate-y-2"
-      );
-
-      requestAnimationFrame(
-        () => {
-
-          successMessage.classList.remove(
-            "opacity-0",
-            "translate-y-2"
-          );
-
-          successMessage.classList.add(
-            "opacity-100",
-            "translate-y-0"
-          );
-        }
-      );
-    }
-
-    form.classList.add(
-      "hidden"
+    sessionStorage.setItem(
+      "donSubmitted",
+      "true"
     );
+
+    window.location.href =
+      "/index.html";
   }
 );
-
 
 // =====================================================
 // INITIALISATION
 // =====================================================
 
-showStep(1);
+if (
+  form &&
+  totalSteps > 0
+) {
+  updatetypeDonOptions();
+  updateBillingAddress();
+
+  showStep(
+    1,
+    "next"
+  );
+}

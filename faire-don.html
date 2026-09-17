@@ -4,45 +4,60 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Formulaire</title>
+
+  <title>Faire un don | SPBA</title>
+
   <link
-    href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&family=Gluten:wght@100..900&display=swap"
+    href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&family=Winky+Sans:ital,wght@0,300..900;1,300..900&display=swap"
     rel="stylesheet">
 </head>
+
 
 <body class="min-h-screen">
 
   <main class="max-w-5xl mx-auto px-6 py-10">
 
-    <!-- TITRE -->
+    <!-- ================================================= -->
+    <!-- INTRODUCTION -->
+    <!-- ================================================= -->
+
     <div class="text-center mb-10">
-      <h1 class="text-5xl font-bold mb-8 font-[Gluten] text-[#002626]">
+
+      <h1 class="text-5xl font-bold mb-8 font-[Winky_Sans]">
         Faire un don
       </h1>
+
+      <div class="font-[DM_Sans]">
+
+        <p class="text-[#070600] mb-5 text-lg">
+          Faire un don à la
+          <abbr title="Société de protection des bébés animaux">SPBA</abbr>,
+          c’est offrir une chance réelle aux animaux qui ont besoin de soins,
+          de protection et d’un nouveau départ.
+        </p>
+
+        <p class="text-[#070600] text-lg">
+          <strong>
+            Merci de contribuer à améliorer la vie de ceux qui ne peuvent pas
+            parler pour eux.
+          </strong>
+        </p>
+
+      </div>
+
     </div>
-    <div class="text-center font-[DM_Sans]">
-      <p class="text-[#070600] mb-5 text-lg">
-        Faire un don à la <abbr title="Société de protection des bébés animaux">SPBA</abbr>, c’est offrir une chance
-        réelle aux animaux qui ont besoin de soins, de protection et
-        d’un nouveau départ. Cette page vous permet de choisir le type de contribution qui correspond à vos valeurs et
-        de remplir les informations nécessaires en toute simplicité.
-      </p>
-
-      <p class="text-[#070600] mb-15 text-lg">
-        <strong>Merci de contribuer à améliorer la vie de ceux qui ne peuvent pas parler pour eux.</strong>
-      </p>
-    </div>
-
-    <div class="w-full h-px max-w-6xl mx-auto mb-15"
-      style="background-image: linear-gradient(90deg, rgba(167, 200, 170, 0) 1.46%, rgba(167, 200, 170, 0.6) 40.83%, rgba(167, 200, 170, 0.3) 65.57%, rgba(167, 200, 170, 0) 107.92%);">
-    </div>
 
 
-    <!-- CONTENEUR PRINCIPAL -->
+
+    <!-- ================================================= -->
+    <!-- CONTENEUR -->
+    <!-- ================================================= -->
+
     <div class="grid grid-cols-1 md:grid-cols-3 gap-10">
 
+
       <!-- ================================================= -->
-      <!-- STEPPER VERTICAL -->
+      <!-- STEPPER -->
       <!-- ================================================= -->
 
       <aside class="md:col-span-1">
@@ -53,98 +68,114 @@
 
             <ol class="space-y-6">
 
+
               <!-- ÉTAPE 1 -->
+
               <li>
+
                 <button type="button"
                   class="stepper-button flex items-center gap-4 w-full text-left transition-all duration-300"
                   data-step-button="1" disabled>
 
                   <span
-                    class="step-circle flex-shrink-0 w-10 h-10 rounded-full text-white flex items-center justify-center font-semibold transition-all duration-300">
+                    class="step-circle flex-shrink-0 w-10 h-10 rounded-full bg-[#496E60] text-white flex items-center justify-center font-semibold">
                     1
                   </span>
 
-                  <span class="step-label font-medium transition-all duration-300">
+                  <span class="step-label font-medium text-[#002626]">
                     Type de don
                   </span>
 
                 </button>
+
               </li>
 
 
               <!-- ÉTAPE 2 -->
+
               <li>
+
                 <button type="button"
                   class="stepper-button flex items-center gap-4 w-full text-left transition-all duration-300"
                   data-step-button="2" disabled>
 
                   <span
-                    class="step-circle flex-shrink-0 w-10 h-10 rounded-full bg-slate-200 text-slate-500 flex items-center justify-center font-semibold transition-all duration-300">
+                    class="step-circle flex-shrink-0 w-10 h-10 rounded-full bg-slate-200 text-slate-500 flex items-center justify-center font-semibold">
                     2
                   </span>
 
-                  <span class="step-label text-slate-500 font-medium transition-all duration-300">
+                  <span class="step-label text-slate-500 font-medium">
                     Montant du don
                   </span>
 
                 </button>
+
               </li>
 
 
               <!-- ÉTAPE 3 -->
+
               <li>
+
                 <button type="button"
                   class="stepper-button flex items-center gap-4 w-full text-left transition-all duration-300"
                   data-step-button="3" disabled>
 
                   <span
-                    class="step-circle flex-shrink-0 w-10 h-10 rounded-full bg-slate-200 text-slate-500 flex items-center justify-center font-semibold transition-all duration-300">
+                    class="step-circle flex-shrink-0 w-10 h-10 rounded-full bg-slate-200 text-slate-500 flex items-center justify-center font-semibold">
                     3
                   </span>
 
-                  <span class="step-label text-slate-500 font-medium transition-all duration-300">
+                  <span class="step-label text-slate-500 font-medium">
                     Informations personnelles
                   </span>
 
                 </button>
+
               </li>
 
 
               <!-- ÉTAPE 4 -->
+
               <li>
+
                 <button type="button"
                   class="stepper-button flex items-center gap-4 w-full text-left transition-all duration-300"
                   data-step-button="4" disabled>
 
                   <span
-                    class="step-circle flex-shrink-0 w-10 h-10 rounded-full bg-slate-200 text-slate-500 flex items-center justify-center font-semibold transition-all duration-300">
+                    class="step-circle flex-shrink-0 w-10 h-10 rounded-full bg-slate-200 text-slate-500 flex items-center justify-center font-semibold">
                     4
                   </span>
 
-                  <span class="step-label text-slate-500 font-medium transition-all duration-300">
+                  <span class="step-label text-slate-500 font-medium">
                     Paiement
                   </span>
 
                 </button>
+
               </li>
 
 
               <!-- ÉTAPE 5 -->
+
               <li>
+
                 <button type="button"
                   class="stepper-button flex items-center gap-4 w-full text-left transition-all duration-300"
                   data-step-button="5" disabled>
 
                   <span
-                    class="step-circle flex-shrink-0 w-10 h-10 rounded-full bg-slate-200 text-slate-500 flex items-center justify-center font-semibold transition-all duration-300">
+                    class="step-circle flex-shrink-0 w-10 h-10 rounded-full bg-slate-200 text-slate-500 flex items-center justify-center font-semibold">
                     5
                   </span>
 
-                  <span class="step-label text-slate-500 font-medium transition-all duration-300">
+                  <span class="step-label text-slate-500 font-medium">
                     Vérification
                   </span>
 
                 </button>
+
               </li>
 
             </ol>
@@ -156,56 +187,62 @@
       </aside>
 
 
+
       <!-- ================================================= -->
       <!-- FORMULAIRE -->
       <!-- ================================================= -->
 
       <section class="md:col-span-2">
 
-        <form id="donationForm" novalidate class="bg-white rounded-2xl shadow-sm border border-slate-200 p-6 md:p-8">
+        <form id="donationForm" novalidate
+          class="bg-white rounded-2xl shadow-sm border border-slate-200 p-6 md:p-8 font-[DM_Sans]">
 
 
-          <!-- ============================================= -->
+          <!-- ================================================= -->
           <!-- ÉTAPE 1 : TYPE DE DON -->
-          <!-- ============================================= -->
+          <!-- ================================================= -->
 
           <section class="form-step transition-all duration-300 ease-out" data-step="1">
 
             <div class="mb-8">
 
-              <p class="text-[14px] text-[#CD5C08] font-semibold mb-2 font-[DM_Sans]">
+              <p class="text-[14px] text-[#CD5C08] font-semibold mb-2">
                 ÉTAPE 1 SUR 5
               </p>
 
-              <h2 class="text-[25px] font-bold font-[Gluten] text-[#002626]">
+              <h2 class="text-[25px] font-bold font-[Winky_Sans] text-[#002626]">
                 Type de don
               </h2>
 
-              <!-- <p class="text-slate-500 mt-2">
-                  Sélectionnez la fréquence de votre contribution.
-                </p> -->
+              <p class="text-[#6B7280] mt-2">
+                Sélectionnez le type de contribution que vous souhaitez faire.
+              </p>
 
             </div>
 
 
-            <div class="grid gap-4 font-[DM_Sans]">
+            <div class="grid gap-4">
+
 
               <!-- DON UNIQUE -->
+
               <label
-                class="cursor-pointer border border-slate-200 rounded-xl p-5 transition-all duration-300 hover:border-[#496E60] hover:shadow-md">
+                class="cursor-pointer border border-slate-200 rounded-xl p-5 transition-all hover:border-[#496E60] hover:shadow-md">
 
-                <div class="flex items-center gap-4">
+                <div class="flex items-start gap-4">
 
-                  <input type="radio" name="donationType" value="Don unique" class="w-5 h-5 accent-[#496E60]">
+                  <input type="radio" name="typeDon" value="Don unique" class="w-5 h-5 mt-1 accent-[#496E60]">
 
                   <div>
+
                     <h3 class="font-semibold text-[#070600]">
                       Don unique
                     </h3>
 
                     <p class="text-sm text-[#6B7280] mt-1">
-                      Contribution versée une seule fois, sans engagement de renouvellement.
+                      Contribution versée une seule fois.
                     </p>
+
                   </div>
 
                 </div>
@@ -214,67 +251,78 @@
 
 
               <!-- DON RÉCURRENT -->
+
               <label
-                class="cursor-pointer border border-slate-200 rounded-xl p-5 transition-all duration-300 hover:border-[#496E60] hover:shadow-md">
+                class="cursor-pointer border border-slate-200 rounded-xl p-5 transition-all hover:border-[#496E60] hover:shadow-md">
 
-                <div class="flex items-center gap-4">
+                <div class="flex items-start gap-4">
 
-                  <input type="radio" name="donationType" value="Don récurrent" class="w-5 h-5 accent-[#496E60]">
+                  <input type="radio" name="typeDon" value="Don récurrent" class="w-5 h-5 mt-1 accent-[#496E60]">
 
                   <div>
+
                     <h3 class="font-semibold text-[#070600]">
                       Don récurrent
                     </h3>
 
                     <p class="text-sm text-[#6B7280] mt-1">
-                      Contribution automatique versée à intervalles réguliers.
+                      Contribution automatique versée régulièrement.
                     </p>
+
                   </div>
 
                 </div>
 
-                <!-- DON PLANIFIÉ -->
               </label>
 
+
+              <!-- DON PLANIFIÉ -->
+
               <label
-                class="cursor-pointer border border-slate-200 rounded-xl p-5 transition-all duration-300 hover:border-[#496E60] hover:shadow-md">
+                class="cursor-pointer border border-slate-200 rounded-xl p-5 transition-all hover:border-[#496E60] hover:shadow-md">
 
-                <div class="flex items-center gap-4">
+                <div class="flex items-start gap-4">
 
-                  <input type="radio" name="donationType" value="Don planifié" class="w-5 h-5 accent-[#496E60]">
+                  <input type="radio" name="typeDon" value="Don planifié" class="w-5 h-5 mt-1 accent-[#496E60]">
 
                   <div>
+
                     <h3 class="font-semibold text-[#070600]">
                       Don planifié
                     </h3>
 
                     <p class="text-sm text-[#6B7280] mt-1">
-                      Contribution prévue dans un testament ou un instrument financier.
+                      Contribution prévue dans un testament ou un instrument
+                      financier.
                     </p>
+
                   </div>
 
                 </div>
 
               </label>
 
+
               <!-- DON COMMÉMORATIF -->
-              </label>
 
               <label
-                class="cursor-pointer border border-slate-200 rounded-xl p-5 transition-all duration-300 hover:border-[#496E60] hover:shadow-md">
+                class="cursor-pointer border border-slate-200 rounded-xl p-5 transition-all hover:border-[#496E60] hover:shadow-md">
 
-                <div class="flex items-center gap-4">
+                <div class="flex items-start gap-4">
 
-                  <input type="radio" name="donationType" value="Don commémoratif" class="w-5 h-5 accent-[#496E60]">
+                  <input type="radio" name="typeDon" value="Don commémoratif"
+                    class="w-5 h-5 mt-1 accent-[#496E60]">
 
                   <div>
+
                     <h3 class="font-semibold text-[#070600]">
                       Don commémoratif
                     </h3>
 
                     <p class="text-sm text-[#6B7280] mt-1">
-                      Contribution offerte en mémoire d'un proche disparu.
+                      Contribution offerte en mémoire d'un proche.
                     </p>
+
                   </div>
 
                 </div>
@@ -284,28 +332,146 @@
             </div>
 
 
-            <p id="donationTypeError" class="hidden text-sm text-red-500 mt-4 font-[DM_Sans]">
+            <!-- OPTIONS DON RÉCURRENT -->
+
+            <div id="recurringOptions" class="hidden mt-6 p-5 rounded-xl bg-slate-50 border border-slate-200">
+
+              <label for="donationFrequency" class="block font-semibold text-[#002626] mb-2">
+                Fréquence du don
+              </label>
+
+              <select id="donationFrequency"
+                class="w-full rounded-xl border border-slate-300 px-4 py-3 bg-white outline-none focus:border-[#496E60]">
+
+                <option value="">
+                  Sélectionnez une fréquence
+                </option>
+
+                <option value="Mensuel">
+                  Mensuel
+                </option>
+
+                <option value="Trimestriel">
+                  Trimestriel
+                </option>
+
+                <option value="Annuel">
+                  Annuel
+                </option>
+
+              </select>
+
+
+              <label for="firstPaymentDate" class="block font-semibold text-[#002626] mt-5 mb-2">
+                Date du premier prélèvement
+              </label>
+
+              <input type="date" id="firstPaymentDate"
+                class="w-full rounded-xl border border-slate-300 px-4 py-3 outline-none focus:border-[#496E60]">
+
+            </div>
+
+
+            <!-- OPTIONS DON COMMÉMORATIF -->
+
+            <div id="memorialOptions" class="hidden mt-6 p-5 rounded-xl bg-slate-50 border border-slate-200">
+
+              <label for="memorialName" class="block font-semibold text-[#002626] mb-2">
+                En mémoire de
+              </label>
+
+              <input type="text" id="memorialName" placeholder="Nom de la personne"
+                class="w-full rounded-xl border border-slate-300 px-4 py-3 outline-none focus:border-[#496E60]">
+
+
+              <label for="memorialMessage" class="block font-semibold text-[#002626] mt-5 mb-2">
+                Message
+                <span class="font-normal text-slate-500">
+                  (facultatif)
+                </span>
+              </label>
+
+              <textarea id="memorialMessage" rows="3" maxlength="250" placeholder="Écrivez un court message..."
+                class="w-full rounded-xl border border-slate-300 px-4 py-3 outline-none resize-none focus:border-[#496E60]"></textarea>
+
+            </div>
+
+
+            <!-- OPTIONS DON PLANIFIÉ -->
+
+            <div id="plannedOptions" class="hidden mt-6 p-5 rounded-xl bg-slate-50 border border-slate-200">
+
+              <label for="plannedtypeDon" class="block font-semibold text-[#002626] mb-2">
+                Type de don planifié
+              </label>
+
+              <select id="plannedtypeDon"
+                class="w-full rounded-xl border border-slate-300 px-4 py-3 bg-white outline-none focus:border-[#496E60]">
+
+                <option value="">
+                  Sélectionnez une option
+                </option>
+
+                <option value="Don testamentaire">
+                  Don testamentaire
+                </option>
+
+                <option value="Assurance-vie">
+                  Assurance-vie
+                </option>
+
+                <option value="Valeurs mobilières">
+                  Valeurs mobilières
+                </option>
+
+                <option value="Autre">
+                  Autre
+                </option>
+
+              </select>
+
+
+              <label class="flex items-start gap-3 mt-5">
+
+                <input type="checkbox" id="plannedContact" class="mt-1 w-4 h-4 accent-[#496E60]">
+
+                <span class="text-sm text-slate-600">
+                  J'aimerais être contacté afin d'obtenir plus d'informations
+                  concernant les dons planifiés.
+                </span>
+
+              </label>
+
+            </div>
+
+
+            <p id="typeDonError" class="hidden text-sm text-red-500 mt-4">
               Veuillez sélectionner un type de don.
             </p>
 
           </section>
 
 
-          <!-- ============================================= -->
+
+          <!-- ================================================= -->
           <!-- ÉTAPE 2 : MONTANT -->
-          <!-- ============================================= -->
+          <!-- ================================================= -->
 
           <section class="form-step hidden opacity-0 transition-all duration-300 ease-out" data-step="2">
 
             <div class="mb-8">
 
-              <p class="text-[14px] text-[#CD5C08] font-semibold mb-2 font-[DM_Sans]">
+              <p class="text-[14px] text-[#CD5C08] font-semibold mb-2">
                 ÉTAPE 2 SUR 5
               </p>
 
-              <h2 class="text-[25px] font-bold font-[Gluten] text-[#002626]">
+              <h2 class="text-[25px] font-bold font-[Winky_Sans] text-[#002626]">
                 Montant de votre don
               </h2>
+
+              <p class="text-[#6B7280] mt-2">
+                Choisissez le montant que vous souhaitez donner.
+              </p>
 
             </div>
 
@@ -313,60 +479,74 @@
             <div class="grid grid-cols-2 gap-4">
 
               <label class="cursor-pointer">
+
                 <input type="radio" name="amount" value="25" class="peer sr-only">
 
                 <div
-                  class="border border-slate-200 rounded-xl p-5 text-center font-semibold text-slate-700 transition-all duration-300 peer-checked:border-[#496E60] peer-checked:bg-[#496E60]/20 peer-checked:text-[#496E60] hover:border-[#496E60]">
-                  25 $
+                  class="border border-slate-200 rounded-xl p-5 text-center font-semibold text-slate-700 transition-all peer-checked:border-[#496E60] peer-checked:bg-[#496E60]/20 peer-checked:text-[#496E60] hover:border-[#496E60]">
+                  30 $
                 </div>
+
               </label>
 
 
               <label class="cursor-pointer">
+
                 <input type="radio" name="amount" value="50" class="peer sr-only">
 
                 <div
-                  class="border border-slate-200 rounded-xl p-5 text-center font-semibold text-slate-700 transition-all duration-300 peer-checked:border-[#496E60] peer-checked:bg-[#496E60]/20 peer-checked:text-[#496E60] hover:border-[#496E60]">
+                  class="border border-slate-200 rounded-xl p-5 text-center font-semibold text-slate-700 transition-all peer-checked:border-[#496E60] peer-checked:bg-[#496E60]/20 peer-checked:text-[#496E60] hover:border-[#496E60]">
                   50 $
                 </div>
+
               </label>
 
 
               <label class="cursor-pointer">
+
                 <input type="radio" name="amount" value="100" class="peer sr-only">
 
                 <div
-                  class="border border-slate-200 rounded-xl p-5 text-center font-semibold text-slate-700 transition-all duration-300 peer-checked:border-[#496E60] peer-checked:bg-[#496E60]/20 peer-checked:text-[#496E60] hover:border-[#496E60]">
+                  class="border border-slate-200 rounded-xl p-5 text-center font-semibold text-slate-700 transition-all peer-checked:border-[#496E60] peer-checked:bg-[#496E60]/20 peer-checked:text-[#496E60] hover:border-[#496E60]">
                   100 $
                 </div>
+
               </label>
 
 
               <label class="cursor-pointer">
+
                 <input type="radio" name="amount" value="250" class="peer sr-only">
 
                 <div
-                  class="border border-slate-200 rounded-xl p-5 text-center font-semibold text-slate-700 transition-all duration-300 peer-checked:border-[#496E60] peer-checked:bg-[#496E60]/20 peer-checked:text-[#496E60] hover:border-[#496E60]">
-                  250 $
+                  class="border border-slate-200 rounded-xl p-5 text-center font-semibold text-slate-700 transition-all peer-checked:border-[#496E60] peer-checked:bg-[#496E60]/20 peer-checked:text-[#496E60] hover:border-[#496E60]">
+                  300 $
                 </div>
+
               </label>
 
             </div>
 
 
+            <!-- AUTRE MONTANT -->
+
             <div class="mt-6">
 
-              <label for="customAmount" class="block text-[18px] font-semibold text-[#002626] mb-1 font-[DM_Sans]">
+              <label for="customAmount" class="block text-[18px] font-semibold text-[#002626] mb-1">
+
                 Autre montant
+
               </label>
-              <div>
-                <p class="text-[14px] mb-4 text-[#6B7280]">Choisissez un montant personnalisé</p>
-              </div>
+
+              <p class="text-[14px] mb-4 text-[#6B7280]">
+                Choisissez un montant personnalisé.
+              </p>
+
 
               <div class="relative">
 
-                <input type="number" id="customAmount" min="1"
-                  class="w-full rounded-xl border border-slate-300 px-4 py-3 pr-12 outline-none transition-all focus:border-[#496E60]">
+                <input type="number" id="customAmount" min="1" step="1"
+                  class="w-full rounded-xl border border-slate-300 px-4 py-3 pr-12 outline-none focus:border-[#496E60]">
 
                 <span class="absolute right-4 top-1/2 -translate-y-1/2 text-[#6B7280]">
                   $
@@ -384,36 +564,44 @@
           </section>
 
 
-          <!-- ============================================= -->
+
+          <!-- ================================================= -->
           <!-- ÉTAPE 3 : INFORMATIONS PERSONNELLES -->
-          <!-- ============================================= -->
+          <!-- ================================================= -->
 
           <section class="form-step hidden opacity-0 transition-all duration-300 ease-out" data-step="3">
 
             <div class="mb-8">
 
-              <p class="text-[14px] text-[#CD5C08] font-semibold mb-2 font-[DM_Sans]">
+              <p class="text-[14px] text-[#CD5C08] font-semibold mb-2">
                 ÉTAPE 3 SUR 5
               </p>
 
-              <h2 class="text-[25px] font-bold font-[Gluten] text-[#002626]">
+              <h2 class="text-[25px] font-bold font-[Winky_Sans] text-[#002626]">
                 Informations personnelles du donateur
               </h2>
+
+              <p class="text-[#6B7280] mt-2">
+                Entrez vos coordonnées afin que nous puissions traiter votre
+                don.
+              </p>
 
             </div>
 
 
             <div class="grid md:grid-cols-2 gap-5">
 
+
               <!-- PRÉNOM -->
+
               <div>
 
-                <label for="firstName" class="block text-[16px] font-semibold text-[#002626] mb-1 font-[DM_Sans]">
+                <label for="firstName" class="block text-[16px] font-semibold text-[#002626] mb-1">
                   Prénom
                 </label>
 
-                <input type="text" id="firstName"
-                  class="w-full rounded-xl border border-slate-300 px-4 py-3 outline-none transition-all focus:border-blue-500 focus:ring-2 focus:ring-blue-100">
+                <input type="text" id="firstName" autocomplete="given-name"
+                  class="w-full rounded-xl border border-slate-300 px-4 py-3 outline-none focus:border-[#496E60]">
 
                 <p id="firstNameError" class="hidden text-sm text-red-500 mt-1">
                   Ce champ est obligatoire.
@@ -423,14 +611,15 @@
 
 
               <!-- NOM -->
+
               <div>
 
-                <label for="lastName" class="block text-[16px] font-semibold text-[#002626] mb-1 font-[DM_Sans]">
+                <label for="lastName" class="block text-[16px] font-semibold text-[#002626] mb-1">
                   Nom de famille
                 </label>
 
-                <input type="text" id="lastName"
-                  class="w-full rounded-xl border border-slate-300 px-4 py-3 outline-none transition-all focus:border-blue-500 focus:ring-2 focus:ring-blue-100">
+                <input type="text" id="lastName" autocomplete="family-name"
+                  class="w-full rounded-xl border border-slate-300 px-4 py-3 outline-none focus:border-[#496E60]">
 
                 <p id="lastNameError" class="hidden text-sm text-red-500 mt-1">
                   Ce champ est obligatoire.
@@ -438,17 +627,30 @@
 
               </div>
 
-              <div class="mb-4">
-                <label for="birthDay" class="block text-sm font-medium text-gray-700 mb-1">
+
+              <!-- DATE DE NAISSANCE -->
+
+              <div class="md:col-span-2">
+
+                <label class="block text-[16px] font-semibold text-[#002626] mb-2">
                   Date de naissance
                 </label>
 
-                <div class="flex gap-2">
-                  <input type="number" id="birthDay" name="birthDay"
-                    class="w-full rounded-xl border border-slate-300 px-4 py-3 outline-none transition-all focus:border-blue-500 focus:ring-2 focus:ring-blue-100" />
+                <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
 
-                  <select id="birthMonth" name="birthMonth"
-                    class="w-full rounded-xl border border-slate-300 px-4 py-3 outline-none transition-all focus:border-blue-500 focus:ring-2 focus:ring-blue-100">
+                  <select id="dobDay" name="dobDay" aria-label="Jour de naissance"
+                    class="w-full rounded-xl border border-slate-300 px-4 py-3 bg-white outline-none focus:border-[#496E60]">
+
+                    <option value="">
+                      Jour
+                    </option>
+
+                  </select>
+
+
+                  <select id="dobMonth" name="dobMonth" aria-label="Mois de naissance"
+                    class="w-full rounded-xl border border-slate-300 px-4 py-3 bg-white outline-none focus:border-[#496E60]">
+
                     <option value="">Mois</option>
                     <option value="1">Janvier</option>
                     <option value="2">Février</option>
@@ -462,30 +664,42 @@
                     <option value="10">Octobre</option>
                     <option value="11">Novembre</option>
                     <option value="12">Décembre</option>
+
                   </select>
 
-                  <input type="number" id="birthYear" name="birthYear"
-                    class="w-full rounded-xl border border-slate-300 px-4 py-3 outline-none transition-all focus:border-blue-500 focus:ring-2 focus:ring-blue-100" />
+
+                  <select id="dobYear" name="dobYear" aria-label="Année de naissance"
+                    class="w-full rounded-xl border border-slate-300 px-4 py-3 bg-white outline-none focus:border-[#496E60]">
+
+                    <option value="">
+                      Année
+                    </option>
+
+                  </select>
+
                 </div>
 
-                <p id="dateNaissanceError" class="hidden text-red-600 text-sm mt-1">
+                <p id="birthdateError" class="hidden text-sm text-red-500 mt-2">
                   Veuillez entrer une date de naissance valide.
                 </p>
+
               </div>
 
 
               <!-- COURRIEL -->
+
               <div class="md:col-span-2">
 
-                <label for="email" class="block text-[16px] font-semibold text-[#002626] mb-1 font-[DM_Sans]">
+                <label for="email" class="block text-[16px] font-semibold text-[#002626] mb-1">
                   Adresse courriel
                 </label>
-                <div>
-                  <p class="text-[14px] mb-2 text-[#6B7280]">Ex : john.doe@gmail.com</p>
-                </div>
 
-                <input type="email" id="email"
-                  class="w-full rounded-xl border border-slate-300 px-4 py-3 outline-none transition-all focus:border-blue-500 focus:ring-2 focus:ring-blue-100">
+                <p class="text-[14px] mb-2 text-[#6B7280]">
+                  Ex. john.doe@gmail.com
+                </p>
+
+                <input type="email" id="email" autocomplete="email"
+                  class="w-full rounded-xl border border-slate-300 px-4 py-3 outline-none focus:border-[#496E60]">
 
                 <p id="emailError" class="hidden text-sm text-red-500 mt-1">
                   Veuillez entrer une adresse courriel valide.
@@ -494,16 +708,34 @@
               </div>
 
 
+              <!-- TÉLÉPHONE -->
 
-              <!-- ADRESSE -->
               <div class="md:col-span-2">
 
-                <label for="adress" class="block text-[16px] font-semibold text-[#002626] mb-1 font-[DM_Sans]">
-                  Adresse postale
+                <label for="phone" class="block text-[16px] font-semibold text-[#002626] mb-1">
+                  Numéro de téléphone
+                  <span class="font-normal text-slate-500">
+                    (facultatif)
+                  </span>
                 </label>
 
-                <input type="text" id="address"
-                  class="w-full rounded-xl border border-slate-300 px-4 py-3 outline-none transition-all focus:border-blue-500 focus:ring-2 focus:ring-blue-100">
+                <input type="tel" id="phone" name="phone" inputmode="numeric" autocomplete="tel" maxlength="14"
+                  placeholder="(418) 555-1234"
+                  class="w-full rounded-xl border border-slate-300 px-4 py-3 outline-none transition-all focus:border-[#496E60]">
+
+              </div>
+
+
+              <!-- ADRESSE -->
+
+              <div class="md:col-span-2">
+
+                <label for="address" class="block text-[16px] font-semibold text-[#002626] mb-1">
+                  Adresse
+                </label>
+
+                <input type="text" id="address" autocomplete="street-address" placeholder="123, rue Exemple"
+                  class="w-full rounded-xl border border-slate-300 px-4 py-3 outline-none focus:border-[#496E60]">
 
                 <p id="addressError" class="hidden text-sm text-red-500 mt-1">
                   Ce champ est obligatoire.
@@ -511,43 +743,200 @@
 
               </div>
 
+
+              <!-- APPARTEMENT -->
+
+              <div class="md:col-span-2">
+
+                <label for="apartment" class="block text-[16px] font-semibold text-[#002626] mb-1">
+                  Appartement
+                  <span class="font-normal text-slate-500">
+                    (facultatif)
+                  </span>
+                </label>
+
+                <input type="text" id="apartment" autocomplete="address-line2"
+                  class="w-full rounded-xl border border-slate-300 px-4 py-3 outline-none focus:border-[#496E60]">
+
+              </div>
+
+
+              <!-- VILLE -->
+
+              <div>
+
+                <label for="city" class="block text-[16px] font-semibold text-[#002626] mb-1">
+                  Ville
+                </label>
+
+                <input type="text" id="city" autocomplete="address-level2"
+                  class="w-full rounded-xl border border-slate-300 px-4 py-3 outline-none focus:border-[#496E60]">
+
+              </div>
+
+
+              <!-- PROVINCE -->
+
+              <div>
+
+                <label for="province" class="block text-[16px] font-semibold text-[#002626] mb-1">
+                  Province
+                </label>
+
+                <select id="province" autocomplete="address-level1"
+                  class="w-full rounded-xl border border-slate-300 px-4 py-3 bg-white outline-none focus:border-[#496E60]">
+
+                  <option value="">
+                    Sélectionnez
+                  </option>
+
+                  <option value="QC">
+                    Québec
+                  </option>
+
+                  <option value="ON">
+                    Ontario
+                  </option>
+
+                  <option value="NB">
+                    Nouveau-Brunswick
+                  </option>
+
+                  <option value="NS">
+                    Nouvelle-Écosse
+                  </option>
+
+                  <option value="PE">
+                    Île-du-Prince-Édouard
+                  </option>
+
+                  <option value="NL">
+                    Terre-Neuve-et-Labrador
+                  </option>
+
+                  <option value="MB">
+                    Manitoba
+                  </option>
+
+                  <option value="SK">
+                    Saskatchewan
+                  </option>
+
+                  <option value="AB">
+                    Alberta
+                  </option>
+
+                  <option value="BC">
+                    Colombie-Britannique
+                  </option>
+
+                  <option value="YT">
+                    Yukon
+                  </option>
+
+                  <option value="NT">
+                    Territoires du Nord-Ouest
+                  </option>
+
+                  <option value="NU">
+                    Nunavut
+                  </option>
+
+                </select>
+
+              </div>
+
+
+              <!-- CODE POSTAL -->
+
+              <div>
+
+                <label for="postalCode" class="block text-[16px] font-semibold text-[#002626] mb-1">
+                  Code postal
+                </label>
+
+                <input type="text" id="postalCode" autocomplete="postal-code" maxlength="7" placeholder="G1A 1A1"
+                  class="w-full rounded-xl border border-slate-300 px-4 py-3 uppercase outline-none focus:border-[#496E60]">
+
+              </div>
+
+
+              <!-- PAYS -->
+
+              <div>
+
+                <label for="country" class="block text-[16px] font-semibold text-[#002626] mb-1">
+                  Pays
+                </label>
+
+                <select id="country" autocomplete="country"
+                  class="w-full rounded-xl border border-slate-300 px-4 py-3 bg-white outline-none focus:border-[#496E60]">
+
+                  <option value="Canada">
+                    Canada
+                  </option>
+
+                </select>
+
+              </div>
+
+            </div>
+
+
+            <!-- COMMUNICATION -->
+
+            <div class="mt-7 pt-6 border-t border-slate-200">
+
+              <label class="flex items-start gap-3 cursor-pointer">
+
+                <input type="checkbox" id="newsletter" class="mt-1 w-4 h-4 accent-[#496E60]">
+
+                <span class="text-sm text-slate-600">
+                  J'accepte de recevoir par courriel des nouvelles concernant
+                  la SPBA et les animaux qu'elle aide.
+                </span>
+
+              </label>
+
             </div>
 
           </section>
 
 
-          <!-- ============================================= -->
+
+          <!-- ================================================= -->
           <!-- ÉTAPE 4 : PAIEMENT -->
-          <!-- ============================================= -->
+          <!-- ================================================= -->
 
           <section class="form-step hidden opacity-0 transition-all duration-300 ease-out" data-step="4">
 
             <div class="mb-8">
 
-              <p class="text-sm text-blue-600 font-semibold mb-2">
+              <p class="text-[14px] text-[#CD5C08] font-semibold mb-2">
                 ÉTAPE 4 SUR 5
               </p>
 
-              <h2 class="text-2xl font-bold text-slate-800">
+              <h2 class="text-[25px] font-bold font-[Winky_Sans] text-[#002626]">
                 Paiement
               </h2>
 
-              <p class="text-slate-500 mt-2">
+              <p class="text-[#6B7280] mt-2">
                 Entrez vos informations de paiement.
               </p>
 
             </div>
 
 
-            <!-- MÉTHODE DE PAIEMENT -->
+            <!-- MÉTHODE -->
+
             <div class="mb-5">
 
-              <label for="paymentMethod" class="block text-sm font-medium text-slate-700 mb-2">
+              <label for="paymentMethod" class="block font-semibold text-[#002626] mb-2">
                 Méthode de paiement
               </label>
 
               <select id="paymentMethod"
-                class="w-full rounded-xl border border-slate-300 px-4 py-3 bg-white outline-none transition-all focus:border-blue-500 focus:ring-2 focus:ring-blue-100">
+                class="w-full rounded-xl border border-slate-300 px-4 py-3 bg-white outline-none focus:border-[#496E60]">
 
                 <option value="">
                   Sélectionnez une méthode
@@ -566,43 +955,125 @@
             </div>
 
 
-            <!-- NUMÉRO DE CARTE -->
+            <!-- NOM SUR CARTE -->
+
             <div class="mb-5">
 
-              <label for="cardNumber" class="block text-sm font-medium text-slate-700 mb-2">
+              <label for="cardName" class="block font-semibold text-[#002626] mb-2">
+                Nom sur la carte
+              </label>
+
+              <input type="text" id="cardName" autocomplete="cc-name" placeholder="Jean Tremblay"
+                class="w-full rounded-xl border border-slate-300 px-4 py-3 outline-none focus:border-[#496E60]">
+
+            </div>
+
+
+            <!-- NUMÉRO -->
+
+            <div class="mb-5">
+
+              <label for="cardNumber" class="block font-semibold text-[#002626] mb-2">
                 Numéro de carte
               </label>
 
-              <input type="text" id="cardNumber" inputmode="numeric" maxlength="19" placeholder="0000 0000 0000 0000"
-                class="w-full rounded-xl border border-slate-300 px-4 py-3 outline-none transition-all focus:border-blue-500 focus:ring-2 focus:ring-blue-100">
+              <input type="text" id="cardNumber" inputmode="numeric" autocomplete="cc-number" maxlength="19"
+                placeholder="0000 0000 0000 0000"
+                class="w-full rounded-xl border border-slate-300 px-4 py-3 outline-none focus:border-[#496E60]">
 
             </div>
 
 
             <div class="grid grid-cols-2 gap-5">
 
+
               <!-- EXPIRATION -->
+
               <div>
 
-                <label for="expiry" class="block text-sm font-medium text-slate-700 mb-2">
-                  Date d'expiration
+                <label for="expiry" class="block font-semibold text-[#002626] mb-2">
+                  Expiration
                 </label>
 
-                <input type="text" id="expiry" maxlength="5" placeholder="MM/AA"
-                  class="w-full rounded-xl border border-slate-300 px-4 py-3 outline-none transition-all focus:border-blue-500 focus:ring-2 focus:ring-blue-100">
+                <input type="text" id="expiry" inputmode="numeric" maxlength="5" placeholder="MM/AA"
+                  class="w-full rounded-xl border border-slate-300 px-4 py-3 outline-none focus:border-[#496E60]">
 
               </div>
 
 
               <!-- CVV -->
+
               <div>
 
-                <label for="cvv" class="block text-sm font-medium text-slate-700 mb-2">
+                <label for="cvv" class="block font-semibold text-[#002626] mb-2">
                   CVV
                 </label>
 
-                <input type="password" id="cvv" maxlength="4" placeholder="123"
-                  class="w-full rounded-xl border border-slate-300 px-4 py-3 outline-none transition-all focus:border-blue-500 focus:ring-2 focus:ring-blue-100">
+                <input type="password" id="cvv" inputmode="numeric" maxlength="4" placeholder="123"
+                  class="w-full rounded-xl border border-slate-300 px-4 py-3 outline-none focus:border-[#496E60]">
+
+              </div>
+
+            </div>
+
+
+            <!-- ADRESSE FACTURATION -->
+
+            <div class="mt-7 pt-6 border-t border-slate-200">
+
+              <h3 class="text-lg font-semibold text-[#002626] mb-4">
+                Adresse de facturation
+              </h3>
+
+              <label class="flex items-start gap-3 cursor-pointer">
+
+                <input type="checkbox" id="sameBillingAddress" checked class="mt-1 w-4 h-4 accent-[#496E60]">
+
+                <span class="text-sm text-slate-600">
+                  Utiliser la même adresse que mon adresse postale.
+                </span>
+
+              </label>
+
+
+              <!-- AUTRE ADRESSE -->
+
+              <div id="billingAddressFields" class="hidden mt-5 grid md:grid-cols-2 gap-5">
+
+                <div class="md:col-span-2">
+
+                  <label for="billingAddress" class="block font-semibold text-[#002626] mb-2">
+                    Adresse
+                  </label>
+
+                  <input type="text" id="billingAddress"
+                    class="w-full rounded-xl border border-slate-300 px-4 py-3 outline-none focus:border-[#496E60]">
+
+                </div>
+
+
+                <div>
+
+                  <label for="billingCity" class="block font-semibold text-[#002626] mb-2">
+                    Ville
+                  </label>
+
+                  <input type="text" id="billingCity"
+                    class="w-full rounded-xl border border-slate-300 px-4 py-3 outline-none focus:border-[#496E60]">
+
+                </div>
+
+
+                <div>
+
+                  <label for="billingPostalCode" class="block font-semibold text-[#002626] mb-2">
+                    Code postal
+                  </label>
+
+                  <input type="text" id="billingPostalCode" maxlength="7" placeholder="G1A 1A1"
+                    class="w-full rounded-xl border border-slate-300 px-4 py-3 uppercase outline-none focus:border-[#496E60]">
+
+                </div>
 
               </div>
 
@@ -610,159 +1081,175 @@
 
 
             <!-- CONDITIONS -->
-            <label class="flex items-start gap-3 mt-6 cursor-pointer">
 
-              <input type="checkbox" id="terms" class="mt-1 w-4 h-4 accent-blue-600">
+            <label class="flex items-start gap-3 mt-7 cursor-pointer">
+
+              <input type="checkbox" id="terms" class="mt-1 w-4 h-4 accent-[#496E60]">
 
               <span class="text-sm text-slate-600">
-                J'accepte les conditions liées à mon don.
+                J'autorise le traitement de ce don et j'accepte les conditions
+                liées à ma contribution.
               </span>
 
             </label>
 
 
             <p id="paymentError" class="hidden text-sm text-red-500 mt-4">
-              Veuillez remplir toutes les informations de paiement et accepter les conditions.
+              Veuillez remplir toutes les informations de paiement et accepter
+              les conditions.
             </p>
 
           </section>
 
 
-          <!-- ============================================= -->
+
+          <!-- ================================================= -->
           <!-- ÉTAPE 5 : VÉRIFICATION -->
-          <!-- ============================================= -->
+          <!-- ================================================= -->
 
           <section class="form-step hidden opacity-0 transition-all duration-300 ease-out" data-step="5">
 
             <div class="mb-8">
 
-              <p class="text-sm text-blue-600 font-semibold mb-2">
+              <p class="text-[14px] text-[#CD5C08] font-semibold mb-2">
                 ÉTAPE 5 SUR 5
               </p>
 
-              <h2 class="text-2xl font-bold text-slate-800">
+              <h2 class="text-[25px] font-bold font-[Winky_Sans] text-[#002626]">
                 Vérifiez votre don
               </h2>
 
-              <p class="text-slate-500 mt-2">
-                Vérifiez les informations avant de confirmer.
+              <p class="text-[#6B7280] mt-2">
+                Vérifiez attentivement vos informations avant de confirmer.
               </p>
 
             </div>
 
 
-            <div class="space-y-4">
+            <!-- DON -->
 
-              <!-- TYPE DE DON -->
-              <div class="flex justify-between gap-4 p-4 rounded-xl bg-slate-50">
+            <div class="mb-7">
 
-                <span class="text-slate-500">
-                  Type de don
-                </span>
+              <h3 class="text-lg font-semibold text-[#002626] mb-3">
+                Votre don
+              </h3>
 
-                <span id="reviewDonationType" class="font-semibold text-slate-800">
-                  —
-                </span>
+              <div class="space-y-3">
 
-              </div>
+                <div class="flex justify-between gap-4 p-4 rounded-xl bg-slate-50">
+                  <span class="text-slate-500">Type de don</span>
+                  <span id="verifTypeDon" class="font-semibold text-right">—</span>
+                </div>
 
+                <div id="reviewFrequencyRow" class="hidden flex justify-between gap-4 p-4 rounded-xl bg-slate-50">
+                  <span class="text-slate-500">Fréquence</span>
+                  <span id="reviewFrequency" class="font-semibold text-right">—</span>
+                </div>
 
-              <!-- MONTANT -->
-              <div class="flex justify-between gap-4 p-4 rounded-xl bg-slate-50">
-
-                <span class="text-slate-500">
-                  Montant
-                </span>
-
-                <span id="reviewAmount" class="font-semibold text-slate-800">
-                  —
-                </span>
-
-              </div>
-
-
-              <!-- NOM -->
-              <div class="flex justify-between gap-4 p-4 rounded-xl bg-slate-50">
-
-                <span class="text-slate-500">
-                  Nom
-                </span>
-
-                <span id="reviewName" class="font-semibold text-slate-800">
-                  —
-                </span>
-
-              </div>
-
-
-              <!-- COURRIEL -->
-              <div class="flex justify-between gap-4 p-4 rounded-xl bg-slate-50">
-
-                <span class="text-slate-500">
-                  Courriel
-                </span>
-
-                <span id="reviewEmail" class="font-semibold text-slate-800 break-all">
-                  —
-                </span>
-
-              </div>
-
-
-              <!-- ADRESSE -->
-              <div class="flex justify-between gap-4 p-4 rounded-xl bg-slate-50">
-
-                <span class="text-slate-500">
-                  Adresse
-                </span>
-
-                <span id="reviewAddress" class="font-semibold text-slate-800 text-right">
-                  —
-                </span>
-
-              </div>
-
-
-              <!-- PAIEMENT -->
-              <div class="flex justify-between gap-4 p-4 rounded-xl bg-slate-50">
-
-                <span class="text-slate-500">
-                  Paiement
-                </span>
-
-                <span id="reviewPayment" class="font-semibold text-slate-800">
-                  —
-                </span>
-
-              </div>
-
-
-              <!-- CARTE -->
-              <div class="flex justify-between gap-4 p-4 rounded-xl bg-slate-50">
-
-                <span class="text-slate-500">
-                  Carte
-                </span>
-
-                <span id="reviewCard" class="font-semibold text-slate-800">
-                  —
-                </span>
+                <div class="flex justify-between gap-4 p-4 rounded-xl bg-slate-50">
+                  <span class="text-slate-500">Montant</span>
+                  <span id="reviewAmount" class="font-semibold">—</span>
+                </div>
 
               </div>
 
             </div>
+
+
+            <!-- DONATEUR -->
+
+            <div class="mb-7">
+
+              <h3 class="text-lg font-semibold text-[#002626] mb-3">
+                Donateur
+              </h3>
+
+              <div class="space-y-3">
+
+                <div class="flex justify-between gap-4 p-4 rounded-xl bg-slate-50">
+                  <span class="text-slate-500">Nom</span>
+                  <span id="reviewName" class="font-semibold text-right">—</span>
+                </div>
+
+                <div class="flex justify-between gap-4 p-4 rounded-xl bg-slate-50">
+                  <span class="text-slate-500">Date de naissance</span>
+                  <span id="reviewBirthdate" class="font-semibold text-right">—</span>
+                </div>
+
+                <div class="flex justify-between gap-4 p-4 rounded-xl bg-slate-50">
+                  <span class="text-slate-500">Courriel</span>
+                  <span id="reviewEmail" class="font-semibold text-right break-all">—</span>
+                </div>
+
+                <div class="flex justify-between gap-4 p-4 rounded-xl bg-slate-50">
+                  <span class="text-slate-500">Téléphone</span>
+                  <span id="reviewPhone" class="font-semibold text-right">—</span>
+                </div>
+
+                <div class="flex justify-between gap-4 p-4 rounded-xl bg-slate-50">
+                  <span class="text-slate-500">Adresse</span>
+                  <span id="reviewAddress" class="font-semibold text-right">—</span>
+                </div>
+
+              </div>
+
+            </div>
+
+
+            <!-- PAIEMENT -->
+
+            <div>
+
+              <h3 class="text-lg font-semibold text-[#002626] mb-3">
+                Paiement
+              </h3>
+
+              <div class="space-y-3">
+
+                <div class="flex justify-between gap-4 p-4 rounded-xl bg-slate-50">
+                  <span class="text-slate-500">Méthode</span>
+                  <span id="reviewPayment" class="font-semibold">—</span>
+                </div>
+
+                <div class="flex justify-between gap-4 p-4 rounded-xl bg-slate-50">
+                  <span class="text-slate-500">Carte</span>
+                  <span id="reviewCard" class="font-semibold">—</span>
+                </div>
+
+              </div>
+
+            </div>
+
+
+            <!-- CONFIRMATION -->
+
+            <label class="flex items-start gap-3 mt-7 p-4 rounded-xl border border-slate-200 cursor-pointer">
+
+              <input type="checkbox" id="finalConfirmation" class="mt-1 w-4 h-4 accent-[#496E60]">
+
+              <span class="text-sm text-slate-600">
+                J'ai vérifié les informations ci-dessus et je confirme qu'elles
+                sont exactes.
+              </span>
+
+            </label>
+
+            <p id="confirmationError" class="hidden text-sm text-red-500 mt-2">
+              Veuillez confirmer que vous avez vérifié vos informations.
+            </p>
 
           </section>
 
 
-          <!-- ============================================= -->
+
+          <!-- ================================================= -->
           <!-- BOUTONS -->
-          <!-- ============================================= -->
+          <!-- ================================================= -->
 
           <div class="flex items-center justify-between gap-4 mt-10 pt-6 border-t border-slate-200">
 
             <button type="button" id="prevBtn"
-              class="hidden px-6 py-3 rounded-xl border border-[#6A9C89] text-slate-700 font-medium transition-all duration-300 hover:bg-slate-100 hover:-translate-x-1 cursor-pointer">
+              class="hidden px-6 py-3 rounded-xl border border-[#6A9C89] text-slate-700 font-medium transition-all hover:bg-slate-100 hover:-translate-x-1 cursor-pointer">
               Précédent
             </button>
 
@@ -770,13 +1257,13 @@
             <div class="ml-auto">
 
               <button type="button" id="nextBtn"
-                class="px-6 py-3 rounded-xl bg-[#6A9C89] text-white font-medium transition-all duration-300 hover:bg-[#496E60] hover:shadow-lg hover:-translate-y-0.5 active:translate-y-0 font-[DM_Sans] cursor-pointer">
+                class="px-6 py-3 rounded-xl bg-[#6A9C89] text-white font-medium transition-all hover:bg-[#496E60] hover:shadow-lg hover:-translate-y-0.5 cursor-pointer">
                 Suivant
               </button>
 
 
               <button type="submit" id="submitBtn"
-                class="hidden px-6 py-3 rounded-xl bg-green-600 text-white font-semibold transition-all duration-300 hover:bg-green-700 hover:shadow-lg hover:-translate-y-0.5 active:translate-y-0">
+                class="hidden px-6 py-3 rounded-xl bg-[#496E60] text-white font-semibold transition-all hover:bg-[#365448] hover:shadow-lg hover:-translate-y-0.5 cursor-pointer">
                 Confirmer le don
               </button>
 
@@ -785,16 +1272,18 @@
           </div>
 
 
-          <!-- ============================================= -->
-          <!-- MESSAGE DE SUCCÈS -->
-          <!-- ============================================= -->
+
+          <!-- ================================================= -->
+          <!-- SUCCÈS -->
+          <!-- ================================================= -->
 
           <div id="successMessage"
-            class="hidden mt-6 p-5 rounded-xl bg-green-50 border border-green-200 text-green-700 transition-all duration-300">
+            class="hidden mt-6 p-5 rounded-xl bg-green-50 border border-green-200 text-green-700">
 
             <div class="flex items-center gap-3">
 
-              <div class="w-10 h-10 rounded-full bg-green-500 text-white flex items-center justify-center font-bold">
+              <div
+                class="w-10 h-10 flex-shrink-0 rounded-full bg-green-500 text-white flex items-center justify-center font-bold">
                 &#10004;
               </div>
 
@@ -805,7 +1294,7 @@
                 </h3>
 
                 <p class="text-sm mt-1">
-                  Merci pour votre généreuse contribution.
+                  Merci pour votre généreuse contribution à la SPBA.
                 </p>
 
               </div>
@@ -819,9 +1308,12 @@
       </section>
 
     </div>
+
   </main>
+
+
   <script type="module" src="/src/main.ts"></script>
-  <script src="validation.js"></script>
+
 </body>
 
 </html>
