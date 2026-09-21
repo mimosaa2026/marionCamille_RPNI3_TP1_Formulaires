@@ -68,8 +68,9 @@ const successMessage =
     "#successMessage"
   );
 
+// IMPORTANT : les étapes sont maintenant des <a>
 const stepperButtons =
-  document.querySelectorAll<HTMLButtonElement>(
+  document.querySelectorAll<HTMLAnchorElement>(
     ".bouton-etape"
   );
 
@@ -343,7 +344,7 @@ function validateBirthdate(): boolean {
     (
       monthDifference === 0 &&
       today.getDate() <
-        birthdate.getDate()
+      birthdate.getDate()
     )
   ) {
     age--;
@@ -500,52 +501,39 @@ customAmount?.addEventListener(
   }
 );
 
-
 // =====================================================
 // TÉLÉPHONE
-// FORMAT : (418) 555-1234
 // =====================================================
 
-const phone =
-  getInput("phone");
+const phone = getInput("phone");
+const phoneError = getElement("phoneError");
 
-function formatPhoneNumber(
-  input: HTMLInputElement
-): void {
-  const digits =
-    input.value
-      .replace(/\D/g, "")
-      .slice(0, 10);
+phone?.addEventListener("input", () => {
+  // Autorise les chiffres, les parenthèses, les espaces et le tiret.
+  const value = phone.value.replace(/[^0-9() -]/g, "");
 
-  if (digits.length === 0) {
-    input.value = "";
-    return;
+  let digitCount = 0;
+  let result = "";
+
+  for (const character of value) {
+    if (/\d/.test(character)) {
+      // Maximum de 10 chiffres réels.
+      if (digitCount >= 10) {
+        continue;
+      }
+
+      digitCount++;
+    }
+
+    result += character;
   }
 
-  if (digits.length <= 3) {
-    input.value =
-      `(${digits}`;
+  // Maximum de 15 caractères au total.
+  phone.value = result.slice(0, 15);
 
-    return;
-  }
-
-  if (digits.length <= 6) {
-    input.value =
-      `(${digits.slice(0, 3)}) ${digits.slice(3)}`;
-
-    return;
-  }
-
-  input.value =
-    `(${digits.slice(0, 3)}) ${digits.slice(3, 6)}-${digits.slice(6)}`;
-}
-
-phone?.addEventListener(
-  "input",
-  () => {
-    formatPhoneNumber(phone);
-  }
-);
+  removeFieldError(phone);
+  phoneError?.classList.add("hidden");
+});
 
 
 // =====================================================
@@ -746,9 +734,7 @@ function showStep(
           "opacity-0"
         );
 
-        if (
-          direction === "next"
-        ) {
+        if (direction === "next") {
           section.classList.add(
             "translate-x-4"
           );
@@ -801,24 +787,24 @@ function showStep(
 
 
 // =====================================================
-// STEPPER
+// STEPPER AVEC LIENS <a>
 // =====================================================
 
 function updateStepper(): void {
   stepperButtons.forEach(
-    (button) => {
+    (link) => {
       const stepNumber =
         Number(
-          button.dataset.stepButton
+          link.dataset.stepButton
         );
 
       const circle =
-        button.querySelector<HTMLElement>(
+        link.querySelector<HTMLElement>(
           ".cercle-etape"
         );
 
       const label =
-        button.querySelector<HTMLElement>(
+        link.querySelector<HTMLElement>(
           ".libelle-etape"
         );
 
@@ -836,15 +822,19 @@ function updateStepper(): void {
       if (
         stepNumber < currentStep
       ) {
-        button.disabled = false;
-
-        button.classList.remove(
+        link.classList.remove(
           "opacity-50",
-          "cursor-not-allowed"
+          "cursor-not-allowed",
+          "cursor-default"
         );
 
-        button.classList.add(
+        link.classList.add(
           "cursor-pointer"
+        );
+
+        link.setAttribute(
+          "aria-disabled",
+          "false"
         );
 
         circle.classList.remove(
@@ -878,16 +868,20 @@ function updateStepper(): void {
       else if (
         stepNumber === currentStep
       ) {
-        button.disabled = true;
-
-        button.classList.remove(
+        link.classList.remove(
           "opacity-50",
-          "cursor-pointer"
+          "cursor-pointer",
+          "cursor-not-allowed"
         );
 
-        button.classList.add(
+        link.classList.add(
           "opacity-100",
           "cursor-default"
+        );
+
+        link.setAttribute(
+          "aria-disabled",
+          "true"
         );
 
         circle.classList.remove(
@@ -919,17 +913,20 @@ function updateStepper(): void {
       // ---------------------------------------------
 
       else {
-        button.disabled = true;
-
-        button.classList.remove(
+        link.classList.remove(
           "opacity-100",
           "cursor-pointer",
           "cursor-default"
         );
 
-        button.classList.add(
+        link.classList.add(
           "opacity-50",
           "cursor-not-allowed"
+        );
+
+        link.setAttribute(
+          "aria-disabled",
+          "true"
         );
 
         circle.classList.remove(
@@ -1218,8 +1215,6 @@ function isValidPostalCode(
 function validateStep3(): boolean {
   let valid = true;
 
-  // PRÉNOM
-
   if (
     !validateTextField(
       "firstName",
@@ -1228,8 +1223,6 @@ function validateStep3(): boolean {
   ) {
     valid = false;
   }
-
-  // NOM
 
   if (
     !validateTextField(
@@ -1240,13 +1233,9 @@ function validateStep3(): boolean {
     valid = false;
   }
 
-  // DATE DE NAISSANCE
-
   if (!validateBirthdate()) {
     valid = false;
   }
-
-  // COURRIEL
 
   const email =
     getInput("email");
@@ -1282,33 +1271,64 @@ function validateStep3(): boolean {
     removeFieldError(email);
   }
 
-  // TÉLÉPHONE FACULTATIF
+// =====================================================
+  // VALIDATION DU TÉLÉPHONE QUÉBÉCOIS
+  // =====================================================
 
   if (
     phone &&
     phone.value.trim() !== ""
   ) {
     const phoneDigits =
-      phone.value.replace(
-        /\D/g,
-        ""
-      );
+      phone.value.replace(/\D/g, "");
 
-    if (
-      phoneDigits.length !== 10
-    ) {
+    const indicatifsQuebec = [
+      "263",
+      "354",
+      "367",
+      "418",
+      "438",
+      "450",
+      "468",
+      "514",
+      "579",
+      "581",
+      "819",
+      "873",
+    ];
+
+    const indicatif =
+      phoneDigits.substring(0, 3);
+
+    const nombreValide =
+      phoneDigits.length === 10 &&
+      indicatifsQuebec.includes(indicatif);
+
+    if (!nombreValide) {
       showFieldError(phone);
+
+      if (phoneError) {
+        phoneError.textContent =
+          "Veuillez entrer un numéro de téléphone québécois valide.";
+
+        phoneError.classList.remove(
+          "hidden"
+        );
+      }
 
       valid = false;
     }
 
     else {
       removeFieldError(phone);
+      phoneError?.classList.add("hidden");
     }
   }
 
   else if (phone) {
+    // Le téléphone reste facultatif.
     removeFieldError(phone);
+    phoneError?.classList.add("hidden");
   }
 
   // VILLE
@@ -1494,8 +1514,6 @@ function validateStep4(): boolean {
 
   let valid = true;
 
-  // MÉTHODE
-
   if (
     !paymentMethod ||
     paymentMethod.value === ""
@@ -1515,8 +1533,6 @@ function validateStep4(): boolean {
     );
   }
 
-  // NOM SUR CARTE
-
   if (
     !cardName ||
     cardName.value.trim() === ""
@@ -1531,8 +1547,6 @@ function validateStep4(): boolean {
   else {
     removeFieldError(cardName);
   }
-
-  // NUMÉRO DE CARTE
 
   if (
     !cardNumber ||
@@ -1553,8 +1567,6 @@ function validateStep4(): boolean {
     );
   }
 
-  // EXPIRATION
-
   if (
     !expiry ||
     !isValidExpiry(
@@ -1571,8 +1583,6 @@ function validateStep4(): boolean {
   else {
     removeFieldError(expiry);
   }
-
-  // CVV
 
   if (
     !cvv ||
@@ -1667,8 +1677,6 @@ function validateStep4(): boolean {
       );
     }
   }
-
-  // CONDITIONS
 
   if (
     !terms ||
@@ -1868,7 +1876,6 @@ function updateReview(): void {
       "paymentMethod"
     );
 
-
   // TYPE DE DON
 
   const verifTypeDon =
@@ -1880,7 +1887,6 @@ function updateReview(): void {
     verifTypeDon.textContent =
       selectedType?.value ?? "—";
   }
-
 
   // FRÉQUENCE
 
@@ -1921,7 +1927,6 @@ function updateReview(): void {
       );
   }
 
-
   // MONTANT
 
   const reviewAmount =
@@ -1933,7 +1938,6 @@ function updateReview(): void {
     reviewAmount.textContent =
       getDonationAmount();
   }
-
 
   // NOM
 
@@ -1951,7 +1955,6 @@ function updateReview(): void {
       fullName || "—";
   }
 
-
   // DATE DE NAISSANCE
 
   const reviewBirthdate =
@@ -1963,7 +1966,6 @@ function updateReview(): void {
     reviewBirthdate.textContent =
       getBirthdate();
   }
-
 
   // COURRIEL
 
@@ -1978,7 +1980,6 @@ function updateReview(): void {
       "—";
   }
 
-
   // TÉLÉPHONE
 
   const reviewPhone =
@@ -1992,7 +1993,6 @@ function updateReview(): void {
       "Non renseigné";
   }
 
-
   // LOCALISATION
 
   const reviewAddress =
@@ -2004,7 +2004,6 @@ function updateReview(): void {
     reviewAddress.textContent =
       getLocation() || "—";
   }
-
 
   // MÉTHODE DE PAIEMENT
 
@@ -2018,7 +2017,6 @@ function updateReview(): void {
       paymentMethod?.value ||
       "—";
   }
-
 
   // CARTE MASQUÉE
 
@@ -2093,21 +2091,26 @@ prevBtn?.addEventListener(
 
 
 // =====================================================
-// STEPPER
+// LIENS DU STEPPER
 // ON PEUT REVENIR EN ARRIÈRE,
 // MAIS PAS ALLER VERS UNE ÉTAPE FUTURE
 // =====================================================
 
 stepperButtons.forEach(
-  (button) => {
-    button.addEventListener(
+  (link) => {
+    link.addEventListener(
       "click",
-      () => {
+      (event) => {
+
+        // Empêche href="#" de remonter en haut de la page
+        event.preventDefault();
+
         const targetStep =
           Number(
-            button.dataset.stepButton
+            link.dataset.stepButton
           );
 
+        // Seulement une étape précédente
         if (
           targetStep <
           currentStep
@@ -2189,13 +2192,6 @@ city?.addEventListener(
   "input",
   () => {
     removeFieldError(city);
-  }
-);
-
-phone?.addEventListener(
-  "input",
-  () => {
-    removeFieldError(phone);
   }
 );
 
@@ -2291,7 +2287,8 @@ form?.addEventListener(
       "hidden"
     );
 
-    // Désactiver le formulaire
+    // Désactiver les champs du formulaire
+    // Les <a> du stepper ne sont pas concernés.
 
     form
       .querySelectorAll<
