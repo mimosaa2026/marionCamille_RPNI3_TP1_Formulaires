@@ -1,15 +1,80 @@
 {
-  "type_don": {
-    "vide": "Veuillez sélectionner un type de don.",
-    "invalide": "Le type de don sélectionné est invalide."
+  "typeDon": {
+    "vide": "Veuillez sélectionner un type de don."
   },
-  "montant": {
+  "donationFrequency": {
+    "vide": "Veuillez sélectionner une fréquence."
+  },
+  "firstPaymentDate": {
+    "vide": "Veuillez sélectionner la date du premier prélèvement."
+  },
+  "memorialName": {
+    "vide": "Veuillez entrer le nom de la personne."
+  },
+  "amount": {
+    "vide": "Veuillez sélectionner un montant."
+  },
+  "customAmount": {
     "vide": "Veuillez entrer un montant.",
-    "pattern": "Le montant doit être un nombre valide.",
-    "min": "Le montant doit être supérieur au minimum requis."
+    "min": "Le montant doit être supérieur à 0 $."
+  },
+  "firstName": {
+    "vide": "Veuillez entrer votre prénom."
+  },
+  "lastName": {
+    "vide": "Veuillez entrer votre nom de famille."
+  },
+  "dobDay": {
+    "vide": "Veuillez sélectionner votre jour de naissance."
+  },
+  "dobMonth": {
+    "vide": "Veuillez sélectionner votre mois de naissance."
+  },
+  "dobYear": {
+    "vide": "Veuillez sélectionner votre année de naissance."
   },
   "email": {
     "vide": "Veuillez entrer votre adresse courriel.",
     "type": "Veuillez entrer une adresse courriel valide."
+  },
+  "phone": {
+    "pattern": "Veuillez entrer un numéro de téléphone québécois valide."
+  },
+  "city": {
+    "vide": "Veuillez entrer votre ville."
+  },
+  "province": {
+    "vide": "Veuillez sélectionner votre province."
+  },
+  "postalCode": {
+    "vide": "Veuillez entrer votre code postal.",
+    "pattern": "Veuillez entrer un code postal valide, par exemple G1A 1A1."
+  },
+  "country": {
+    "vide": "Veuillez sélectionner votre pays."
+  },
+  "paymentMethod": {
+    "vide": "Veuillez sélectionner une méthode de paiement."
+  },
+  "cardName": {
+    "vide": "Veuillez entrer le nom figurant sur la carte."
+  },
+  "cardNumber": {
+    "vide": "Veuillez entrer votre numéro de carte.",
+    "pattern": "Veuillez entrer un numéro de carte valide."
+  },
+  "expiry": {
+    "vide": "Veuillez entrer la date d'expiration.",
+    "pattern": "Veuillez utiliser le format MM/AA."
+  },
+  "cvv": {
+    "vide": "Veuillez entrer le code de sécurité.",
+    "pattern": "Veuillez entrer un code de sécurité valide."
+  },
+  "paymentTerms": {
+    "vide": "Vous devez accepter les conditions liées à votre contribution."
+  },
+  "finalConfirmation": {
+    "vide": "Veuillez confirmer que vous avez vérifié vos informations."
   }
 }

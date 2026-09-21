@@ -1,89 +1,294 @@
-// Chargement du JSON contenant les messages d’erreur
+// =====================================================
+// VALIDATION.JS
+// =====================================================
+
 let messages = {};
 
-fetch("messages.json")
-  .then(response => response.json())
-  .then(data => {
-    messages = data;
-  })
-  .catch(err => console.error("Erreur chargement JSON :", err));
+
+// =====================================================
+// CHARGEMENT DE validation.json
+// =====================================================
+
+export async function chargerMessagesValidation() {
+  try {
+    const response =
+      await fetch("validation.json");
+
+    if (!response.ok) {
+      throw new Error(
+        `Erreur HTTP : ${response.status}`
+      );
+    }
+
+    messages =
+      await response.json();
+
+  } catch (error) {
+    console.error(
+      "Erreur lors du chargement de validation.json :",
+      error
+    );
+  }
+}
 
 
-// Fonction qui retourne le bon message d’erreur selon la validité du champ
-function getMessageErreur(champ) {
-  const id = champ.id;          // id du champ (doit correspondre au JSON)
-  const msg = messages[id] || {}; // messages pour ce champ
+// =====================================================
+// RÉCUPÉRER LE MESSAGE D'UN CHAMP
+// =====================================================
 
-  // Si le champ est vide
-  if (champ.validity.valueMissing && msg.vide) {
+export function getMessageErreur(champ) {
+
+  const id = champ.id;
+
+  const msg =
+    messages[id] || {};
+
+
+  // Champ obligatoire vide
+  if (
+    champ.validity.valueMissing &&
+    msg.vide
+  ) {
     return msg.vide;
   }
 
-  // Si le pattern ne correspond pas
-  if (champ.validity.patternMismatch && msg.pattern) {
+
+  // Pattern incorrect
+  if (
+    champ.validity.patternMismatch &&
+    msg.pattern
+  ) {
     return msg.pattern;
   }
 
-  // Si le type est incorrect (email, tel, etc.)
-  if (champ.validity.typeMismatch && msg.type) {
+
+  // Mauvais type
+  if (
+    champ.validity.typeMismatch &&
+    msg.type
+  ) {
     return msg.type;
   }
 
-  // Si une règle personnalisée est violée (ex: min)
-  if (champ.validity.rangeUnderflow && msg.min) {
+
+  // Valeur sous le minimum
+  if (
+    champ.validity.rangeUnderflow &&
+    msg.min
+  ) {
     return msg.min;
   }
 
-  // Message générique si rien ne correspond
-  return msg.vide || "Veuillez corriger ce champ.";
-}
 
-
-// Affichage du message sous le champ
-function afficherErreur(champ, message) {
-  let span = champ.parentElement.querySelector(".erreur-msg");
-
-  // Si aucun span n’existe, on le crée
-  if (!span) {
-    span = document.createElement("span");
-    span.className = "erreur-msg text-red-600 text-sm mt-1 block";
-    champ.parentElement.appendChild(span);
+  // Valeur au-dessus du maximum
+  if (
+    champ.validity.rangeOverflow &&
+    msg.max
+  ) {
+    return msg.max;
   }
 
-  span.textContent = message;
+
+  return (
+    msg.vide ||
+    "Veuillez corriger ce champ."
+  );
 }
 
 
-// Validation globale du formulaire
-function validerFormulaire(form) {
+// =====================================================
+// AFFICHER UNE ERREUR
+// =====================================================
+
+export function afficherErreur(
+  champ,
+  message
+) {
+
+  const conteneur =
+    champ.parentElement;
+
+  if (!conteneur) {
+    return;
+  }
+
+
+  let erreur =
+    conteneur.querySelector(
+      ".erreur-validation"
+    );
+
+
+  if (!erreur) {
+
+    erreur =
+      document.createElement("p");
+
+    erreur.className =
+      "erreur-validation text-sm text-red-500 mt-1";
+
+    conteneur.appendChild(
+      erreur
+    );
+  }
+
+
+  erreur.textContent =
+    message;
+
+
+  champ.classList.add(
+    "border-red-500"
+  );
+
+
+  champ.setAttribute(
+    "aria-invalid",
+    "true"
+  );
+}
+
+
+// =====================================================
+// RETIRER UNE ERREUR
+// =====================================================
+
+export function retirerErreur(champ) {
+
+  const conteneur =
+    champ.parentElement;
+
+
+  const erreur =
+    conteneur?.querySelector(
+      ".erreur-validation"
+    );
+
+
+  erreur?.remove();
+
+
+  champ.classList.remove(
+    "border-red-500"
+  );
+
+
+  champ.removeAttribute(
+    "aria-invalid"
+  );
+}
+
+
+// =====================================================
+// VALIDER UN CHAMP
+// =====================================================
+
+export function validerChamp(champ) {
+
+  if (
+    champ.disabled ||
+    champ.type === "hidden"
+  ) {
+    return true;
+  }
+
+
+  if (!champ.validity.valid) {
+
+    afficherErreur(
+      champ,
+      getMessageErreur(champ)
+    );
+
+    return false;
+  }
+
+
+  retirerErreur(champ);
+
+  return true;
+}
+
+
+// =====================================================
+// VALIDER UNE ÉTAPE
+// =====================================================
+
+export function validerEtape(
+  numeroEtape
+) {
+
+  const etape =
+    document.querySelector(
+      `.etape-formulaire[data-step="${numeroEtape}"]`
+    );
+
+
+  if (!etape) {
+    return true;
+  }
+
+
+  const champs =
+    etape.querySelectorAll(
+      "input, select, textarea"
+    );
+
+
   let valide = true;
 
-  const champs = form.querySelectorAll("input, select, textarea");
 
   champs.forEach((champ) => {
-    if (!champ.validity.valid) {
-      const msg = getMessageErreur(champ);
-      afficherErreur(champ, msg);
+
+    if (!validerChamp(champ)) {
       valide = false;
     }
+
   });
+
 
   return valide;
 }
 
 
-// Exemple d’utilisation
-document.addEventListener("DOMContentLoaded", () => {
-  const form = document.getElementById("form-don");
+// =====================================================
+// VALIDATION EN TEMPS RÉEL
+// =====================================================
 
-  form.addEventListener("submit", (e) => {
-    e.preventDefault();
+export function activerValidationTempsReel(
+  form
+) {
 
-    const ok = validerFormulaire(form);
+  const champs =
+    form.querySelectorAll(
+      "input, select, textarea"
+    );
 
-    if (ok) {
-      console.log("Formulaire valide !");
-      form.submit(); // tu peux remplacer par ton step suivant
-    }
+
+  champs.forEach((champ) => {
+
+    champ.addEventListener(
+      "input",
+      () => {
+
+        if (champ.validity.valid) {
+          retirerErreur(champ);
+        }
+
+      }
+    );
+
+
+    champ.addEventListener(
+      "change",
+      () => {
+
+        if (champ.validity.valid) {
+          retirerErreur(champ);
+        }
+
+      }
+    );
+
   });
-});
+}

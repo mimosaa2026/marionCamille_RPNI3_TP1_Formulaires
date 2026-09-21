@@ -109,6 +109,200 @@ function getElement(
 
 
 // =====================================================
+// MESSAGES D'ERREUR DEPUIS messages.json
+// =====================================================
+
+interface MessageErreur {
+  vide?: string;
+  pattern?: string;
+  type?: string;
+  min?: string;
+  max?: string;
+}
+
+type MessagesErreur = Record<string, MessageErreur>;
+
+let messages: MessagesErreur = {};
+
+fetch("/messages.json")
+  .then((response) => {
+    if (!response.ok) {
+      throw new Error(`Erreur HTTP : ${response.status}`);
+    }
+
+    return response.json();
+  })
+  .then((data: MessagesErreur) => {
+    messages = data;
+  })
+  .catch((error) => {
+    console.error(
+      "Erreur chargement JSON :",
+      error
+    );
+  });
+
+function getMessageErreur(
+  champ:
+    | HTMLInputElement
+    | HTMLSelectElement
+    | HTMLTextAreaElement
+): string {
+  const msg = messages[champ.id] || {};
+
+  if (
+    champ.validity.valueMissing &&
+    msg.vide
+  ) {
+    return msg.vide;
+  }
+
+  if (
+    champ.validity.patternMismatch &&
+    msg.pattern
+  ) {
+    return msg.pattern;
+  }
+
+  if (
+    champ.validity.typeMismatch &&
+    msg.type
+  ) {
+    return msg.type;
+  }
+
+  if (
+    champ.validity.rangeUnderflow &&
+    msg.min
+  ) {
+    return msg.min;
+  }
+
+  if (
+    champ.validity.rangeOverflow &&
+    msg.max
+  ) {
+    return msg.max;
+  }
+
+  return (
+    msg.vide ||
+    "Veuillez corriger ce champ."
+  );
+}
+
+function afficherErreurHTML(
+  champ:
+    | HTMLInputElement
+    | HTMLSelectElement
+    | HTMLTextAreaElement,
+  message: string
+): void {
+  let erreur =
+    champ.parentElement
+      ?.querySelector<HTMLElement>(
+        ".erreur-msg-json"
+      );
+
+  if (!erreur) {
+    erreur =
+      document.createElement("span");
+
+    erreur.className =
+      "erreur-msg-json text-red-600 text-sm mt-1 block";
+
+    champ.parentElement?.appendChild(
+      erreur
+    );
+  }
+
+  erreur.textContent = message;
+
+  champ.classList.add(
+    "border-red-500",
+    "ring-1",
+    "ring-red-500"
+  );
+}
+
+function retirerErreurHTML(
+  champ:
+    | HTMLInputElement
+    | HTMLSelectElement
+    | HTMLTextAreaElement
+): void {
+  champ.parentElement
+    ?.querySelector<HTMLElement>(
+      ".erreur-msg-json"
+    )
+    ?.remove();
+
+  champ.classList.remove(
+    "border-red-500",
+    "ring-1",
+    "ring-red-500"
+  );
+}
+
+function validerChampHTML(
+  champ:
+    | HTMLInputElement
+    | HTMLSelectElement
+    | HTMLTextAreaElement
+): boolean {
+  if (
+    champ.disabled ||
+    champ.type === "hidden"
+  ) {
+    return true;
+  }
+
+  if (!champ.validity.valid) {
+    afficherErreurHTML(
+      champ,
+      getMessageErreur(champ)
+    );
+
+    return false;
+  }
+
+  retirerErreurHTML(champ);
+  return true;
+}
+
+function validerEtapeHTML(
+  numeroEtape: number
+): boolean {
+  const etape =
+    document.querySelector<HTMLElement>(
+      `.etape-formulaire[data-step="${numeroEtape}"]`
+    );
+
+  if (!etape) {
+    return true;
+  }
+
+  const champs =
+    etape.querySelectorAll<
+      HTMLInputElement |
+      HTMLSelectElement |
+      HTMLTextAreaElement
+    >(
+      "input, select, textarea"
+    );
+
+  let valide = true;
+
+  champs.forEach((champ) => {
+    if (!validerChampHTML(champ)) {
+      valide = false;
+    }
+  });
+
+  return valide;
+}
+
+// =====================================================
 // DATE DE NAISSANCE
 // =====================================================
 
@@ -1497,7 +1691,7 @@ function validateStep4(): boolean {
     getInput("cardName");
 
   const terms =
-    getInput("terms");
+    getInput("paymentTerms");
 
   const paymentError =
     getElement(
@@ -1740,25 +1934,45 @@ function validateStep5(): boolean {
 // =====================================================
 
 function validateCurrentStep(): boolean {
+  const validationHTML =
+    validerEtapeHTML(currentStep);
+
+  let validationPersonnalisee = false;
+
   switch (currentStep) {
     case 1:
-      return validateStep1();
+      validationPersonnalisee =
+        validateStep1();
+      break;
 
     case 2:
-      return validateStep2();
+      validationPersonnalisee =
+        validateStep2();
+      break;
 
     case 3:
-      return validateStep3();
+      validationPersonnalisee =
+        validateStep3();
+      break;
 
     case 4:
-      return validateStep4();
+      validationPersonnalisee =
+        validateStep4();
+      break;
 
     case 5:
-      return validateStep5();
+      validationPersonnalisee =
+        validateStep5();
+      break;
 
     default:
       return false;
   }
+
+  return (
+    validationHTML &&
+    validationPersonnalisee
+  );
 }
 
 
@@ -2267,7 +2481,19 @@ form?.addEventListener(
   (event) => {
     event.preventDefault();
 
-    if (!validateStep5()) {
+    const formulaireValide =
+      validerEtapeHTML(1) &&
+      validerEtapeHTML(2) &&
+      validerEtapeHTML(3) &&
+      validerEtapeHTML(4) &&
+      validerEtapeHTML(5) &&
+      validateStep1() &&
+      validateStep2() &&
+      validateStep3() &&
+      validateStep4() &&
+      validateStep5();
+
+    if (!formulaireValide) {
       return;
     }
 
@@ -2311,6 +2537,37 @@ form?.addEventListener(
     });
   }
 );
+
+
+// =====================================================
+// RETIRER LES ERREURS JSON PENDANT LA SAISIE
+// =====================================================
+
+form
+  ?.querySelectorAll<
+    HTMLInputElement |
+    HTMLSelectElement |
+    HTMLTextAreaElement
+  >(
+    "input, select, textarea"
+  )
+  .forEach((champ) => {
+    const retirerSiValide = (): void => {
+      if (champ.validity.valid) {
+        retirerErreurHTML(champ);
+      }
+    };
+
+    champ.addEventListener(
+      "input",
+      retirerSiValide
+    );
+
+    champ.addEventListener(
+      "change",
+      retirerSiValide
+    );
+  });
 
 
 // =====================================================
