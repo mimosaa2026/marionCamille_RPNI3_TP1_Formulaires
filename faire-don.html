@@ -720,14 +720,22 @@
             <!-- COMMUNICATION -->
 
             <div class="mt-7 pt-6 border-t border-[#C8DDCA]">
+              <label class="flex items-start gap-2 mb-5 cursor-pointer">
 
-              <label class="flex items-start gap-3 cursor-pointer">
+                <input type="checkbox" id="terms" class="mt-1 w-4 h-4 accent-[#496E60]">
 
-                <input type="checkbox" id="newsletter" class="mt-1 w-4 h-4 accent-[#496E60]">
+                <span class="text-[16px] text-slate-600">
+                  J'autorise la SPBA a enregistrer mes informations personnelles pour de futurs dons (optionnel)
+                </span>
 
-                <span class="text-[16px] text-[#6B7280]">
-                  J'accepte de recevoir par courriel des nouvelles concernant
-                  la SPBA et les animaux qu'elle aide.
+              </label>
+
+              <label class="flex items-start gap-2 cursor-pointer">
+
+                <input type="checkbox" id="terms" class="mt-1 w-4 h-4 accent-[#496E60]">
+
+                <span class="text-[16px] text-slate-600">
+                  J'accepte de recevoir les nouveautés offertes par la SPBA par courriel (optionnel)
                 </span>
 
               </label>
@@ -745,15 +753,15 @@
 
             <div class="mb-8">
 
-              <p class="text-[14px] text-[#CD5C08] font-semibold mb-2">
+              <p class="text-[16px] text-[#CD5C08] font-semibold mb-1">
                 ÉTAPE 4 SUR 5
               </p>
 
-              <h2 class="text-[25px] font-bold font-[Winky_Sans] text-[#002626]">
+              <h2 class="text-[30px] font-bold font-[Winky_Sans] text-[#002626]">
                 Paiement
               </h2>
 
-              <p class="text-[#6B7280] mt-2">
+              <p class="text-[#6B7280] mt-2 text-[16px]">
                 Entrez vos informations de paiement.
               </p>
 
@@ -770,10 +778,6 @@
 
               <select id="paymentMethod"
                 class="w-full rounded-xl border border-[#C8DDCA] px-4 py-3 bg-white outline-none focus:border-[#496E60]">
-
-                <option value="">
-                  Sélectionnez une méthode
-                </option>
 
                 <option value="Carte de crédit">
                   Carte de crédit
@@ -796,7 +800,7 @@
                 Nom sur la carte
               </label>
 
-              <input type="text" id="cardName" autocomplete="cc-name" placeholder="Jean Tremblay"
+              <input type="text" id="cardName" autocomplete="cc-name"
                 class="w-full rounded-xl border border-[#C8DDCA] px-4 py-3 outline-none focus:border-[#496E60]">
 
             </div>
@@ -811,8 +815,11 @@
               </label>
 
               <input type="text" id="cardNumber" inputmode="numeric" autocomplete="cc-number" maxlength="19"
-                placeholder="0000 0000 0000 0000"
                 class="w-full rounded-xl border border-[#C8DDCA] px-4 py-3 outline-none focus:border-[#496E60]">
+
+              <p class="text-[16px] mb-2 text-[#6B7280]">
+                Ex. XXXX XXXX XXXX XXXX
+              </p>
 
             </div>
 
@@ -827,87 +834,81 @@
                   Expiration
                 </label>
 
-                <input type="text" id="expiry" inputmode="numeric" maxlength="5" placeholder="MM/AA"
+                <input type="text" id="expiry" inputmode="numeric" maxlength="5"
                   class="w-full rounded-xl border border-[#C8DDCA] px-4 py-3 outline-none focus:border-[#496E60]">
+
+                <p class="text-[16px] mb-2 text-[#6B7280]">
+                  Ex. MM/AA
+                </p>
 
               </div>
 
 
               <!-- CVV -->
 
-              <div>
+              <div class="relative w-full">
 
-                <label for="cvv" class="block font-semibold text-[#002626] mb-2">
-                  CVV
-                </label>
+                <!-- Entête avec Label et Icône Tooltip -->
+                <div class="flex items-center mb-2">
+                  <label for="cvv" class="font-semibold text-[#002626]">
+                    Code de sécurité
+                  </label>
 
-                <input type="password" id="cvv" inputmode="numeric" maxlength="4" placeholder="123"
+                  <!-- Conteneur du Tooltip -->
+                  <div class="relative flex items-center ml-2 group">
+
+                    <!-- Icône d'aide (?) déclencheuse -->
+                    <button type="button"
+                      class="inline-flex items-center justify-center w-4 h-4 text-[10px] font-bold text-white bg-[#496E60] rounded-full cursor-help focus:outline-none"
+                      aria-label="Aide pour le code de sécurité">
+                      ?
+                    </button>
+
+                    <!-- Bulle d'information (Tooltip) -->
+                    <div
+                      class="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 hidden group-hover:block group-focus-within:block w-56 bg-[#002626] text-white text-xs rounded-lg p-2.5 shadow-xl z-10 font-normal text-center pointer-events-none transition-all">
+                      Il s'agit du code à trois chiffres figurant au dos de votre carte bancaire.
+
+                      <!-- Flèche du Tooltip -->
+                      <div
+                        class="absolute top-full left-1/2 -translate-x-1/2 border-4 border-transparent border-t-[#002626]">
+                      </div>
+                    </div>
+
+                  </div>
+                </div>
+
+                <!-- Votre champ de saisie original -->
+                <input type="password" id="cvv" inputmode="numeric" maxlength="3"
                   class="w-full rounded-xl border border-[#C8DDCA] px-4 py-3 outline-none focus:border-[#496E60]">
+                <p class="text-[16px] mb-2 text-[#6B7280]">
+                  Ex. XXX
+                </p>
 
               </div>
 
             </div>
 
-
-            <!-- ADRESSE DE FACTURATION -->
-
             <div class="mt-7 pt-6 border-t border-[#C8DDCA]">
+              <label class="flex items-start gap-2 mb-5 cursor-pointer">
 
-              <h3 class="text-lg font-semibold text-[#002626] mb-4">
-                Adresse de facturation
-              </h3>
+                <input type="checkbox" id="terms" class="mt-1 w-4 h-4 accent-[#496E60]">
 
-              <label class="flex items-start gap-3 cursor-pointer">
-
-                <input type="checkbox" id="sameBillingAddress" checked class="mt-1 w-4 h-4 accent-[#496E60]">
-
-                <span class="text-sm text-slate-600">
-                  Utiliser la même adresse que mon adresse postale.
+                <span class="text-[16px] text-slate-600">
+                  J'autorise le traitement de ce don et j'accepte les conditions liées à ma contribution.
                 </span>
 
               </label>
 
+              <label class="flex items-start gap-2 cursor-pointer">
 
-              <!-- AUTRE ADRESSE -->
+                <input type="checkbox" id="terms" class="mt-1 w-4 h-4 accent-[#496E60]">
 
-              <div id="billingAddressFields" class="hidden mt-5 grid md:grid-cols-2 gap-5">
+                <span class="text-[16px] text-slate-600">
+                  J'accepte de recevoir les nouveautés offertes par la SPBA par courriel (optionnel)
+                </span>
 
-                <div class="md:col-span-2">
-
-                  <label for="billingAddress" class="block font-semibold text-[#002626] mb-2">
-                    Adresse
-                  </label>
-
-                  <input type="text" id="billingAddress"
-                    class="w-full rounded-xl border border-[#C8DDCA] px-4 py-3 outline-none focus:border-[#496E60]">
-
-                </div>
-
-
-                <div>
-
-                  <label for="billingCity" class="block font-semibold text-[#002626] mb-2">
-                    Ville
-                  </label>
-
-                  <input type="text" id="billingCity"
-                    class="w-full rounded-xl border border-[#C8DDCA] px-4 py-3 outline-none focus:border-[#496E60]">
-
-                </div>
-
-
-                <div>
-
-                  <label for="billingPostalCode" class="block font-semibold text-[#002626] mb-2">
-                    Code postal
-                  </label>
-
-                  <input type="text" id="billingPostalCode" maxlength="7" placeholder="G1A 1A1"
-                    class="w-full rounded-xl border border-[#C8DDCA] px-4 py-3 uppercase outline-none focus:border-[#496E60]">
-
-                </div>
-
-              </div>
+              </label>
 
             </div>
 
